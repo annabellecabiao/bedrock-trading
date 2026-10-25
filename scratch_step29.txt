@@ -1,0 +1,87 @@
+Created At: 2026-10-24T19:19:26+02:00
+Completed At: 2026-10-24T19:19:26+02:00
+File Path: `file:///c:/Bedrock_Consumer_Goods_Trading/bedrock-trading/db/seed-data.js`
+Total Lines: 454
+Total Bytes: 19906
+Showing lines 1 to 150
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1: const initialProducts = [
+2:   // ==================== WINES ====================
+3:   {
+4:     id: 'w1',
+5:     category: 'wine',
+6:     name: 'Altos de Tamaron Crianza',
+7:     fullName: 'Altos de Tamaron Ribera del Duero Crianza D.O.',
+8:     variety: 'Tempranillo (Tinta del País)',
+9:     region: 'Ribera del Duero',
+10:     denomination: 'D.O. Ribera del Duero',
+11:     type: 'red',
+12:     volume: '750ml',
+13:     container: 'Glass Bottle',
+14:     description: 'A beautifully crafted Crianza from the prestigious Ribera del Duero region. Aged in oak barrels, this Tempranillo delivers deep aromas of ripe black fruit, vanilla, and subtle spice. Full-bodied with well-integrated tannins and a smooth, lingering finish.',
+15:     tags: ['Crianza', 'Tempranillo', 'D.O.'],
+16:     price: 870,
+17:     icon: '🍷',
+18:     color: '#6b1d2a',
+19:     image: '\\images\\Altos_de_Tamaron_Crianza.jpg',
+20:     in_stock: 1
+21:   },
+22:   {
+23:     id: 'w2',
+24:     category: 'wine',
+25:     name: 'CASTILLO DE LIRIA White Wine',
+26:     fullName: ' CASTILLO DE LIRIA VINO BLANCO SEMI DULCE ',
+27:     variety: 'Viura, Sauvignon Blanc',
+28:     region: 'Utiel-Requena',
+29:     denomination: 'DOP Utiel-Requena',
+30:     type: 'White',
+31:     volume: '750ml',
+32:     container: 'Glass Bottle',
+33:     description: 'The gentle caress of the Mediterranean climate makes Castillo de Liria a balanced, fresh and elegant wine. This semi-sweet white wine will surprise you with its aromas of ripe fruit and its sugar-acidity balance. Find your ideal moment to enjoy a glass of Ca
+<truncated 3480 bytes>
+  in_stock: 1
+107:   },
+108:   {
+109:     id: 'w7',
+110:     category: 'wine',
+111:     name: 'Hoya de Cadenas Cava Brut Rosado',
+112:     fullName: 'Hoya de Cadenas D.O. Cava Brut Rosado',
+113:     variety: 'Garnacha, Monastrell',
+114:     region: 'Utiel-Requena',
+115:     denomination: 'D.O. Cava',
+116:     type: 'cava',
+117:     description: 'A stunning rosé Cava with a beautiful salmon-pink hue. Delicate bubbles carry aromas of wild strawberry, rose petal, and hints of brioche. Dry and elegant with a refreshing acidity. An eye-catching choice for toasts and festive gatherings.',
+118:     tags: ['Cava', 'Brut Rosado', 'Rosé'],
+119:     price: 1750,
+120:     icon: '🥂',
+121:     color: '#c7546a',
+122:     image: 'images/hoya_de_cadenas_cava_brut_rose.png',
+123:     in_stock: 1
+124:   },
+125:   {
+126:     id: 'w8',
+127:     category: 'wine',
+128:     name: 'Manzanos Reserva Rioja',
+129:     fullName: 'Manzanos Reserva D.O. Rioja',
+130:     variety: 'Tempranillo, Graciano',
+131:     region: 'Rioja',
+132:     denomination: 'D.O. Rioja',
+133:     type: 'red',
+134:     description: 'A distinguished Reserva from the Manzanos family estate in Rioja. Extended aging in oak and bottle yields a harmonious wine with aromas of ripe cherry, cinnamon, cedar, and a touch of leather. Silky tannins with exceptional elegance and a memorable, prolonged finish.',
+135:     tags: ['Reserva', 'D.O. Rioja', 'Oak-Aged'],
+136:     price: 2200,
+137:     icon: '🍷',
+138:     color: '#7b2535',
+139:     image: 'images/manzanos_reserva.png',
+140:     in_stock: 1
+141:   },
+142:   {
+143:     id: 'w9',
+144:     category: 'wine',
+145:     name: 'FREIXENET Cava Brut',
+146:     fullName: 'FREIXENET Cava Brut Carta Nevada',
+147:     variety: 'Cava',
+148:     region: 'Cataluña, Barcelona',
+149:     denomination: 'D.O. Rías Baixas',
+150:     type: 'Sparkling',
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.

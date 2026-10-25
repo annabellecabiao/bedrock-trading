@@ -1,0 +1,24 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: bedrock-trading:latest
+    container_name: bedrock_trading_app
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      - NODE_ENV=production
+      - PORT=8080
+      - DB_PATH=/app/data/bedrock.db
+      - SQLITE_JOURNAL_MODE=DELETE
+      - JWT_SECRET=bedrock_secret_jwt_key_wine_olive_oil_2026_secure!
+      - ADMIN_EMAIL=admin@bedrocktrading.ph
+      - ADMIN_PASSWORD=AdminPassword123!
+      - VIEWER_EMAIL=viewer@bedrocktrading.ph
+      - VIEWER_PASSWORD=ViewerPassword123!
+    volumes:
+      # Mount host data and db directories so database and seed-data.js persist to host filesystem
+      - ./data:/app/data
+      - ./db:/app/db

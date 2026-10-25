@@ -1,0 +1,2214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Bedrock Consumer Goods Trading — Premium Spanish Wine & Extra Virgin Olive Oil catalogue. Altos de Tamaron, Marqués de Cáceres, Hoya de Cadenas, Manzanos wines and BUENSALUD olive oils. Order now for delivery in the Philippines.">
+  <title>Bedrock Consumer Goods Trading — Spanish Wine & Olive Oil</title>
+  <link rel="stylesheet" href="index.css">
+  <style>
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+  </style>
+  <link rel="icon" href="data:image/svg+xml" , <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
+  <text y='.9em' font-size='90'>🐂</text>
+  </svg>
+</head>
+
+<body>
+
+  <!-- ========== LOADER ========== -->
+  <!-- <div class="loader" id="loader">
+  <img src="bedrock_logo.png" alt="Bedrock" class="loader-logo-img">
+  <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+</div> -->
+
+  <!-- ========== NAVIGATION ========== -->
+  <nav class="nav" id="nav">
+    <a href="#" class="nav-brand" onclick="openLogoModal(event)">
+      <img src="bedrock_logo.png" alt="Bedrock Logo" class="nav-brand-logo" id="navLogo" title="Click to enlarge">
+      <div>
+        <div class="nav-brand-text">Bedrock</div>
+        <div class="nav-brand-sub">Consumer Goods Trading</div>
+      </div>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#wines" class="nav-link active" data-section="wines">Wines</a></li>
+      <li><a href="#oils" class="nav-link" data-section="oils">Olive Oils</a></li>
+      <li><a href="#about" class="nav-link" data-section="about">About</a></li>
+      <li><a href="#contact" class="nav-link" data-section="contact">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="admin.html" class="nav-account-btn" id="adminPortalBtn" style="display:none; text-decoration:none;">
+        <span>⚙️</span> Admin Portal
+      </a>
+      <button class="nav-account-btn" id="accountBtn" onclick="handleAccountClick()" aria-label="Account">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+          <circle cx="12" cy="7" r="4" />
+        </svg>
+        <span id="accountBtnText">Sign In</span>
+      </button>
+      <button class="nav-cart" id="cartBtn" aria-label="Shopping Cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="9" cy="21" r="1" />
+          <circle cx="20" cy="21" r="1" />
+          <path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6" />
+        </svg>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+      <button class="nav-mobile-toggle" id="mobileToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero" id="hero">
+    <div class="hero-pattern"></div>
+    <div class="hero-content">
+      <!-- <img src="bedrock_logo.png" alt="Bedrock Consumer Goods Trading" class="hero-logo"> -->
+      <div class="hero-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon
+            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+        </svg>
+        Premium Spanish Imports
+      </div>
+      <h1 class="hero-title">
+        <span class="hl-gold">Spanish</span> Wines &amp;<br>Extra Virgin <span class="hl-gold">Olive Oils</span>
+      </h1>
+      <p class="hero-subtitle">
+        A curated selection of Spain's finest wines and BUENSALUD extra virgin olive oils,
+        brought to the Philippines by Bedrock Consumer Goods Trading.
+      </p>
+      <div class="hero-actions">
+        <a href="#wines" class="btn btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L6 7v7a6 6 0 0012 0V7l-6-5z" />
+          </svg>
+          Explore Wines
+        </a>
+        <a href="#oils" class="btn btn-secondary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
+            <path d="M12 6v6l4 2" />
+          </svg>
+          Browse Olive Oils
+        </a>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <div class="scroll-mouse"></div>
+      <span>Scroll to explore</span>
+    </div>
+  </section>
+
+  <!-- ========== WINES ========== -->
+  <section class="section" id="wines">
+    <div class="section-header fade-up">
+      <div class="section-tag">Wine Selection</div>
+      <h2 class="section-title">Spanish Wines</h2>
+      <p class="section-desc">
+        From Rioja to Ribera del Duero and Utiel-Requena — discover our carefully selected
+        range of Spanish Wines and Cavas.
+      </p>
+    </div>
+    <div class="filters fade-up" id="wineFilters">
+      <button class="filter-btn active" data-filter="all">All Wines</button>
+      <button class="filter-btn" data-filter="red">Red</button>
+      <button class="filter-btn" data-filter="white">White</button>
+      <button class="filter-btn" data-filter="sparkling">Sparkling</button>
+      <button class="filter-btn" data-filter="rose">Rose</button>
+    </div>
+    <div class="product-grid" id="wineGrid"></div>
+  </section>
+
+  <!-- ========== REGION DIVIDER ========== -->
+  <div class="region-divider" id="regions">
+    <div class="region-divider-content fade-up">
+      <div class="section-tag">España — The Heart of Wine &amp; Olive Oil</div>
+      <h2 class="section-title">From Spain to Your Table</h2>
+      <p class="section-desc">
+        Spain is one of the world's largest olive oil producer and home to over 70 Denominaciones de Origen for wine.
+        We bring these exceptional products from the Iberian Peninsula directly to you.
+      </p>
+      <div class="region-stats">
+        <div class="stat fade-up fade-up-delay-1">
+          <div class="stat-number" data-count="11">0</div>
+          <div class="stat-label">Wine Labels</div>
+        </div>
+        <div class="stat fade-up fade-up-delay-2">
+          <div class="stat-number" data-count="17">0</div>
+          <div class="stat-label">Olive Oils</div>
+        </div>
+        <div class="stat fade-up fade-up-delay-3">
+          <div class="stat-number" data-count="3">0</div>
+          <div class="stat-label">Oil Varieties</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== OLIVE OILS ========== -->
+  <section class="section" id="oils">
+    <div class="section-header fade-up">
+      <div class="section-tag">BUENSALUD — Aceite de Oliva Extra Virgen</div>
+      <h2 class="section-title">BUENSALUD Olive Oils</h2>
+      <p class="section-desc">
+        Premium extra virgin olive oils from Spain — single-variety and coupage blends
+        in glass and convenient formats.
+      </p>
+    </div>
+    <div class="filters fade-up" id="oilFilters">
+      <button class="filter-btn active" data-filter="all">All Oils</button>
+      <button class="filter-btn" data-filter="Picual">Picual</button>
+      <button class="filter-btn" data-filter="Arbequina">Arbequina</button>
+      <button class="filter-btn" data-filter="Coupage">Coupage</button>
+    </div>
+    <div class="product-grid" id="oilGrid"></div>
+  </section>
+
+  <!-- ========== ABOUT ========== -->
+  <section class="section" id="about">
+    <div class="section-header fade-up">
+      <div class="section-tag">Our History</div>
+      <h2 class="section-title">About Bedrock Consumer Goods Trading</h2>
+      <p class="section-desc">
+        Built on a foundation as solid as rock, Bedrock Consumer Goods Trading brings
+        the finest Spanish wines and olive oils to the Philippines with the strength and
+        determination of the people behind it.
+      </p>
+    </div>
+    <div class="about-wrapper">
+      <div class="about-features">
+        <div class="about-feature fade-up fade-up-delay-1">
+          <div class="about-feature-emoji">🐂</div>
+          <h4 class="about-feature-title">Bedrock Strength</h4>
+          <p class="about-feature-text">Steadfast commitment to quality. Every product passes our rigorous selection
+            process.</p>
+        </div>
+        <div class="about-feature fade-up fade-up-delay-2">
+          <div class="about-feature-emoji" style="display:flex; align-items:center; justify-content:center; min-height:48px; margin-bottom:1rem; text-align:center;">
+            <img src="images/spain_flag.png" alt="Spain Flag" 
+              style="width: 44px; height: 28px; object-fit: contain; margin: 0 auto; display: block; border-radius: 3px; box-shadow: 0 2px 6px rgba(0,0,0,0.35);">
+          </div>
+          <h4 class="about-feature-title">Direct from Spain</h4>
+          <p class="about-feature-text">Imported directly from renowned Spanish wineries and olive oil mills for
+            guaranteed authenticity.</p>
+        </div>
+        <div class="about-feature fade-up fade-up-delay-3">
+          <div class="about-feature-emoji">🚚</div>
+          <h4 class="about-feature-title">PH Delivery</h4>
+          <p class="about-feature-text">Reliable delivery across the Philippines. From our warehouse in Calamba, Laguna
+            to your doorstep.</p>
+        </div>
+        <div class="about-feature fade-up">
+          <div class="about-feature-emoji">💎</div>
+          <h4 class="about-feature-title">Premium Quality</h4>
+          <p class="about-feature-text">Only the finest D.O. and DOCa certified wines and award-winning EVOO make it to
+            our catalogue.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CONTACT & WHOLESALE LEADS ========== -->
+  <section class="section" id="contact">
+    <div class="section-header fade-up">
+      <div class="section-tag">Contact &amp; Distribution</div>
+      <h2 class="section-title">Get in Touch</h2>
+      <p class="section-desc">
+        Looking for wholesale supply, restaurant cellar curation, retail distribution, or corporate gifts?
+        Send us an inquiry and our sales specialists will connect with you.
+      </p>
+    </div>
+
+    <div class="contact-grid fade-up">
+      <!-- Contact Info -->
+      <div class="contact-card">
+        <h3 style="font-family: var(--font-display); font-size: 1.35rem; color: #fff; margin-bottom: 0.5rem;">Bedrock
+          Trading Hub</h3>
+        <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">
+          Importing certified Denominación de Origen Spanish wines and single-estate BUENSALUD EVOO direct to the
+          Philippine market.
+        </p>
+
+        <div class="contact-info-list">
+          <div class="contact-info-item">
+            <div class="contact-info-icon">📍</div>
+            <div>
+              <div style="font-weight:600; color:#fff; font-size:0.95rem;">Warehouse &amp; Office</div>
+              <div style="color: var(--text-secondary); font-size:0.85rem; margin-top:2px;">
+                #65 De Acosta St., San Antonio Village, Paciano Rizal, Calamba, Laguna 4027, Philippines
+              </div>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon">📞</div>
+            <div>
+              <div style="font-weight:600; color:#fff; font-size:0.95rem;">Viber &amp; Telegram</div>
+              <div style="color: var(--text-secondary); font-size:0.85rem; margin-top:2px;">
+                +34 650-361-177
+              </div>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon">✉️</div>
+            <div>
+              <div style="font-weight:600; color:#fff; font-size:0.95rem;">Email Inquiries</div>
+              <div style="color: var(--text-secondary); font-size:0.85rem; margin-top:2px;">
+                inquiry@bedrocktrading.ph
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="contact-card">
+        <h3 style="font-family: var(--font-display); font-size: 1.35rem; color: #fff; margin-bottom: 1.25rem;">Send an
+          Inquiry</h3>
+        <form id="leadContactForm" onsubmit="submitLeadForm(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Full Name *</label>
+              <input class="form-input" type="text" id="leadName" required placeholder="e.g. Maria Santos">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Company / Restaurant</label>
+              <input class="form-input" type="text" id="leadCompany" placeholder="e.g. Santos Bistro Inc.">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Email Address *</label>
+              <input class="form-input" type="email" id="leadEmail" required placeholder="e.g. maria@santosbistro.ph">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Contact Number</label>
+              <input class="form-input" type="tel" id="leadPhone" placeholder="+63 917 123 4567">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Inquiry Type</label>
+            <select class="form-input" id="leadType" style="background:#131c2d; color:#fff;">
+              <option value="Wholesale / Bulk Order">Wholesale / Bulk Order</option>
+              <option value="Restaurant & Hotel Supply">Restaurant &amp; Hotel Supply</option>
+              <option value="Distribution & Reselling">Distribution &amp; Reselling</option>
+              <option value="Retail Inquiry">Retail Inquiry</option>
+              <option value="General Question">General Question</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Message / Requirements *</label>
+            <textarea class="form-textarea" id="leadMessage" required rows="4"
+              placeholder="Tell us about the products, quantities, or details you are interested in..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" id="leadSubmitBtn"
+            style="width: 100%; justify-content: center;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="22" y1="2" x2="11" y2="13" />
+              <polygon points="22 2 15 22 11 13 2 9 22 2" />
+            </svg>
+            Send Message
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer" id="siteFooter">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <a href="#" class="nav-brand" onclick="openLogoModal(event)">
+          <img src="bedrock_logo.png" alt="Bedrock Logo" class="nav-brand-logo" id="footerLogo"
+            title="Click to enlarge">
+          <div>
+            <div class="nav-brand-text">Bedrock</div>
+            <div class="nav-brand-sub">Consumer Goods Trading</div>
+          </div>
+        </a>
+        <p>Your trusted source for premium Spanish wines and BUENSALUD extra virgin olive oils in the Philippines.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Catalogue</h4>
+        <ul>
+          <li><a href="#wines">Spanish Wines</a></li>
+          <li><a href="#oils">Olive Oils</a></li>
+          <li><a href="#oils">BUENSALUD EVOO</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#">Shipping Policy</a></li>
+          <li><a href="#">Returns</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Visit Us</h4>
+        <div class="footer-address">
+          <strong>Bedrock Consumer Goods Trading</strong><br>
+          #65 De Acosta St.<br>
+          San Antonio Village, Paciano Rizal<br>
+          Calamba, Laguna<br>
+          Philippines
+        </div>
+        <div class="footer-visit-socials">
+          <span class="footer-visit-label">Follow Us</span>
+          <div class="footer-visit-social-links">
+            <a href="https://www.facebook.com" target="_blank" rel="noopener"
+              class="footer-social footer-social--facebook" aria-label="Facebook">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" />
+              </svg>
+            </a>
+            <a href="https://www.instagram.com" target="_blank" rel="noopener"
+              class="footer-social footer-social--instagram" aria-label="Instagram">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="2" width="20" height="20" rx="5" />
+                <circle cx="12" cy="12" r="5" />
+                <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none" />
+              </svg>
+            </a>
+            <a href="https://wa.me/" target="_blank" rel="noopener" class="footer-social footer-social--whatsapp"
+              aria-label="WhatsApp">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-legal">
+        <p>
+          &copy; 2026 Bedrock Consumer Goods Trading. All rights reserved. &nbsp;|&nbsp;
+          <span>Bedrock&trade;</span> is a registered trademark of Bedrock Consumer Goods Trading. &nbsp;|&nbsp;
+          All product names, logos, and brands are property of their respective owners.
+        </p>
+      </div>
+      <!--<div class="footer-socials">
+      <a href="https://www.facebook.com" target="_blank" rel="noopener" class="footer-social footer-social--facebook" aria-label="Facebook">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+      </a>
+      <a href="https://www.instagram.com" target="_blank" rel="noopener" class="footer-social footer-social--instagram" aria-label="Instagram">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+      </a>
+      <a href="https://wa.me/" target="_blank" rel="noopener" class="footer-social footer-social--whatsapp" aria-label="WhatsApp">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      </a>
+      <a href="#" class="footer-social" aria-label="Email">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      </a>
+    </div>-->
+    </div>
+  </footer>
+
+  <!-- ========== BACK TO TOP ========== -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M18 15l-6-6-6 6" />
+    </svg>
+  </button>
+
+  <!-- ========== LOGO LIGHTBOX MODAL ========== -->
+  <div class="logo-modal-overlay" id="logoModal" onclick="closeLogoModal()" role="dialog" aria-modal="true"
+    aria-label="Bedrock Logo">
+    <div class="logo-modal-content" onclick="event.stopPropagation()">
+      <button class="logo-modal-close" onclick="closeLogoModal()" aria-label="Close logo">&times;</button>
+      <div class="logo-modal-ring">
+        <img src="bedrock_logo.png" alt="Bedrock Consumer Goods Trading" class="logo-modal-img">
+      </div>
+      <div class="logo-modal-title">Bedrock</div>
+      <div class="logo-modal-sub">Consumer Goods Trading</div>
+    </div>
+  </div>
+
+  <!-- ========== CART SIDEBAR ========== -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <div class="cart-panel" id="cartPanel">
+    <div class="cart-header">
+      <h3>🛒 Your Cart</h3>
+      <button class="cart-close" id="cartClose" aria-label="Close cart">✕</button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <div class="cart-empty" id="cartEmpty">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="9" cy="21" r="1" />
+          <circle cx="20" cy="21" r="1" />
+          <path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6" />
+        </svg>
+        <p>Your cart is empty.<br>Browse our catalogue and add items!</p>
+      </div>
+    </div>
+    <div class="cart-footer" id="cartFooter">
+      <div class="cart-total-row">
+        <span class="cart-total-label">Subtotal</span>
+        <span class="cart-total-value" id="cartTotal">₱0</span>
+      </div>
+      <button class="btn btn-primary cart-checkout-btn" id="checkoutBtn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+          <circle cx="12" cy="12" r="3" />
+        </svg>
+        Proceed to Checkout
+      </button>
+    </div>
+  </div>
+
+  <!-- ========== CHECKOUT MODAL ========== -->
+  <div class="checkout-overlay" id="checkoutOverlay">
+    <div class="checkout-modal">
+      <div class="checkout-header">
+        <h2>Checkout</h2>
+        <button class="cart-close" id="checkoutClose" aria-label="Close">✕</button>
+      </div>
+      <div class="checkout-body">
+        <!-- Customer Info -->
+        <div class="checkout-section">
+          <div class="checkout-section-title">Customer Information</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">First Name</label>
+              <input class="form-input" type="text" placeholder="Juan" id="fname">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Last Name</label>
+              <input class="form-input" type="text" placeholder="Dela Cruz" id="lname">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input class="form-input" type="email" placeholder="juan@email.com" id="email">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone Number</label>
+            <input class="form-input" type="tel" placeholder="+63 917 123 4567" id="phone">
+          </div>
+        </div>
+
+        <!-- Delivery Address -->
+        <div class="checkout-section">
+          <div class="checkout-section-title">Delivery Address</div>
+          <div class="form-group">
+            <label class="form-label">Street Address</label>
+            <input class="form-input" type="text" placeholder="House/Unit No., Street Name" id="address">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Barangay</label>
+              <input class="form-input" type="text" placeholder="Barangay" id="barangay">
+            </div>
+            <div class="form-group">
+              <label class="form-label">City / Municipality</label>
+              <input class="form-input" type="text" placeholder="Calamba" id="city">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Province</label>
+              <input class="form-input" type="text" placeholder="Laguna" id="province">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Zip Code</label>
+              <input class="form-input" type="text" placeholder="4027" id="zip">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Delivery Notes (optional)</label>
+            <textarea class="form-textarea" placeholder="Landmarks, gate code, etc." id="notes"></textarea>
+          </div>
+        </div>
+
+        <!-- Delivery Options -->
+        <div class="checkout-section">
+          <div class="checkout-section-title">Delivery Method</div>
+          <div class="delivery-options" id="deliveryOptions">
+            <div class="delivery-option selected" data-delivery="standard" data-fee="150"
+              onclick="selectDelivery(this)">
+              <div class="delivery-option-radio"></div>
+              <div class="delivery-option-info">
+                <div class="delivery-option-name">Standard Delivery</div>
+                <div class="delivery-option-desc">5–7 business days via courier</div>
+              </div>
+              <div class="delivery-option-price">₱150</div>
+            </div>
+            <div class="delivery-option" data-delivery="express" data-fee="350" onclick="selectDelivery(this)">
+              <div class="delivery-option-radio"></div>
+              <div class="delivery-option-info">
+                <div class="delivery-option-name">Express Delivery</div>
+                <div class="delivery-option-desc">2–3 business days via express courier</div>
+              </div>
+              <div class="delivery-option-price">₱350</div>
+            </div>
+            <div class="delivery-option" data-delivery="sameday" data-fee="500" onclick="selectDelivery(this)">
+              <div class="delivery-option-radio"></div>
+              <div class="delivery-option-info">
+                <div class="delivery-option-name">Same-Day (Laguna only)</div>
+                <div class="delivery-option-desc">Delivered within 6 hours — Calamba &amp; nearby areas</div>
+              </div>
+              <div class="delivery-option-price">₱500</div>
+            </div>
+            <div class="delivery-option" data-delivery="pickup" data-fee="0" onclick="selectDelivery(this)">
+              <div class="delivery-option-radio"></div>
+              <div class="delivery-option-info">
+                <div class="delivery-option-name">Store Pick-Up</div>
+                <div class="delivery-option-desc">#65 De Acosta St., San Antonio Village, Calamba, Laguna</div>
+              </div>
+              <div class="delivery-option-price">Free</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Payment Method -->
+        <div class="checkout-section">
+          <div class="checkout-section-title">Payment Method</div>
+          <div class="payment-options" id="paymentOptions">
+            <div class="payment-option selected" data-payment="gcash" onclick="selectPayment(this)">
+              <div class="payment-option-icon">📱</div>
+              <div class="payment-option-name">GCash</div>
+              <div class="payment-option-desc">Pay via GCash e-wallet</div>
+            </div>
+            <div class="payment-option" data-payment="maya" onclick="selectPayment(this)">
+              <div class="payment-option-icon">💳</div>
+              <div class="payment-option-name">Maya</div>
+              <div class="payment-option-desc">Pay via Maya / PayMaya</div>
+            </div>
+            <div class="payment-option" data-payment="bank" onclick="selectPayment(this)">
+              <div class="payment-option-icon">🏦</div>
+              <div class="payment-option-name">Bank Transfer</div>
+              <div class="payment-option-desc">BDO, BPI, UnionBank, etc.</div>
+            </div>
+            <!--<div class="payment-option" data-payment="cod" onclick="selectPayment(this)">
+            <div class="payment-option-icon">💵</div>
+            <div class="payment-option-name">Cash on Delivery</div>
+            <div class="payment-option-desc">Pay when you receive</div>
+          </div>-->
+          </div>
+        </div>
+
+        <!-- Order Summary -->
+        <div class="checkout-section">
+          <div class="checkout-section-title">Order Summary</div>
+          <div class="checkout-summary" id="checkoutSummary">
+            <div class="summary-row"><span>Subtotal</span><span id="sumSubtotal">₱0</span></div>
+            <div class="summary-row"><span>Delivery Fee</span><span id="sumDelivery">₱150</span></div>
+            <div class="summary-row total"><span>Total</span><span class="total-val" id="sumTotal">₱150</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="checkout-footer">
+        <button type="button" class="btn btn-primary btn-place-order" id="placeOrderBtn" onclick="placeOrder()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 11.08V12a10 10 0 11-5.93-9.14" />
+            <polyline points="22 4 12 14.01 9 11.01" />
+          </svg>
+          Place Order
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== PRODUCT MODAL ========== -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="modal">
+      <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+      <div class="modal-hero" id="modalHero"></div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <!-- ========== PRODUCT IMAGE ZOOM & 3D LIGHTBOX ========== -->
+  <div class="image-zoom-overlay" id="imageZoomModal" onclick="closeImageZoom(event)" role="dialog" aria-modal="true" aria-label="Product Image Zoom and 3D Showcase">
+    <div class="image-zoom-toolbar" onclick="event.stopPropagation()">
+      <div class="image-zoom-title-group">
+        <h3 id="imageZoomTitle" class="image-zoom-title">Product Image</h3>
+        <span id="imageZoomSub" class="image-zoom-sub">High-Resolution Bottle View</span>
+      </div>
+      <div class="image-zoom-controls">
+        <button type="button" class="btn-zoom-ctrl btn-3d-ctrl" id="btnToggle3DMode" onclick="toggle3DShowcaseMode()" title="Toggle Interactive 3D Turntable" aria-label="3D View">
+          <span style="font-size:0.95rem;">🧊</span>
+          <span class="btn-3d-text" style="font-size:0.75rem; font-weight:700; margin-left:3px;">3D View</span>
+        </button>
+        <button type="button" class="btn-zoom-ctrl" id="btnZoomIn" onclick="zoomInImage()" title="Zoom In (+)" aria-label="Zoom in">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+        </button>
+        <button type="button" class="btn-zoom-ctrl" id="btnZoomOut" onclick="zoomOutImage()" title="Zoom Out (−)" aria-label="Zoom out">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+        </button>
+        <button type="button" class="btn-zoom-ctrl" id="zoomResetBtn" onclick="resetImageZoom()" title="Reset to Fit (100%)" aria-label="Reset zoom">
+          <span id="zoomLevelIndicator" style="font-size:0.75rem; font-weight:700;">100%</span>
+        </button>
+        <button type="button" class="btn-zoom-action" id="zoomViewDetailsBtn" onclick="viewDetailsFromZoom()" title="View full specifications">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          <span>Full Specs</span>
+        </button>
+        <button type="button" class="btn-zoom-ctrl btn-zoom-close" onclick="closeImageZoom()" title="Close (Esc)" aria-label="Close zoom viewer">✕</button>
+      </div>
+    </div>
+    <div class="image-zoom-stage" id="imageZoomStage" onclick="toggleZoomClick(event)">
+      <!-- Standard Zoomable Image View -->
+      <div class="image-zoom-img-wrap" id="imageZoomImgWrap">
+        <img id="imageZoomImg" src="" alt="Zoomed Product Bottle" draggable="false">
+      </div>
+
+      <!-- Interactive 3D Turntable Showcase View -->
+      <div class="turntable-3d-container" id="turntable3DContainer" style="display:none;" onclick="event.stopPropagation()">
+        <div class="turntable-pedestal">
+          <div class="turntable-ring-outer"></div>
+          <div class="turntable-disc"></div>
+          <div class="turntable-ring-inner"></div>
+        </div>
+        <div class="bottle-3d-stage" id="bottle3DStage" title="Drag left/right to rotate 360°, drag up/down to tilt">
+          <div class="bottle-3d-interactive-wrap" id="bottle3DInteractiveWrap">
+            <img id="bottle3DInteractiveImg" src="" alt="3D Interactive Bottle" draggable="false">
+            <div class="bottle-3d-reflection-layer" id="bottle3DReflectionLayer"></div>
+          </div>
+        </div>
+        <div class="turntable-controls-bar">
+          <button type="button" class="btn-3d-ctrl" id="btn3DAutoSpin" onclick="toggle3DAutoSpin()" title="Toggle Auto-Spin">
+            <span id="spinIcon">🔄</span>
+            <span id="spinText">Auto-Spin</span>
+          </button>
+          <button type="button" class="btn-3d-ctrl" onclick="reset3DAngle()" title="Reset to Front View">
+            <span>⏮️</span>
+            <span>Front</span>
+          </button>
+          <div class="turntable-angle-badge" id="turntableAngleBadge">Angle: 0°</div>
+        </div>
+      </div>
+    </div>
+    <div class="image-zoom-hint" onclick="event.stopPropagation()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+      <span id="zoomHintText">Click image to toggle 2.5× zoom · Drag or move mouse to pan · Scroll wheel to zoom in/out</span>
+    </div>
+  </div>
+
+  <!-- ========== AUTH MODAL ========== -->
+  <div class="auth-overlay" id="authOverlay">
+    <div class="auth-modal">
+      <button class="auth-close" onclick="closeAuthModal()">✕</button>
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tabSignIn" onclick="switchAuthTab('signin')">Sign In</button>
+        <button class="auth-tab" id="tabRegister" onclick="switchAuthTab('register')">Register Account</button>
+      </div>
+
+      <!-- Sign In Panel -->
+      <div id="authSignInPanel">
+        <div id="signInError"
+          style="display:none; color:#ef4444; background:rgba(239,68,68,0.1); border:1px solid rgba(239,68,68,0.3); border-radius:6px; padding:0.6rem; font-size:0.85rem; margin-bottom:1rem;">
+        </div>
+        <form onsubmit="handleSignIn(event)">
+          <div class="form-group">
+            <label class="form-label">Email or Username</label>
+            <input class="form-input" type="text" id="loginId" required placeholder="username">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <input class="form-input" type="password" id="loginPassword" required placeholder="password">
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center; margin-top:1rem;">
+            Sign In
+          </button>
+        </form>
+      </div>
+
+      <!-- Register Panel -->
+      <div id="authRegisterPanel" style="display:none;">
+        <div id="registerError"
+          style="display:none; color:#ef4444; background:rgba(239,68,68,0.1); border:1px solid rgba(239,68,68,0.3); border-radius:6px; padding:0.6rem; font-size:0.85rem; margin-bottom:1rem;">
+        </div>
+        <form onsubmit="handleRegister(event)">
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <input class="form-input" type="text" id="regFullName" required placeholder="Write your complete name here">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Username</label>
+            <input class="form-input" type="text" id="regUsername" required placeholder="username">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input class="form-input" type="email" id="regEmail" required placeholder="emailaddress">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Password (min 6 characters)</label>
+            <input class="form-input" type="password" id="regPassword" required minlength="6"
+              placeholder="Password (min 6 characters)">
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center; margin-top:1rem;">
+            Create Viewer Account
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== TOAST ========== -->
+  <div class="toast" id="toast">
+    <span class="toast-icon">✓</span>
+    <span id="toastMsg">Item added to cart!</span>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- JAVASCRIPT -->
+  <!-- ================================================================== -->
+  <script>
+    // ======================================================================
+    // PRODUCT DATA
+    // ======================================================================
+    let wines = [
+      {
+        id: 'w1', name: 'Altos de Tamaron Crianza',
+        fullName: 'Altos de Tamaron Ribera del Duero Crianza D.O.',
+        variety: 'Tempranillo (Tinta del País)', region: 'Ribera del Duero',
+        denomination: 'D.O. Ribera del Duero', type: 'red',
+        description: 'A beautifully crafted Crianza from the prestigious Ribera del Duero region. Aged in oak barrels, this Tempranillo delivers deep aromas of ripe black fruit, vanilla, and subtle spice. Full-bodied with well-integrated tannins and a smooth, lingering finish.',
+        tags: ['Crianza', 'Tempranillo', 'D.O.'],
+        price: 0, icon: '🍷', color: '#6b1d2a', image: 'wine_ribera.png'
+      },
+      {
+        id: 'w2', name: 'Marqués De La Concordia Santiago',
+        fullName: 'Marqués De La Concordia Rioja Santiago Segundo Año DOCa',
+        variety: 'Tempranillo', region: 'Rioja',
+        denomination: 'DOCa Rioja', type: 'red',
+        description: 'A classic Rioja in its second year, blending tradition with approachability. Bright ruby color with aromas of red berries, soft vanilla from brief oak contact, and a fresh, fruit-forward palate. An excellent everyday Rioja from the renowned Santiago winery.',
+        tags: ['Segundo Año', 'DOCa', 'Rioja'],
+        price: 0, icon: '🍷', color: '#8b2f3f'
+      },
+      {
+        id: 'w3', name: 'Marqués de Cáceres Reserva 2019',
+        fullName: 'Marqués de Cáceres Reserva 2019 DOCa',
+        variety: 'Tempranillo, Garnacha Tinta, Graciano', region: 'Rioja',
+        denomination: 'DOCa Rioja', type: 'red',
+        description: 'An exceptional Reserva from the iconic Marqués de Cáceres estate, vintage 2019. Aged in American and French oak, this wine offers complex layers of dark cherry, leather, tobacco, and balsamic notes. Elegant tannins and remarkable depth make it ideal for special occasions.',
+        tags: ['Reserva', '2019', 'DOCa'],
+        price: 0, icon: '🍷', color: '#4a1020'
+      },
+      {
+        id: 'w4', name: 'Hoya de Cadenas Tinto Crianza',
+        fullName: 'Hoya de Cadenas Vino Tinto Crianza D.O. Utiel Requena',
+        variety: 'Tempranillo, Bobal', region: 'Utiel-Requena, Valencia',
+        denomination: 'D.O. Utiel Requena', type: 'red',
+        description: 'From the historic Utiel-Requena denomination, this Crianza blends Tempranillo with local Bobal grape for a unique character. Rich plum and blackberry aromas with warm oak notes. Medium-bodied with a velvety texture and excellent value.',
+        tags: ['Crianza', 'Bobal', 'D.O.'],
+        price: 0, icon: '🍷', color: '#5a1525'
+      },
+      {
+        id: 'w5', name: 'Hoya de Cadenas 100% Shiraz',
+        fullName: 'Hoya de Cadenas 100% Shiraz D.O. Utiel Requena',
+        variety: 'Shiraz (100%)', region: 'Utiel-Requena, Valencia',
+        denomination: 'D.O. Utiel Requena', type: 'red',
+        description: 'A bold, single-varietal Shiraz from the warm Mediterranean climate of Utiel-Requena. Intense violet-purple color with explosive aromas of black pepper, ripe plum, and smoky oak. Full-bodied with rich, spicy character and a long, warm finish.',
+        tags: ['100% Shiraz', 'Full-bodied', 'D.O.'],
+        price: 0, icon: '🍷', color: '#3a0a18'
+      },
+      {
+        id: 'w6', name: 'Hoya de Cadenas D.O. Cava',
+        fullName: 'Hoya de Cadenas Denominación Origin Cava',
+        variety: 'Macabeo, Xarel·lo, Parellada', region: 'Utiel-Requena / Penedès',
+        denomination: 'D.O. Cava', type: 'cava',
+        description: 'A refreshing traditional-method sparkling wine. Fine, persistent bubbles rise in the glass, releasing aromas of green apple, citrus, and white flowers. Crisp acidity with a clean, dry finish — perfect as an aperitif or for celebrations.',
+        tags: ['Cava', 'Brut', 'Sparkling'],
+        price: 0, icon: '🥂', color: '#c4963c'
+      },
+      {
+        id: 'w7', name: 'Hoya de Cadenas Cava Brut Rosado',
+        fullName: 'Hoya de Cadenas D.O. Cava Brut Rosado',
+        variety: 'Garnacha, Monastrell', region: 'Utiel-Requena',
+        denomination: 'D.O. Cava', type: 'cava',
+        description: 'A stunning rosé Cava with a beautiful salmon-pink hue. Delicate bubbles carry aromas of wild strawberry, rose petal, and hints of brioche. Dry and elegant with a refreshing acidity. An eye-catching choice for toasts and festive gatherings.',
+        tags: ['Cava', 'Brut Rosado', 'Rosé'],
+        price: 0, icon: '🥂', color: '#c7546a'
+      },
+      {
+        id: 'w8', name: 'Manzanos Reserva Rioja',
+        fullName: 'Manzanos Reserva D.O. Rioja',
+        variety: 'Tempranillo, Graciano', region: 'Rioja',
+        denomination: 'D.O. Rioja', type: 'red',
+        description: 'A distinguished Reserva from the Manzanos family estate in Rioja. Extended aging in oak and bottle yields a harmonious wine with aromas of ripe cherry, cinnamon, cedar, and a touch of leather. Silky tannins with exceptional elegance and a memorable, prolonged finish.',
+        tags: ['Reserva', 'D.O. Rioja', 'Oak-Aged'],
+        price: 0, icon: '🍷', color: '#7b2535'
+      },
+      {
+        id: 'w9', name: 'Albariño Rías Baixas',
+        fullName: 'Albariño D.O. Rías Baixas',
+        variety: 'Albariño', region: 'Galicia',
+        denomination: 'D.O. Rías Baixas', type: 'white',
+        description: 'A crisp, refreshing white wine from the cool Atlantic coast. Brilliant pale yellow with green reflections. Intense aromas of peach, apricot, and white flowers with a distinctive mineral note. Vibrant acidity makes it the perfect pairing for seafood.',
+        tags: ['White Wine', 'Albariño', 'D.O.'],
+        price: 0, icon: '🥂', color: '#d4cf8c', image: 'Freixenet_Cava_Brut.png'
+      }
+    ];
+
+    let oils = [
+      {
+        id: 'o1', name: 'BUENSALUD Picual 750ml Glass',
+        fullName: 'BUENSALUD Aceite de Oliva Extra Virgen Picual Variety — 750ml Glass Bottle',
+        variety: 'Picual', volume: '750ml', container: 'Glass Bottle', special: '',
+        description: 'The flagship Picual in a generous 750ml glass bottle. Robust and full-flavored with intense aromas of fresh-cut grass, tomato leaf, and green almond. A peppery, slightly bitter finish that speaks of quality. Perfect for drizzling over grilled meats and bold Mediterranean dishes.',
+        tags: ['Picual', '750ml', 'Glass'], price: 0, color: '#4a5b1d'
+      },
+      {
+        id: 'o2', name: 'BUENSALUD Picual 500ml Glass',
+        fullName: 'BUENSALUD Aceite de Oliva Extra Virgen Picual Variety — 500ml Glass Bottle',
+        variety: 'Picual', volume: '500ml', container: 'Glass Bottle', special: '',
+        description: 'Premium Picual EVOO in the classic 500ml format. Deep green with golden highlights. Intensely aromatic with notes of artichoke, ripe olive fruit, and fresh herbs. Robust bitterness and pungency indicate high polyphenol content and exceptional quality.',
+        tags: ['Picual', '500ml', 'Glass'], price: 0, color: '#4a5b1d'
+      },
+      {
+        id: 'o3', name: 'BUENSALUD Picual 250ml Glass',
+        fullName: 'BUENSALUD Aceite de Oliva Extra Virgen Picual Variety — 250ml Glass Bottle',
+        variety: 'Picual', volume: '250ml', container: 'Glass Bottle', special: '',
+        description: 'The perfect introduction to BUENSALUD Picual in a compact 250ml glass bottle. Same exceptional quality — robust flavor with green fruit aromas, pepper, and a pleasantly bitter finish. Ideal for gifting or personal tasting.',
+        tags: ['Picual', '250ml', 'Glass'], price: 0, color: '#4a5b1d'
+      },
+      {
+        id: 'o4', name: 'BUENSALUD Picual 500ml Plastic',
+        fullName: 'BUENSALUD Aceite de Oliva Extra Virgen Picual Variety — 500ml Plastic Bottle',
+        variety: 'Picual', volume: '500ml', container: 'Plastic Bottle', special: '',
+        description: 'The same award-winning Picual EVOO in a practical 500ml plastic bottle. Lightweight and convenient for everyday cooking. Full Picual character with herbaceous aromas, green fruit notes, and that characteristic peppery kick.',
+        tags: ['Picual', '500ml', 'Plastic'], price: 0, color: '#4a5b1d'
+      },
+      {
+        id: 'o5', name: 'BUENSALUD Picual Nueva Cosecha 500ml',
+        fullName: 'BUENSALUD Aceite de Oliva Extra Virgen Picual Variety — NUEVA COSECHA — 500ml Glass Bottle',
+        variety: 'Picual', volume: '500ml', container: 'Glass Bottle', special: 'NUEVA COSECHA',
+        description: 'New harvest (Nueva Cosecha) Picual — pressed from the freshest olives of the season. Vivid green color with extraordinarily intense aromas. More pungent and bitter than the standard pressing, packed with antioxidants. A seasonal treasure for EVOO enthusiasts.',
+        tags: ['Picual', 'Nueva Cosecha', '500ml'], price: 0, color: '#3a4b10'
+      },
+      {
+        id: 'o6', name: 'BUENSALUD Picual Nueva Cosecha 200ml',
+        fullName: 'BUENSALUD Aceite de Oliva Extra Virgen Picual Variety — NUEVA COSECHA — 200ml Glass Bottle',
+        variety: 'Picual', volume: '200ml', container: 'Glass Bottle', special: 'NUEVA COSECHA',
+        description: 'Experience the new harvest intensity in a 200ml glass bottle. Ultra-fresh Picual from early-season olives with explosive green flavors. Limited production each year — a premium collector\'s item for olive oil connoisseurs.',
+        tags: ['Picual', 'Nueva Cosecha', '200ml'], price: 0, color: '#3a4b10'
+      },
+      {
+        id: 'o7', name: 'BUENSALUD Arbequina 500ml Glass',
+        fullName: 'BUENSALUD Aceite de Oliva Extra Virgen Arbequina Variety — 500ml Glass Bottle',
+        variety: 'Arbequina', volume: '500ml', container: 'Glass Bottle', special: '',
+        description: 'Delicate and fruity Arbequina EVOO. Golden-green with mild, buttery flavors and sweet almond notes. Low bitterness with a gentle peppery finish. The most versatile variety — excellent for salads, pastries, fish, and drizzling over everything.',
+        tags: ['Arbequina', '500ml', 'Glass'], price: 0, color: '#6a7b3d'
+      },
+      {
+        id: 'o8', name: 'BUENSALUD Arbequina 200ml Glass',
+        fullName: 'BUENSALUD Aceite de Oliva Extra Virgen Arbequina Variety — 200ml Glass Bottle',
+        variety: 'Arbequina', volume: '200ml', container: 'Glass Bottle', special: '',
+        description: 'Smooth Arbequina in a compact 200ml format. A mild, approachable oil with sweet fruit notes, green apple, and a delicate herbal finish. Perfect for those who prefer a gentle, non-bitter olive oil. Great for gifting.',
+        tags: ['Arbequina', '200ml', 'Glass'], price: 0, color: '#6a7b3d'
+      },
+      {
+        id: 'o9', name: 'BUENSALUD Arbosana 500ml Glass',
+        fullName: 'BUENSALUD Aceite de Oliva Extra Virgen Arbosana Variety — 500ml Glass Bottle',
+        variety: 'Arbosana', volume: '500ml', container: 'Glass Bottle', special: '',
+        description: 'A rare single-variety Arbosana EVOO. Medium intensity with a beautiful balance of fruity and herbaceous notes. Aromas of ripe banana, green apple, and fresh tomato. Pleasantly bitter with a medium peppery finish. An excellent all-purpose oil.',
+        tags: ['Arbosana', '500ml', 'Glass'], price: 0, color: '#5a6b2d'
+      },
+      {
+        id: 'o10', name: 'BUENSALUD Arbosana 200ml Glass',
+        fullName: 'BUENSALUD Aceite de Oliva Extra Virgen Arbosana Variety — 200ml Glass Bottle',
+        variety: 'Arbosana', volume: '200ml', container: 'Glass Bottle', special: '',
+        description: 'Discover Arbosana in a convenient 200ml glass bottle. Balanced medium-intensity oil with notes of green banana, tomato, and herbs. A versatile oil that pairs wonderfully with both raw and cooked dishes.',
+        tags: ['Arbosana', '200ml', 'Glass'], price: 0, color: '#5a6b2d'
+      },
+      {
+        id: 'o11', name: 'BUENSALUD Coupage 500ml Glass',
+        fullName: 'BUENSALUD Aceite de Oliva Extra Virgen Coupage Variety — 500ml Glass Bottle',
+        variety: 'Coupage (Blend)', volume: '500ml', container: 'Glass Bottle', special: '',
+        description: 'A masterful blend (coupage) of multiple olive varieties, crafted for perfect balance. Combines the robustness of Picual with the smoothness of Arbequina and complexity of other varieties. Medium intensity, versatile, and incredibly harmonious.',
+        tags: ['Coupage', '500ml', 'Glass'], price: 0, color: '#5a7b20'
+      },
+      {
+        id: 'o12', name: 'BUENSALUD Coupage Cosecha Temprana 500ml',
+        fullName: 'BUENSALUD Aceite de Oliva Extra Virgen Coupage Variety — COSECHA TEMPRANA — 500ml Glass Bottle',
+        variety: 'Coupage (Blend)', volume: '500ml', container: 'Glass Bottle', special: 'COSECHA TEMPRANA',
+        description: 'Early harvest (Cosecha Temprana) coupage — olives picked at the optimal green stage for maximum flavor and antioxidants. More intense and complex than the standard coupage, with vibrant green fruit, herbs, and a bold peppery character.',
+        tags: ['Coupage', 'Cosecha Temprana', '500ml'], price: 0, color: '#3a5b10'
+      },
+      {
+        id: 'o13', name: 'BUENSALUD Coupage Cosecha Temprana 200ml',
+        fullName: 'BUENSALUD Aceite de Oliva Extra Virgen Coupage Variety — COSECHA TEMPRANA — 200ml Glass Bottle',
+        variety: 'Coupage (Blend)', volume: '200ml', container: 'Glass Bottle', special: 'COSECHA TEMPRANA',
+        description: 'The early harvest coupage in a premium 200ml format. Vivid green with intense flavors of fresh herbs, artichoke, and green almond. A gourmet oil ideal for finishing dishes, dipping, and special culinary creations.',
+        tags: ['Coupage', 'Cosecha Temprana', '200ml'], price: 0, color: '#3a5b10'
+      },
+      {
+        id: 'o14', name: 'BUENSALUD Empeltre 500ml Glass',
+        fullName: 'BUENSALUD Aceite de Oliva Extra Virgen Empeltre Variety — 500ml Glass Bottle',
+        variety: 'Empeltre', volume: '500ml', container: 'Glass Bottle', special: '',
+        description: 'A smooth, golden Empeltre EVOO — one of Spain\'s mildest and sweetest varieties. Delicate flavors of ripe fruit, fresh almond, and a hint of apple. Almost no bitterness with a gentle, rounded finish. Ideal for baking, mild dishes, and everyday use.',
+        tags: ['Empeltre', '500ml', 'Glass'], price: 0, color: '#7a8b50'
+      },
+      {
+        id: 'o15', name: 'BUENSALUD Empeltre 200ml Glass',
+        fullName: 'BUENSALUD Aceite de Oliva Extra Virgen Empeltre Variety — 200ml Glass Bottle',
+        variety: 'Empeltre', volume: '200ml', container: 'Glass Bottle', special: '',
+        description: 'The gentle Empeltre in a 200ml format. Sweet, smooth, and exceptionally mild — perfect for those who prefer a delicate oil. Notes of ripe apple, almond, and hay. Excellent for vinaigrettes, fish, and pastry.',
+        tags: ['Empeltre', '200ml', 'Glass'], price: 0, color: '#7a8b50'
+      },
+      {
+        id: 'o16', name: 'BUENSALUD Frantoio Cosecha Temprana 500ml',
+        fullName: 'BUENSALUD Aceite de Oliva Extra Virgen Frantoio Variety — COSECHA TEMPRANA — 500ml Glass Bottle',
+        variety: 'Frantoio', volume: '500ml', container: 'Glass Bottle', special: 'COSECHA TEMPRANA',
+        description: 'A premium early-harvest Frantoio — an Italian variety thriving in Spanish soil. Medium-high intensity with complex aromas of artichoke, green tomato, fresh herbs, and a distinctive spicy finish. A gourmet oil prized by chefs worldwide.',
+        tags: ['Frantoio', 'Cosecha Temprana', '500ml'], price: 0, color: '#4a6b20'
+      },
+      {
+        id: 'o17', name: 'BUENSALUD Frantoio Cosecha Temprana 200ml',
+        fullName: 'BUENSALUD Aceite de Oliva Extra Virgen Frantoio Variety — COSECHA TEMPRANA — 200ml Glass Bottle',
+        variety: 'Frantoio', volume: '200ml', container: 'Glass Bottle', special: 'COSECHA TEMPRANA',
+        description: 'The early-harvest Frantoio in a collectible 200ml format. Intensely aromatic with green herb and artichoke character. Medium bitterness with a spicy, peppery endnote. A sophisticated tasting experience in every drop.',
+        tags: ['Frantoio', 'Cosecha Temprana', '200ml'], price: 0, color: '#4a6b20'
+      }
+    ];
+
+    // ======================================================================
+    // CART STATE
+    // ======================================================================
+    let cart = [];
+    let selectedDeliveryFee = 150;
+    let selectedPayment = 'gcash';
+
+    // ======================================================================
+    // RENDER HELPERS
+    // ======================================================================
+    function oilBottleSVG(color, size) {
+      const h = size === '750ml' ? 380 : size === '500ml' ? 340 : size === '250ml' ? 300 : 280;
+      const w = size === '750ml' ? 110 : size === '500ml' ? 100 : 90;
+      return `<div class="oil-illustration" style="background:linear-gradient(135deg,${color}15,${color}08);">
+    <svg viewBox="0 0 ${w * 2} ${h}" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="g${color.replace('#', '')}" x1="${w * 0.4}" y1="0" x2="${w * 1.5}" y2="${h}">
+          <stop offset="0%" stop-color="${color}" stop-opacity="0.85"/>
+          <stop offset="100%" stop-color="${color}" stop-opacity="0.45"/>
+        </linearGradient>
+        <linearGradient id="l${color.replace('#', '')}" x1="${w * 0.5}" y1="${h * 0.35}" x2="${w * 1.3}" y2="${h * 0.9}">
+          <stop offset="0%" stop-color="#c9a84c" stop-opacity="0.55"/>
+          <stop offset="100%" stop-color="#8a7a2d" stop-opacity="0.35"/>
+        </linearGradient>
+      </defs>
+      <rect x="${w * 0.42}" y="${h * 0.04}" width="${w * 0.16}" height="${h * 0.06}" rx="3" fill="#2a2d0a" opacity="0.75"/>
+      <rect x="${w * 0.38}" y="${h * 0.1}" width="${w * 0.24}" height="${h * 0.02}" rx="2" fill="#c9a84c" opacity="0.4"/>
+      <path d="M${w * 0.44} ${h * 0.12} L${w * 0.44} ${h * 0.22} L${w * 0.28} ${h * 0.32} L${w * 0.28} ${h * 0.88} Q${w * 0.28} ${h * 0.95} ${w * 0.42} ${h * 0.95} L${w * 0.58} ${h * 0.95} Q${w * 0.72} ${h * 0.95} ${w * 0.72} ${h * 0.88} L${w * 0.72} ${h * 0.32} L${w * 0.56} ${h * 0.22} L${w * 0.56} ${h * 0.12}" fill="url(#g${color.replace('#', '')})" opacity="0.7"/>
+      <rect x="${w * 0.32}" y="${h * 0.42}" width="${w * 0.36}" height="${h * 0.24}" rx="3" fill="rgba(255,255,255,0.08)" stroke="rgba(196,150,60,0.25)" stroke-width="0.5"/>
+      <text x="${w * 0.5}" y="${h * 0.52}" text-anchor="middle" fill="rgba(196,150,60,0.6)" font-size="${w * 0.06}" font-family="serif" letter-spacing="1">BUENSALUD</text>
+      <rect x="${w * 0.36}" y="${h * 0.55}" width="${w * 0.28}" height="${h * 0.005}" rx="1" fill="rgba(196,150,60,0.3)"/>
+      <text x="${w * 0.5}" y="${h * 0.61}" text-anchor="middle" fill="rgba(196,150,60,0.35)" font-size="${w * 0.045}" font-family="serif">${size}</text>
+      <path d="M${w * 0.32} ${h * 0.5} L${w * 0.32} ${h * 0.88} Q${w * 0.32} ${h * 0.92} ${w * 0.42} ${h * 0.92} L${w * 0.58} ${h * 0.92} Q${w * 0.68} ${h * 0.92} ${w * 0.68} ${h * 0.88} L${w * 0.68} ${h * 0.5} Z" fill="url(#l${color.replace('#', '')})" opacity="0.35"/>
+      <path d="M${w * 0.39} ${h * 0.3} L${w * 0.39} ${h * 0.75}" stroke="rgba(255,255,255,0.06)" stroke-width="4"/>
+    </svg>
+  </div>`;
+    }
+
+    function wineBottleSVG(color, icon) {
+      return `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,${color}22,${color}08);font-size:5rem;user-select:none;">${icon}</div>`;
+    }
+
+    function renderProductDescription(desc, id) {
+      if (!desc) return '';
+      const cleanDesc = String(desc).trim();
+      const needsToggle = cleanDesc.length > 70 || cleanDesc.includes('\n');
+      if (!needsToggle) {
+        return `<div class="product-desc-wrap"><p class="product-description">${cleanDesc}</p></div>`;
+      }
+      return `<div class="product-desc-wrap">
+        <p class="product-description" id="desc-${id}">${cleanDesc}</p>
+        <button type="button" class="btn-read-more" onclick="toggleReadMore(event, '${id}')" aria-expanded="false" aria-controls="desc-${id}">
+          <span>Read more</span>
+          <svg class="read-more-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+      </div>`;
+    }
+
+    function toggleReadMore(event, id) {
+      if (event) {
+        event.stopPropagation();
+        event.preventDefault();
+      }
+      const descEl = document.getElementById(`desc-${id}`);
+      const btn = (event && event.currentTarget) ? event.currentTarget : document.querySelector(`[aria-controls="desc-${id}"]`);
+      if (!descEl) return;
+
+      const isExpanded = descEl.classList.toggle('expanded');
+      if (btn) {
+        btn.classList.toggle('is-expanded', isExpanded);
+        btn.setAttribute('aria-expanded', String(isExpanded));
+        const labelSpan = btn.querySelector('span');
+        if (labelSpan) {
+          labelSpan.textContent = isExpanded ? 'Read less' : 'Read more';
+        }
+      }
+    }
+
+    function renderWineCard(w) {
+      const priceDisplay = (w.price && w.price > 0) ? `₱${Number(w.price).toLocaleString()}` : 'Contact for pricing';
+      const isOutOfStock = w.in_stock === 0;
+      const subCategory = w.type || 'Red';
+      const safeName = (w.fullName || w.name).replace(/'/g, "\\'");
+      const safeSub = (w.variety || w.region || 'Spain').replace(/'/g, "\\'");
+
+      return `<div class="product-card wine-card" data-type="${subCategory}" data-id="${w.id}">
+    <div class="product-image-wrap" onclick="${w.image ? `openImageZoom('${w.image}','${safeName}','${safeSub}','wine','${w.id}')` : `openModal('wine','${w.id}')`}" style="${w.image ? 'cursor:zoom-in;' : 'cursor:pointer;'}" title="${w.image ? 'Click to zoom product image in 3D' : 'Click to view product'}">
+      ${w.image ? `
+      <div class="bottle-3d-wrap">
+        <div class="bottle-pedestal-3d"></div>
+        <img src="${w.image}" alt="${w.name}" class="bottle-3d-img" style="max-height:92%;max-width:90%;width:auto;height:auto;object-fit:contain;object-position:center;display:block;margin:auto;">
+        <div class="bottle-glare-3d"></div>
+      </div>` : wineBottleSVG(w.color, w.icon)}
+      <span class="product-badge ${subCategory.toLowerCase()==='sparkling' ? 'badge-cava' : (subCategory.toLowerCase()==='rose' ? 'badge-cava' : 'badge-wine')}">${subCategory} Wine</span>
+      ${w.image ? `<span class="badge-3d-tag" title="Interactive 3D view available">3D</span>` : ''}
+      ${isOutOfStock ? `<span class="product-badge badge-out-of-stock" style="left:auto;right:0.75rem;top:2.2rem;">Out of Stock</span>` : ''}
+      ${w.image ? `<div class="product-zoom-hint">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+        <span>3D Zoom</span>
+      </div>` : ''}
+      <div class="product-overlay"></div>
+    </div>
+    <div class="product-info">
+      <div class="product-region" onclick="openModal('wine','${w.id}')" style="cursor:pointer;" title="View details">${w.region || 'Spain'} · ${w.denomination || 'D.O.'}</div>
+      <h3 class="product-name" onclick="openModal('wine','${w.id}')" style="cursor:pointer;" title="View details">${w.name}</h3>
+      <div class="product-variety" onclick="openModal('wine','${w.id}')" style="cursor:pointer;" title="View details">${w.variety || ''}</div>
+      <div class="product-meta">${(w.tags || []).map(t => `<span class="product-meta-tag">${t}</span>`).join('')}</div>
+      ${renderProductDescription(w.description, 'wine-' + w.id)}
+      <div class="product-footer">
+        <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.92rem;font-weight:600;color:var(--gold-primary);">${priceDisplay}</div>
+        <div style="display:flex;align-items:center;gap:0.4rem;">
+          <button type="button" class="btn-card-details" onclick="openModal('wine','${w.id}')" title="View product specifications">Details</button>
+          ${isOutOfStock ?
+            `<button class="btn-order" disabled style="opacity:0.5;cursor:not-allowed;">Sold Out</button>` :
+            `<button class="btn-order" onclick="addToCart('wine','${w.id}')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:middle;margin-right:4px;"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
+              Order
+            </button>`
+          }
+        </div>
+      </div>
+    </div>
+  </div>`;
+    }
+
+    function renderOilCard(o) {
+      const priceDisplay = (o.price && o.price > 0) ? `₱${Number(o.price).toLocaleString()}` : 'Contact for pricing';
+      const isOutOfStock = o.in_stock === 0;
+      const subCategory = o.type || o.variety || 'Picual';
+      const safeName = (o.fullName || o.name).replace(/'/g, "\\'");
+      const safeSub = (o.variety || o.volume || 'BUENSALUD EVOO').replace(/'/g, "\\'");
+
+      return `<div class="product-card oil-card" data-type="${subCategory}" data-id="${o.id}">
+    <div class="product-image-wrap" onclick="${o.image ? `openImageZoom('${o.image}','${safeName}','${safeSub}','oil','${o.id}')` : `openModal('oil','${o.id}')`}" style="height:230px; ${o.image ? 'cursor:zoom-in;' : 'cursor:pointer;'}" title="${o.image ? 'Click to zoom product image in 3D' : 'Click to view product'}">
+      ${o.image ? `
+      <div class="bottle-3d-wrap">
+        <div class="bottle-pedestal-3d"></div>
+        <img src="${o.image}" alt="${o.name}" class="bottle-3d-img" style="max-height:92%;max-width:90%;width:auto;height:auto;object-fit:contain;object-position:center;display:block;margin:auto;">
+        <div class="bottle-glare-3d"></div>
+      </div>` : oilBottleSVG(o.color || '#4a5b1d', o.volume || '500ml')}
+      <span class="product-badge badge-oil">${subCategory}</span>
+      ${o.image ? `<span class="badge-3d-tag" title="Interactive 3D view available">3D</span>` : ''}
+      ${o.special ? `<span style="position:absolute;top:2.2rem;right:0.75rem;padding:0.25rem 0.6rem;border-radius:100px;font-size:0.6rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;background:rgba(196,150,60,0.9);color:var(--navy-darkest);z-index:2;transform:translateZ(35px);">${o.special}</span>` : ''}
+      ${isOutOfStock ? `<span class="product-badge badge-out-of-stock" style="left:auto;right:0.75rem;top:3.6rem;">Out of Stock</span>` : ''}
+      ${o.image ? `<div class="product-zoom-hint">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+        <span>3D Zoom</span>
+      </div>` : ''}
+    </div>
+    <div class="product-info">
+      <div class="product-region" onclick="openModal('oil','${o.id}')" style="cursor:pointer;" title="View details">BUENSALUD · ${subCategory}</div>
+      <h3 class="product-name" onclick="openModal('oil','${o.id}')" style="font-size:0.95rem; cursor:pointer;" title="View details">${(o.fullName || o.name).replace('BUENSALUD Aceite de Oliva Extra Virgen ', '')}</h3>
+      <div class="product-meta">${(o.tags || []).map(t => `<span class="product-meta-tag">${t}</span>`).join('')}</div>
+      ${renderProductDescription(o.description, 'oil-' + o.id)}
+      <div class="product-footer">
+        <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.92rem;font-weight:600;color:var(--gold-primary);">${priceDisplay}</div>
+        <div style="display:flex;align-items:center;gap:0.4rem;">
+          <button type="button" class="btn-card-details" onclick="openModal('oil','${o.id}')" title="View product specifications">Details</button>
+          ${isOutOfStock ?
+            `<button class="btn-order" disabled style="opacity:0.5;cursor:not-allowed;">Sold Out</button>` :
+            `<button class="btn-order" onclick="addToCart('oil','${o.id}')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:middle;margin-right:4px;"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
+              Order
+            </button>`
+          }
+        </div>
+      </div>
+    </div>
+  </div>`;
+    }
+
+    // ======================================================================
+    // GRID RENDERING
+    // ======================================================================
+    function renderGrid(container, items, renderFn) {
+      container.innerHTML = items.map(renderFn).join('');
+      const cards = container.querySelectorAll('.product-card');
+      cards.forEach((c, i) => setTimeout(() => c.classList.add('visible'), 60 * i));
+      setTimeout(init3DCardTilt, 50);
+    }
+
+    const wineGrid = document.getElementById('wineGrid');
+    const oilGrid = document.getElementById('oilGrid');
+    renderGrid(wineGrid, wines, renderWineCard);
+    renderGrid(oilGrid, oils, renderOilCard);
+
+    // ======================================================================
+    // FILTERS
+    // ======================================================================
+    function setupFilters(filterEl, grid, items, renderFn) {
+      filterEl.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterEl.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const f = (btn.dataset.filter || 'all').toLowerCase();
+
+          const currentItems = typeof items === 'function' ? items() : items;
+          const filtered = f === 'all' ? currentItems : currentItems.filter(i => {
+            const t = (i.type || '').toLowerCase();
+            const v = (i.variety || '').toLowerCase();
+            const n = (i.name || '').toLowerCase();
+
+            if (f === 'red') return t === 'red' || v.includes('tempranillo') || v.includes('shiraz') || v.includes('bobal') || v.includes('garnacha');
+            if (f === 'white') return t === 'white' || v.includes('viura') || v.includes('sauvignon') || v.includes('albariño');
+            if (f === 'sparkling') return t === 'sparkling' || t === 'cava' || v.includes('cava') || n.includes('cava') || (i.tags || []).some(tg => String(tg).toLowerCase().includes('sparkling') || String(tg).toLowerCase().includes('cava'));
+            if (f === 'rose') return t === 'rose' || t === 'rosado' || n.includes('rosado') || n.includes('rose') || (i.tags || []).some(tg => String(tg).toLowerCase().includes('rosé') || String(tg).toLowerCase().includes('rose'));
+
+            if (f === 'picual') return t === 'picual' || v.includes('picual');
+            if (f === 'arbequina') return t === 'arbequina' || v.includes('arbequina');
+            if (f === 'coupage') return t === 'coupage' || v.includes('coupage') || v.includes('blend') || (!v.includes('picual') && !v.includes('arbequina'));
+
+            return t === f || v.includes(f);
+          });
+
+          grid.querySelectorAll('.product-card').forEach(c => c.classList.remove('visible'));
+          setTimeout(() => renderGrid(grid, filtered, renderFn), 250);
+        });
+      });
+    }
+    setupFilters(document.getElementById('wineFilters'), wineGrid, () => wines, renderWineCard);
+    setupFilters(document.getElementById('oilFilters'), oilGrid, () => oils, renderOilCard);
+
+    async function loadCatalogFromAPI() {
+      try {
+        const res = await fetch('/api/products');
+        if (res.ok) {
+          const data = await res.json();
+          if (data.products && data.products.length > 0) {
+            wines = data.products.filter(p => p.category === 'wine');
+            oils = data.products.filter(p => p.category === 'oil');
+            renderGrid(wineGrid, wines, renderWineCard);
+            renderGrid(oilGrid, oils, renderOilCard);
+          }
+        }
+      } catch (e) {
+        // Fallback to pre-loaded data
+      }
+    }
+    loadCatalogFromAPI();
+
+    // ======================================================================
+    // PRODUCT MODAL
+    // ======================================================================
+    function openModal(type, id) {
+      const item = type === 'wine' ? wines.find(w => w.id === id) : oils.find(o => o.id === id);
+      if (!item) return;
+      const hero = document.getElementById('modalHero');
+      const body = document.getElementById('modalBody');
+
+      if (item.image) {
+        hero.innerHTML = `
+          <div class="modal-hero-inner" onclick="openImageZoom('${item.image}', '${(item.fullName || item.name).replace(/'/g, "\\'")}', '${(item.variety || item.region || item.volume || '').replace(/'/g, "\\'")}', '${type}', '${item.id}')" title="Click image to zoom in">
+            <div class="bottle-pedestal-3d" style="width:50%;bottom:8px;"></div>
+            <img src="${item.image}" alt="${item.name}" class="modal-hero-bottle" style="max-height:92%;max-width:90%;width:auto;height:auto;object-fit:contain;object-position:center;display:block;margin:auto;">
+            <div class="bottle-glare-3d"></div>
+            <div class="modal-hero-zoom-badge">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+              <span>3D Zoom</span>
+            </div>
+            <button type="button" class="btn-modal-3d-quick" onclick="event.stopPropagation(); openImageZoom('${item.image}', '${(item.fullName || item.name).replace(/'/g, "\\'")}', '${(item.variety || item.region || item.volume || '').replace(/'/g, "\\'")}', '${type}', '${item.id}', true)" title="Launch 3D Turntable Showcase">
+              <span>🧊 3D Orbit</span>
+            </button>
+          </div>`;
+      } else if (type === 'wine') {
+        hero.innerHTML = wineBottleSVG(item.color, item.icon);
+      } else {
+        hero.innerHTML = oilBottleSVG(item.color, item.volume);
+        hero.style.background = `linear-gradient(135deg,${item.color}22,${item.color}08)`;
+      }
+
+      const meta = type === 'wine' ? `
+    <div class="modal-meta-item"><div class="modal-meta-label">Category</div><div class="modal-meta-value">Wine</div></div>
+    <div class="modal-meta-item"><div class="modal-meta-label">Sub-Category</div><div class="modal-meta-value">${item.type || 'Red'}</div></div>
+    <div class="modal-meta-item"><div class="modal-meta-label">Denomination</div><div class="modal-meta-value">${item.denomination || 'D.O.'}</div></div>
+    <div class="modal-meta-item"><div class="modal-meta-label">Region</div><div class="modal-meta-value">${item.region || 'Spain'}</div></div>
+    <div class="modal-meta-item"><div class="modal-meta-label">Grape Variety</div><div class="modal-meta-value">${item.variety || 'Tempranillo'}</div></div>
+    <div class="modal-meta-item"><div class="modal-meta-label">Volume / Format</div><div class="modal-meta-value">${item.volume || '750ml Glass Bottle'}</div></div>
+  ` : `
+    <div class="modal-meta-item"><div class="modal-meta-label">Category</div><div class="modal-meta-value">Olive Oil</div></div>
+    <div class="modal-meta-item"><div class="modal-meta-label">Sub-Category</div><div class="modal-meta-value">${item.type || item.variety || 'Picual'}</div></div>
+    <div class="modal-meta-item"><div class="modal-meta-label">Olive Variety</div><div class="modal-meta-value">${item.variety}</div></div>
+    <div class="modal-meta-item"><div class="modal-meta-label">Volume</div><div class="modal-meta-value">${item.volume}</div></div>
+    <div class="modal-meta-item"><div class="modal-meta-label">Container</div><div class="modal-meta-value">${item.container}</div></div>
+    <div class="modal-meta-item"><div class="modal-meta-label">Special Edition</div><div class="modal-meta-value">${item.special || 'Standard Reserve'}</div></div>
+  `;
+
+      const priceDisplay = (item.price && item.price > 0) ? `₱${Number(item.price).toLocaleString()}` : 'Contact for pricing';
+      const isOutOfStock = item.in_stock === 0;
+
+      body.innerHTML = `
+    <div class="modal-region">${type === 'wine' ? item.denomination : 'BUENSALUD · ' + item.variety}</div>
+    <h2 class="modal-name">${item.fullName || item.name}</h2>
+    <div class="modal-variety">${type === 'wine' ? item.variety : item.volume + ' ' + item.container}</div>
+    <div class="product-meta" style="margin-bottom:1.25rem;">${(item.tags || []).map(t => `<span class="product-meta-tag">${t}</span>`).join('')}</div>
+    <p class="modal-desc">${item.description}</p>
+    <div class="modal-meta-grid">${meta}</div>
+    <div class="modal-footer">
+      <span style="font-size:1.05rem;font-weight:700;color:var(--gold-primary);">${priceDisplay}</span>
+      ${isOutOfStock ?
+          `<button class="btn btn-secondary btn-sm" disabled style="opacity:0.5;cursor:not-allowed;">Out of Stock</button>` :
+          `<button class="btn btn-primary btn-sm" onclick="addToCart('${type}','${item.id}');closeModal();">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
+          Add to Order
+        </button>`
+        }
+    </div>
+  `;
+      document.getElementById('modalOverlay').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal() {
+      document.getElementById('modalOverlay').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    document.getElementById('modalClose').addEventListener('click', closeModal);
+    document.getElementById('modalOverlay').addEventListener('click', e => { if (e.target === e.currentTarget) closeModal(); });
+
+    // ======================================================================
+    // PRODUCT IMAGE ZOOM & 3D TURNTABLE CONTROLLER
+    // ======================================================================
+    let currentZoomScale = 1;
+    let translateX = 0, translateY = 0;
+    let currentZoomProductType = null;
+    let currentZoomProductId = null;
+    let is3DMode = false;
+    let current3DAngleY = 0;
+    let current3DTiltX = 0;
+    let autoSpin3D = false;
+    let autoSpinRaf = null;
+    let is3DDragging = false;
+    let last3DMouseX = 0;
+    let last3DMouseY = 0;
+
+    function openImageZoom(imgSrc, title, subtitle, type, id, autoStart3D) {
+      if (!imgSrc) return;
+      const modal = document.getElementById('imageZoomModal');
+      const img = document.getElementById('imageZoomImg');
+      const interactive3DImg = document.getElementById('bottle3DInteractiveImg');
+      const titleEl = document.getElementById('imageZoomTitle');
+      const subEl = document.getElementById('imageZoomSub');
+      const detailsBtn = document.getElementById('zoomViewDetailsBtn');
+
+      currentZoomProductType = type || null;
+      currentZoomProductId = id || null;
+
+      img.src = imgSrc;
+      img.alt = title || 'Product Image';
+      if (interactive3DImg) {
+        interactive3DImg.src = imgSrc;
+        interactive3DImg.alt = title || '3D Product Bottle';
+      }
+
+      titleEl.textContent = title || 'Product Image';
+      subEl.textContent = subtitle || 'High-Resolution 3D Bottle View';
+
+      if (detailsBtn) {
+        detailsBtn.style.display = (type && id) ? 'inline-flex' : 'none';
+      }
+
+      currentZoomScale = 1;
+      translateX = 0;
+      translateY = 0;
+      updateZoomTransform();
+
+      // Reset 3D state
+      current3DAngleY = 0;
+      current3DTiltX = 0;
+      update3DBottleTransform();
+
+      modal.classList.add('active');
+      document.body.classList.add('zoom-active');
+
+      if (autoStart3D) {
+        if (!is3DMode) toggle3DShowcaseMode();
+        if (!autoSpin3D) toggle3DAutoSpin();
+      } else {
+        if (is3DMode) toggle3DShowcaseMode();
+      }
+    }
+
+    function closeImageZoom(e) {
+      if (e && e.target && (e.target.closest('.image-zoom-toolbar') || e.target.closest('#imageZoomImgWrap') || e.target.closest('.image-zoom-hint') || e.target.closest('.turntable-controls-bar') || e.target.closest('#bottle3DStage'))) {
+        return;
+      }
+      const modal = document.getElementById('imageZoomModal');
+      modal.classList.remove('active');
+      document.body.classList.remove('zoom-active');
+      currentZoomScale = 1;
+      translateX = 0;
+      translateY = 0;
+      updateZoomTransform();
+
+      if (autoSpin3D) {
+        toggle3DAutoSpin();
+      }
+    }
+
+    function updateZoomTransform() {
+      const img = document.getElementById('imageZoomImg');
+      const indicator = document.getElementById('zoomLevelIndicator');
+      const stage = document.getElementById('imageZoomStage');
+      if (!img) return;
+
+      img.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentZoomScale})`;
+      if (indicator) {
+        indicator.textContent = `${Math.round(currentZoomScale * 100)}%`;
+      }
+      if (stage) {
+        if (currentZoomScale > 1) {
+          stage.classList.add('is-zoomed');
+        } else {
+          stage.classList.remove('is-zoomed');
+        }
+      }
+    }
+
+    function zoomInImage() {
+      currentZoomScale = Math.min(+(currentZoomScale + 0.5).toFixed(2), 4);
+      updateZoomTransform();
+    }
+
+    function zoomOutImage() {
+      currentZoomScale = Math.max(+(currentZoomScale - 0.5).toFixed(2), 1);
+      if (currentZoomScale === 1) {
+        translateX = 0;
+        translateY = 0;
+      }
+      updateZoomTransform();
+    }
+
+    function resetImageZoom() {
+      currentZoomScale = 1;
+      translateX = 0;
+      translateY = 0;
+      updateZoomTransform();
+    }
+
+    function toggleZoomClick(e) {
+      if (is3DMode) return;
+      if (e.target.closest('.image-zoom-toolbar') || e.target.closest('.image-zoom-hint')) return;
+
+      if (currentZoomScale > 1) {
+        resetImageZoom();
+      } else {
+        const stage = document.getElementById('imageZoomStage');
+        const rect = stage.getBoundingClientRect();
+        const clickX = e.clientX - (rect.left + rect.width / 2);
+        const clickY = e.clientY - (rect.top + rect.height / 2);
+
+        currentZoomScale = 2.5;
+        translateX = -clickX * 0.75;
+        translateY = -clickY * 0.75;
+        updateZoomTransform();
+      }
+    }
+
+    function viewDetailsFromZoom() {
+      if (currentZoomProductType && currentZoomProductId) {
+        const type = currentZoomProductType;
+        const id = currentZoomProductId;
+        closeImageZoom();
+        openModal(type, id);
+      }
+    }
+
+    // 3D Turntable Showcase Mode Toggle
+    function toggle3DShowcaseMode() {
+      const container = document.getElementById('turntable3DContainer');
+      const imgWrap = document.getElementById('imageZoomImgWrap');
+      const btn = document.getElementById('btnToggle3DMode');
+      const hintText = document.getElementById('zoomHintText');
+      const img = document.getElementById('imageZoomImg');
+
+      is3DMode = !is3DMode;
+
+      if (is3DMode) {
+        imgWrap.style.display = 'none';
+        container.style.display = 'flex';
+        btn.classList.add('active');
+        btn.querySelector('.btn-3d-text').textContent = '2D Zoom';
+        if (hintText) hintText.textContent = 'Drag left/right to rotate bottle in 360° · Drag up/down to tilt · Auto-Spin for hands-free showroom view';
+
+        const interactiveImg = document.getElementById('bottle3DInteractiveImg');
+        if (interactiveImg && img) {
+          interactiveImg.src = img.src;
+        }
+        update3DBottleTransform();
+      } else {
+        container.style.display = 'none';
+        imgWrap.style.display = 'flex';
+        btn.classList.remove('active');
+        btn.querySelector('.btn-3d-text').textContent = '3D View';
+        if (hintText) hintText.textContent = 'Click image to toggle 2.5× zoom · Drag or move mouse to pan · Scroll wheel to zoom in/out';
+
+        if (autoSpin3D) {
+          toggle3DAutoSpin();
+        }
+      }
+    }
+
+    function update3DBottleTransform() {
+      const bottleWrap = document.getElementById('bottle3DInteractiveWrap');
+      const reflection = document.getElementById('bottle3DReflectionLayer');
+      const angleBadge = document.getElementById('turntableAngleBadge');
+      if (!bottleWrap) return;
+
+      bottleWrap.style.transform = `perspective(1000px) rotateX(${current3DTiltX}deg) rotateY(${current3DAngleY}deg)`;
+
+      // Specular light sheen shift
+      if (reflection) {
+        const rad = (current3DAngleY * Math.PI) / 180;
+        const shift = Math.sin(rad) * 45;
+        reflection.style.transform = `translateX(${shift}%)`;
+        reflection.style.opacity = Math.max(0.3, Math.min(0.9, 0.6 + Math.cos(rad) * 0.3)).toFixed(2);
+      }
+
+      if (angleBadge) {
+        const normAngle = Math.round(((current3DAngleY % 360) + 360) % 360);
+        let label = `${normAngle}°`;
+        if (normAngle >= 340 || normAngle <= 20) label += ' (Front)';
+        else if (normAngle >= 70 && normAngle <= 110) label += ' (Right)';
+        else if (normAngle >= 160 && normAngle <= 200) label += ' (Back)';
+        else if (normAngle >= 250 && normAngle <= 290) label += ' (Left)';
+        angleBadge.textContent = label;
+      }
+    }
+
+    function toggle3DAutoSpin() {
+      autoSpin3D = !autoSpin3D;
+      const btn = document.getElementById('btn3DAutoSpin');
+      const icon = document.getElementById('spinIcon');
+      const text = document.getElementById('spinText');
+
+      if (autoSpin3D) {
+        if (btn) btn.classList.add('active');
+        if (icon) icon.textContent = '⏸️';
+        if (text) text.textContent = 'Pause';
+        function spinLoop() {
+          if (!autoSpin3D) return;
+          current3DAngleY = (current3DAngleY + 0.65) % 360;
+          update3DBottleTransform();
+          autoSpinRaf = requestAnimationFrame(spinLoop);
+        }
+        autoSpinRaf = requestAnimationFrame(spinLoop);
+      } else {
+        if (btn) btn.classList.remove('active');
+        if (icon) icon.textContent = '🔄';
+        if (text) text.textContent = 'Auto-Spin';
+        if (autoSpinRaf) cancelAnimationFrame(autoSpinRaf);
+      }
+    }
+
+    function reset3DAngle() {
+      current3DAngleY = 0;
+      current3DTiltX = 0;
+      update3DBottleTransform();
+    }
+
+    function setup3DTurntableDrag() {
+      const stage = document.getElementById('bottle3DStage');
+      if (!stage) return;
+
+      function onPointerDown(e) {
+        is3DDragging = true;
+        last3DMouseX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
+        last3DMouseY = e.clientY || (e.touches && e.touches[0].clientY) || 0;
+        if (autoSpin3D) {
+          toggle3DAutoSpin();
+        }
+      }
+
+      function onPointerMove(e) {
+        if (!is3DDragging) return;
+        const clientX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
+        const clientY = e.clientY || (e.touches && e.touches[0].clientY) || 0;
+
+        const deltaX = clientX - last3DMouseX;
+        const deltaY = clientY - last3DMouseY;
+
+        last3DMouseX = clientX;
+        last3DMouseY = clientY;
+
+        current3DAngleY = (current3DAngleY + deltaX * 0.75);
+        current3DTiltX = Math.max(-18, Math.min(22, current3DTiltX - deltaY * 0.35));
+
+        update3DBottleTransform();
+      }
+
+      function onPointerUp() {
+        is3DDragging = false;
+      }
+
+      stage.addEventListener('mousedown', onPointerDown);
+      window.addEventListener('mousemove', onPointerMove);
+      window.addEventListener('mouseup', onPointerUp);
+
+      stage.addEventListener('touchstart', onPointerDown, { passive: true });
+      window.addEventListener('touchmove', onPointerMove, { passive: true });
+      window.addEventListener('touchend', onPointerUp);
+    }
+    setup3DTurntableDrag();
+
+    // 3D Card Hover Parallax Tilt
+    function init3DCardTilt() {
+      const wraps = document.querySelectorAll('.product-image-wrap');
+      wraps.forEach(wrap => {
+        if (wrap.dataset.tilt3dReady) return;
+        wrap.dataset.tilt3dReady = 'true';
+
+        const bottleWrap = wrap.querySelector('.bottle-3d-wrap');
+        const glare = wrap.querySelector('.bottle-glare-3d');
+        const pedestal = wrap.querySelector('.bottle-pedestal-3d');
+
+        wrap.addEventListener('mousemove', (e) => {
+          const rect = wrap.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+
+          const rotateY = ((x - centerX) / centerX) * 16;
+          const rotateX = -((y - centerY) / centerY) * 16;
+
+          if (bottleWrap) {
+            bottleWrap.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.08, 1.08, 1.08)`;
+          }
+
+          if (glare) {
+            const glareX = (x / rect.width) * 100;
+            const glareY = (y / rect.height) * 100;
+            glare.style.background = `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255, 255, 255, 0.28) 0%, rgba(196, 150, 60, 0.15) 30%, transparent 65%)`;
+          }
+
+          if (pedestal) {
+            const shiftX = -rotateY * 0.6;
+            pedestal.style.transform = `rotateX(68deg) translateX(${shiftX}px) scale(1.18) translateZ(-8px)`;
+          }
+        });
+
+        wrap.addEventListener('mouseleave', () => {
+          if (bottleWrap) {
+            bottleWrap.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+          }
+          if (pedestal) {
+            pedestal.style.transform = 'rotateX(68deg) translateX(0px) scale(1) translateZ(-8px)';
+          }
+        });
+      });
+    }
+
+    function setupZoomPanListeners() {
+      const stage = document.getElementById('imageZoomStage');
+      if (!stage) return;
+
+      stage.addEventListener('mousemove', (e) => {
+        if (is3DMode || currentZoomScale <= 1) return;
+        const rect = stage.getBoundingClientRect();
+        const relX = (e.clientX - rect.left) / rect.width - 0.5;
+        const relY = (e.clientY - rect.top) / rect.height - 0.5;
+
+        const maxPanX = (rect.width * (currentZoomScale - 1)) / 2;
+        const maxPanY = (rect.height * (currentZoomScale - 1)) / 2;
+
+        translateX = -relX * maxPanX * 1.25;
+        translateY = -relY * maxPanY * 1.25;
+        updateZoomTransform();
+      });
+
+      stage.addEventListener('wheel', (e) => {
+        const modal = document.getElementById('imageZoomModal');
+        if (!modal || !modal.classList.contains('active')) return;
+        if (is3DMode) {
+          // In 3D mode, wheel controls 3D angle
+          e.preventDefault();
+          current3DAngleY = (current3DAngleY + (e.deltaY > 0 ? 12 : -12));
+          update3DBottleTransform();
+          return;
+        }
+        e.preventDefault();
+        if (e.deltaY < 0) {
+          zoomInImage();
+        } else {
+          zoomOutImage();
+        }
+      }, { passive: false });
+
+      document.addEventListener('keydown', (e) => {
+        const zoomModal = document.getElementById('imageZoomModal');
+        if (zoomModal && zoomModal.classList.contains('active')) {
+          if (e.key === 'Escape') {
+            closeImageZoom();
+          } else if (e.key === '3' || e.key === 't' || e.key === 'T') {
+            toggle3DShowcaseMode();
+          } else if (e.key === ' ') {
+            if (is3DMode) {
+              e.preventDefault();
+              toggle3DAutoSpin();
+            }
+          } else if (e.key === '+' || e.key === '=') {
+            zoomInImage();
+          } else if (e.key === '-' || e.key === '_') {
+            zoomOutImage();
+          } else if (e.key === '0') {
+            if (is3DMode) reset3DAngle();
+            else resetImageZoom();
+          }
+        }
+      });
+    }
+    setupZoomPanListeners();
+    init3DCardTilt();
+
+    // ======================================================================
+    // CART SYSTEM
+    // ======================================================================
+    function addToCart(type, id) {
+      const item = type === 'wine' ? wines.find(w => w.id === id) : oils.find(o => o.id === id);
+      if (!item || item.in_stock === 0) {
+        showToast('⚠️ Sorry, this product is currently out of stock.');
+        return;
+      }
+
+      const existing = cart.find(c => c.id === id);
+      if (existing) {
+        existing.qty++;
+      } else {
+        cart.push({
+          id,
+          type,
+          name: item.name,
+          fullName: item.fullName || item.name,
+          price: parseFloat(item.price) || 0,
+          qty: 1,
+          icon: type === 'wine' ? (item.icon || '🍷') : '🫒'
+        });
+      }
+      updateCartUI();
+      showToast(`${type === 'wine' ? '🍷' : '🫒'} Added to order!`);
+    }
+
+    function removeFromCart(id) {
+      cart = cart.filter(c => c.id !== id);
+      updateCartUI();
+    }
+
+    function changeQty(id, delta) {
+      const item = cart.find(c => c.id === id);
+      if (item) {
+        item.qty += delta;
+        if (item.qty <= 0) removeFromCart(id);
+        else updateCartUI();
+      }
+    }
+
+    function updateCartUI() {
+      const count = cart.reduce((s, c) => s + c.qty, 0);
+      const countEl = document.getElementById('cartCount');
+      countEl.textContent = count;
+      countEl.classList.remove('bump');
+      void countEl.offsetWidth;
+      countEl.classList.add('bump');
+
+      const itemsEl = document.getElementById('cartItems');
+      const emptyEl = document.getElementById('cartEmpty');
+      const footerEl = document.getElementById('cartFooter');
+
+      if (cart.length === 0) {
+        emptyEl.style.display = '';
+        footerEl.style.display = 'none';
+        itemsEl.innerHTML = emptyEl.outerHTML;
+        return;
+      }
+
+      footerEl.style.display = '';
+      itemsEl.innerHTML = cart.map(c => `
+    <div class="cart-item">
+      <div class="cart-item-icon">${c.icon}</div>
+      <div class="cart-item-info">
+        <div class="cart-item-name">${c.name}</div>
+        <div class="cart-item-detail">${c.type === 'wine' ? 'Wine' : 'BUENSALUD EVOO'} · ₱${(c.price || 0).toLocaleString()}</div>
+        <div class="cart-item-row">
+          <div class="qty-wrap">
+            <button class="qty-btn" onclick="changeQty('${c.id}',-1)">−</button>
+            <span class="qty-value">${c.qty}</span>
+            <button class="qty-btn" onclick="changeQty('${c.id}',1)">+</button>
+          </div>
+          <button class="cart-item-remove" onclick="removeFromCart('${c.id}')">✕ Remove</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+      const subtotal = cart.reduce((s, c) => s + ((c.price || 0) * c.qty), 0);
+      document.getElementById('cartTotal').textContent = subtotal > 0 ? `₱${subtotal.toLocaleString()}` : `${count} items`;
+    }
+
+    // Cart panel toggle
+    function openCart() {
+      document.getElementById('cartOverlay').classList.add('active');
+      document.getElementById('cartPanel').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeCart() {
+      document.getElementById('cartOverlay').classList.remove('active');
+      document.getElementById('cartPanel').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    document.getElementById('cartBtn').addEventListener('click', openCart);
+    document.getElementById('cartClose').addEventListener('click', closeCart);
+    document.getElementById('cartOverlay').addEventListener('click', closeCart);
+
+    // ======================================================================
+    // CHECKOUT
+    // ======================================================================
+    document.getElementById('checkoutBtn').addEventListener('click', () => {
+      closeCart();
+      setTimeout(() => {
+        updateCheckoutSummary();
+        document.getElementById('checkoutOverlay').classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }, 300);
+    });
+    document.getElementById('checkoutClose').addEventListener('click', () => {
+      document.getElementById('checkoutOverlay').classList.remove('active');
+      document.body.style.overflow = '';
+    });
+    document.getElementById('checkoutOverlay').addEventListener('click', e => {
+      if (e.target === e.currentTarget) {
+        document.getElementById('checkoutOverlay').classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    });
+
+    function selectDelivery(el) {
+      document.querySelectorAll('.delivery-option').forEach(d => d.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedDeliveryFee = parseInt(el.dataset.fee);
+      updateCheckoutSummary();
+    }
+
+    function selectPayment(el) {
+      document.querySelectorAll('.payment-option').forEach(p => p.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedPayment = el.dataset.payment;
+    }
+
+    function updateCheckoutSummary() {
+      const totalItems = cart.reduce((s, c) => s + c.qty, 0);
+      const subtotal = cart.reduce((s, c) => s + ((c.price || 0) * c.qty), 0);
+      const total = subtotal + selectedDeliveryFee;
+
+      document.getElementById('sumSubtotal').textContent = subtotal > 0 ? `₱${subtotal.toLocaleString()}` : `${totalItems} items`;
+      document.getElementById('sumDelivery').textContent = selectedDeliveryFee === 0 ? 'Free' : `₱${selectedDeliveryFee}`;
+      document.getElementById('sumTotal').textContent = `₱${total.toLocaleString()}`;
+    }
+
+    async function placeOrder() {
+      const fname = document.getElementById('fname').value.trim();
+      const lname = document.getElementById('lname').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const email = document.getElementById('email') ? document.getElementById('email').value.trim() : '';
+      const address = document.getElementById('address') ? document.getElementById('address').value.trim() : '';
+      const barangay = document.getElementById('barangay') ? document.getElementById('barangay').value.trim() : '';
+      const city = document.getElementById('city') ? document.getElementById('city').value.trim() : '';
+      const province = document.getElementById('province') ? document.getElementById('province').value.trim() : '';
+      const zip = document.getElementById('zip') ? document.getElementById('zip').value.trim() : '';
+      const notes = document.getElementById('notes') ? document.getElementById('notes').value.trim() : '';
+
+      if (!fname || !lname || !phone || !address) {
+        showToast('⚠️ Please fill in your name, phone number, and street address.');
+        return;
+      }
+      if (cart.length === 0) {
+        showToast('⚠️ Your cart is empty!');
+        return;
+      }
+
+      const placeBtn = document.getElementById('placeOrderBtn');
+      if (placeBtn) placeBtn.disabled = true;
+
+      try {
+        const payload = {
+          customer_name: `${fname} ${lname}`,
+          email,
+          phone,
+          address,
+          barangay,
+          city,
+          province,
+          zip,
+          delivery_method: document.querySelector('.delivery-option.selected')?.dataset?.delivery || 'standard',
+          delivery_fee: selectedDeliveryFee,
+          payment_method: selectedPayment,
+          items: cart,
+          notes
+        };
+
+        const token = localStorage.getItem('bedrock_token');
+        const headers = { 'Content-Type': 'application/json' };
+        if (token) headers['Authorization'] = `Bearer ${token}`;
+
+        const res = await fetch('/api/orders', {
+          method: 'POST',
+          headers,
+          body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Failed to place order');
+
+        document.getElementById('checkoutOverlay').classList.remove('active');
+        document.body.style.overflow = '';
+
+        cart = [];
+        updateCartUI();
+        showToast(`✓ Order placed! Ref: ${data.orderNumber}`);
+        alert(`🎉 Order Placed Successfully!\n\nReference Number: ${data.orderNumber}\nTotal Amount: ₱${data.totalAmount.toLocaleString()}\n\nOur team in Calamba, Laguna will contact you at ${phone} to confirm delivery.`);
+      } catch (err) {
+        showToast(`⚠️ ${err.message}`);
+      } finally {
+        if (placeBtn) placeBtn.disabled = false;
+      }
+    }
+
+    // ======================================================================
+    // TOAST
+    // ======================================================================
+    let toastTimer;
+    function showToast(msg) {
+      clearTimeout(toastTimer);
+      const el = document.getElementById('toast');
+      document.getElementById('toastMsg').textContent = msg;
+      el.classList.add('show');
+      toastTimer = setTimeout(() => el.classList.remove('show'), 3000);
+    }
+
+    // ======================================================================
+    // NAVIGATION & SCROLL
+    // ======================================================================
+    const nav = document.getElementById('nav');
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+      backToTop.classList.toggle('visible', window.scrollY > 600);
+
+      const sections = ['contact', 'about', 'oils', 'regions', 'wines'];
+      for (const id of sections) {
+        const sec = document.getElementById(id);
+        if (sec && window.scrollY >= sec.offsetTop - 200) {
+          document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+          const link = document.querySelector(`.nav-link[data-section="${id}"]`);
+          if (link) link.classList.add('active');
+          break;
+        }
+      }
+    });
+    backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    // Mobile menu
+    const mobileToggle = document.getElementById('mobileToggle');
+    const navLinks = document.getElementById('navLinks');
+    mobileToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+    navLinks.querySelectorAll('.nav-link').forEach(l => l.addEventListener('click', () => navLinks.classList.remove('open')));
+
+    // ======================================================================
+    // INTERSECTION OBSERVER
+    // ======================================================================
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+    // Counter animation
+    const cObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const el = e.target; const target = parseInt(el.dataset.count);
+          let cur = 0; const inc = target / 40;
+          const t = setInterval(() => {
+            cur += inc;
+            if (cur >= target) { el.textContent = target; clearInterval(t); }
+            else el.textContent = Math.floor(cur);
+          }, 30);
+          cObs.unobserve(el);
+        }
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('[data-count]').forEach(el => cObs.observe(el));
+
+    // Escape key
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') { closeModal(); closeCart(); document.getElementById('checkoutOverlay').classList.remove('active'); document.body.style.overflow = ''; }
+    });
+
+    // ======================================================================
+    // DYNAMIC CATALOG LOADING FROM DATABASE API
+    // ======================================================================
+    async function loadProductsFromAPI() {
+      try {
+        const res = await fetch('/api/products');
+        if (!res.ok) return;
+        const data = await res.json();
+        if (data.products && data.products.length > 0) {
+          wines = data.products.filter(p => p.category === 'wine');
+          oils = data.products.filter(p => p.category === 'oil');
+
+          renderGrid(wineGrid, wines, renderWineCard);
+          renderGrid(oilGrid, oils, renderOilCard);
+        }
+      } catch (err) {
+        console.log('Running in static mode, using embedded product data.');
+      }
+    }
+    loadProductsFromAPI();
+
+    // ======================================================================
+    // CONTACT & WHOLESALE LEADS SUBMISSION
+    // ======================================================================
+    async function submitLeadForm(e) {
+      e.preventDefault();
+      const btn = document.getElementById('leadSubmitBtn');
+      btn.disabled = true;
+      btn.innerHTML = 'Sending inquiry...';
+
+      const payload = {
+        name: document.getElementById('leadName').value.trim(),
+        company: document.getElementById('leadCompany').value.trim(),
+        email: document.getElementById('leadEmail').value.trim(),
+        phone: document.getElementById('leadPhone').value.trim(),
+        inquiry_type: document.getElementById('leadType').value,
+        message: document.getElementById('leadMessage').value.trim()
+      };
+
+      try {
+        const res = await fetch('/api/leads', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Failed to submit inquiry');
+
+        // Empty every single input field immediately upon successful submission
+        const contactForm = document.getElementById('leadContactForm');
+        if (contactForm) contactForm.reset();
+        ['leadName', 'leadCompany', 'leadEmail', 'leadPhone', 'leadMessage'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) {
+            el.value = '';
+            el.defaultValue = '';
+          }
+        });
+        const leadTypeSelect = document.getElementById('leadType');
+        if (leadTypeSelect) leadTypeSelect.selectedIndex = 0;
+
+        showToast('✓ Inquiry sent! Our team will contact you shortly.');
+        alert('Thank you for reaching out to Bedrock Consumer Goods Trading!\n\nYour message has been received. Our account team will contact you shortly.');
+      } catch (err) {
+        showToast(`⚠️ ${err.message}`);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Send Message`;
+      }
+    }
+
+    // ======================================================================
+    // USER AUTHENTICATION (ADMIN & VIEWER)
+    // ======================================================================
+    let authUser = null;
+
+    function checkAuthState() {
+      const token = localStorage.getItem('bedrock_token');
+      const accountBtnText = document.getElementById('accountBtnText');
+      const adminPortalBtn = document.getElementById('adminPortalBtn');
+
+      if (!token) {
+        authUser = null;
+        if (accountBtnText) accountBtnText.textContent = 'Sign In';
+        if (adminPortalBtn) adminPortalBtn.style.display = 'none';
+        return;
+      }
+
+      fetch('/api/auth/me', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      })
+        .then(res => {
+          if (!res.ok) throw new Error('Unauthorized');
+          return res.json();
+        })
+        .then(data => {
+          authUser = data.user;
+          if (accountBtnText) accountBtnText.textContent = authUser.full_name || authUser.username;
+          if (adminPortalBtn && authUser.role === 'admin') {
+            adminPortalBtn.style.display = 'inline-flex';
+          } else if (adminPortalBtn) {
+            adminPortalBtn.style.display = 'none';
+          }
+        })
+        .catch(() => {
+          localStorage.removeItem('bedrock_token');
+          authUser = null;
+          if (accountBtnText) accountBtnText.textContent = 'Sign In';
+          if (adminPortalBtn) adminPortalBtn.style.display = 'none';
+        });
+    }
+
+    function clearAuthInputs() {
+      ['loginId', 'loginPassword', 'regFullName', 'regUsername', 'regEmail', 'regPassword'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.value = '';
+          el.defaultValue = '';
+        }
+      });
+      const signInForm = document.getElementById('signInForm');
+      if (signInForm) signInForm.reset();
+      const regForm = document.getElementById('registerForm');
+      if (regForm) regForm.reset();
+      const signInErr = document.getElementById('signInError');
+      if (signInErr) signInErr.style.display = 'none';
+      const regErr = document.getElementById('registerError');
+      if (regErr) regErr.style.display = 'none';
+    }
+
+    function handleAccountClick() {
+      if (authUser) {
+        const choice = confirm(`Signed in as: ${authUser.full_name || authUser.username} (${authUser.role.toUpperCase()})\n\nDo you want to log out?`);
+        if (choice) {
+          localStorage.removeItem('bedrock_token');
+          authUser = null;
+          clearAuthInputs();
+          checkAuthState();
+          showToast('You have logged out.');
+        }
+      } else {
+        openAuthModal();
+      }
+    }
+
+    function openAuthModal() {
+      clearAuthInputs();
+      document.getElementById('authOverlay').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeAuthModal() {
+      clearAuthInputs();
+      document.getElementById('authOverlay').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function switchAuthTab(tab) {
+      const isSignIn = tab === 'signin';
+      document.getElementById('tabSignIn').classList.toggle('active', isSignIn);
+      document.getElementById('tabRegister').classList.toggle('active', !isSignIn);
+      document.getElementById('authSignInPanel').style.display = isSignIn ? 'block' : 'none';
+      document.getElementById('authRegisterPanel').style.display = isSignIn ? 'none' : 'block';
+    }
+
+    async function handleSignIn(e) {
+      e.preventDefault();
+      const login = document.getElementById('loginId').value;
+      const password = document.getElementById('loginPassword').value;
+      const errBox = document.getElementById('signInError');
+      errBox.style.display = 'none';
+
+      try {
+        const res = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ login, password })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Login failed');
+
+        localStorage.setItem('bedrock_token', data.token);
+        authUser = data.user;
+        closeAuthModal();
+        checkAuthState();
+        showToast(`✓ Welcome back, ${authUser.full_name || authUser.username}!`);
+      } catch (err) {
+        errBox.textContent = err.message;
+        errBox.style.display = 'block';
+      }
+    }
+
+    async function handleRegister(e) {
+      e.preventDefault();
+      const full_name = document.getElementById('regFullName').value;
+      const username = document.getElementById('regUsername').value;
+      const email = document.getElementById('regEmail').value;
+      const password = document.getElementById('regPassword').value;
+      const errBox = document.getElementById('registerError');
+      errBox.style.display = 'none';
+
+      try {
+        const res = await fetch('/api/auth/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ full_name, username, email, password })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Registration failed');
+
+        localStorage.setItem('bedrock_token', data.token);
+        authUser = data.user;
+        closeAuthModal();
+        checkAuthState();
+        showToast(`✓ Account created! Welcome, ${authUser.full_name}!`);
+      } catch (err) {
+        errBox.textContent = err.message;
+        errBox.style.display = 'block';
+      }
+    }
+
+    checkAuthState();
+
+    // ---- Logo Modal ----
+    function openLogoModal(e) {
+      if (e) e.preventDefault();
+      const modal = document.getElementById('logoModal');
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLogoModal() {
+      const modal = document.getElementById('logoModal');
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeLogoModal();
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,3452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard — Bedrock Consumer Goods Trading</title>
+  <link rel="stylesheet" href="index.css">
+  <style>
+    :root {
+      --admin-bg: #0c0f17;
+      --admin-card: #151a26;
+      --admin-border: rgba(196, 150, 60, 0.2);
+      --admin-gold: #c4963c;
+      --admin-text: #e2e8f0;
+      --admin-muted: #94a3b8;
+      --admin-danger: #ef4444;
+      --admin-success: #10b981;
+      --admin-warning: #f59e0b;
+    }
+
+    body {
+      background: var(--admin-bg);
+      color: var(--admin-text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+
+    .admin-layout {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebar */
+    .admin-sidebar {
+      width: 260px;
+      background: #0f131d;
+      border-right: 1px solid var(--admin-border);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+
+    .admin-brand {
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .admin-brand img {
+      height: 38px;
+    }
+
+    .admin-brand h2 {
+      font-size: 1.1rem;
+      margin: 0;
+      color: #fff;
+    }
+
+    .admin-brand span {
+      font-size: 0.75rem;
+      color: var(--admin-gold);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .admin-nav {
+      list-style: none;
+      padding: 1rem 0;
+      margin: 0;
+      flex: 1;
+    }
+
+    .admin-nav-item a {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      padding: 0.85rem 1.5rem;
+      color: var(--admin-muted);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .admin-nav-item a:hover, .admin-nav-item.active a {
+      color: #fff;
+      background: rgba(196, 150, 60, 0.12);
+      border-left: 3px solid var(--admin-gold);
+    }
+
+    .badge-count {
+      margin-left: auto;
+      background: var(--admin-gold);
+      color: #0c0f17;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+    }
+
+    .admin-user-pill {
+      padding: 1.25rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .user-info-name {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .user-info-role {
+      font-size: 0.75rem;
+      color: var(--admin-gold);
+    }
+
+    /* Main Content */
+    .admin-main {
+      flex: 1;
+      padding: 2rem;
+      overflow-y: auto;
+    }
+
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .admin-title {
+      margin: 0;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .btn-gold {
+      background: linear-gradient(135deg, #c4963c, #9e7223);
+      color: #0c0f17;
+      border: none;
+      padding: 0.65rem 1.25rem;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .btn-gold:hover { opacity: 0.9; }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--admin-border);
+      color: var(--admin-text);
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+    .btn-outline:hover { background: rgba(255,255,255,0.05); }
+
+    .btn-danger {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #f87171;
+      padding: 0.4rem 0.8rem;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+    .btn-danger:hover { background: rgba(239, 68, 68, 0.25); }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: var(--admin-card);
+      border: 1px solid var(--admin-border);
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+
+    .stat-card-title {
+      font-size: 0.85rem;
+      color: var(--admin-muted);
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .stat-card-val {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .stat-card-sub {
+      font-size: 0.8rem;
+      color: var(--admin-gold);
+      margin-top: 0.35rem;
+    }
+
+    /* Cards & Tables */
+    .admin-card {
+      background: var(--admin-card);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .admin-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+    }
+
+    .admin-card-title {
+      margin: 0;
+      font-size: 1.2rem;
+      color: #fff;
+    }
+
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+
+    th {
+      background: rgba(255,255,255,0.03);
+      color: var(--admin-muted);
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      font-weight: 600;
+    }
+
+    td {
+      padding: 1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      vertical-align: middle;
+    }
+
+    tr:hover td {
+      background: rgba(255,255,255,0.02);
+    }
+
+    .badge-status {
+      display: inline-block;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: capitalize;
+    }
+    .badge-status.new, .badge-status.pending { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
+    .badge-status.contacted, .badge-status.processing { background: rgba(59, 130, 246, 0.15); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3); }
+    .badge-status.qualified, .badge-status.shipped, .badge-status.delivered { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+    .badge-status.closed, .badge-status.cancelled { background: rgba(148, 163, 184, 0.15); color: #94a3b8; border: 1px solid rgba(148, 163, 184, 0.3); }
+
+    /* Modal */
+    .admin-modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+    .admin-modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .admin-modal-box {
+      background: #141923;
+      border: 1px solid var(--admin-border);
+      border-radius: 12px;
+      width: 90%;
+      max-width: 600px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 2rem;
+      position: relative;
+    }
+
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--admin-muted);
+      margin-bottom: 0.4rem;
+      font-weight: 500;
+    }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      box-sizing: border-box;
+      background: #0b0e14;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 6px;
+      padding: 0.65rem 0.85rem;
+      color: #fff;
+      font-size: 0.9rem;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      outline: none;
+      border-color: var(--admin-gold);
+    }
+
+    /* Auth Screen */
+    .auth-container {
+      max-width: 420px;
+      margin: 100px auto;
+      background: var(--admin-card);
+      border: 1px solid var(--admin-border);
+      border-radius: 12px;
+      padding: 2.5rem;
+      text-align: center;
+    }
+
+    .auth-logo {
+      height: 48px;
+      margin-bottom: 1.25rem;
+    }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* Media Queries for Admin Portal on Larger Monitors */
+    @media (min-width: 1800px) {
+      .admin-sidebar {
+        width: 300px;
+      }
+      .admin-main {
+        padding: 3rem 4rem;
+        max-width: 2200px;
+        margin: 0 auto;
+      }
+      .admin-title {
+        font-size: 2.2rem;
+      }
+      .stat-card-val {
+        font-size: 2.8rem;
+      }
+      .stats-grid {
+        gap: 1.75rem;
+      }
+      .admin-card {
+        padding: 2rem;
+      }
+      .auth-container {
+        max-width: 480px;
+        margin: 140px auto;
+        padding: 3rem;
+      }
+    }
+
+    @media (min-width: 2560px) {
+      .admin-sidebar {
+        width: 340px;
+      }
+      .admin-main {
+        padding: 4rem 5rem;
+        max-width: 2600px;
+        margin: 0 auto;
+      }
+      .admin-title {
+        font-size: 2.6rem;
+      }
+      .stat-card-val {
+        font-size: 3.2rem;
+      }
+      .stats-grid {
+        gap: 2rem;
+      }
+      .admin-card {
+        padding: 2.5rem;
+      }
+      .admin-modal-box {
+        max-width: 800px;
+        padding: 2.5rem;
+      }
+    }
+
+    /* Reports Navigation & Subtabs */
+    .report-subnav {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 0.65rem 0.85rem;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .report-subnav-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--admin-muted);
+      padding: 0.55rem 1.1rem;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.2s ease;
+    }
+    .report-subnav-btn:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.06);
+    }
+    .report-subnav-btn.active {
+      background: var(--admin-gold);
+      color: #0c0f17;
+      font-weight: 700;
+    }
+    .report-subnav-btn.disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+    .badge-admin-only {
+      font-size: 0.65rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: rgba(239, 68, 68, 0.2);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .badge-both-users {
+      font-size: 0.65rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .report-view { display: none; }
+    .report-view.active { display: block; }
+
+    /* In Stock, Edit, Delete Buttons placed on the exact same line */
+    .actions-inline-group {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      flex-wrap: nowrap;
+    }
+    .btn-stock {
+      padding: 0.35rem 0.65rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      border-radius: 5px;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .btn-stock.in-stock, .btn-stock.active {
+      background: rgba(16, 185, 129, 0.18);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+    }
+    .btn-stock.in-stock:hover, .btn-stock.active:hover {
+      background: rgba(16, 185, 129, 0.3);
+    }
+    .btn-stock.out-stock {
+      background: rgba(239, 68, 68, 0.15);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.4);
+    }
+    .btn-stock.out-stock:hover {
+      background: rgba(239, 68, 68, 0.28);
+    }
+
+    /* Sophisticated Customer Profile Dossier */
+    .customer-dossier-box {
+      background: #141923;
+      border: 1px solid var(--admin-border);
+      border-radius: 12px;
+      width: 92%;
+      max-width: 920px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 2rem;
+      position: relative;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+    }
+    .customer-hero {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.5rem;
+      background: linear-gradient(135deg, rgba(196, 150, 60, 0.15), rgba(20, 25, 35, 0.95));
+      border: 1px solid rgba(196, 150, 60, 0.3);
+      border-radius: 10px;
+      margin-bottom: 1.5rem;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+    .customer-avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #c4963c, #855e1c);
+      color: #0c0f17;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      font-weight: 800;
+      border: 2px solid #fff;
+      flex-shrink: 0;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    }
+    .customer-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .customer-kpi-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 1.1rem;
+    }
+    .customer-kpi-label {
+      font-size: 0.75rem;
+      color: var(--admin-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.35rem;
+    }
+    .customer-kpi-val {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .customer-sections-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    @media (max-width: 768px) {
+      .customer-sections-grid { grid-template-columns: 1fr; }
+    }
+    .customer-detail-panel {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 8px;
+      padding: 1.25rem;
+    }
+    .customer-detail-panel h4 {
+      margin: 0 0 1rem 0;
+      font-size: 0.95rem;
+      color: var(--admin-gold);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 0.5rem;
+    }
+    .customer-field-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      margin-bottom: 0.65rem;
+      line-height: 1.4;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      padding-bottom: 0.35rem;
+    }
+    .customer-field-row .lbl {
+      color: var(--admin-muted);
+      min-width: 130px;
+    }
+    .customer-field-row .val {
+      color: #fff;
+      text-align: right;
+      font-weight: 500;
+    }
+
+    /* Print Formatting */
+    @media print {
+      @page {
+        size: auto;
+        margin: 10mm 8mm;
+      }
+      body {
+        background: #ffffff !important;
+        color: #000000 !important;
+        font-size: 12pt !important;
+        line-height: 1.4 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .admin-sidebar,
+      .admin-header,
+      #authGate,
+      .admin-nav,
+      .btn-gold,
+      .btn-outline,
+      .btn-danger,
+      .btn-stock,
+      .badge-count,
+      .admin-user-pill,
+      .report-subnav,
+      .report-actions,
+      #headerActionBtn,
+      #headerPrintBtn,
+      select,
+      button,
+      input,
+      .no-print {
+        display: none !important;
+      }
+
+      /* When printing modal dossier or invoice */
+      body.printing-modal .admin-layout {
+        display: none !important;
+      }
+      body:not(.printing-modal) .admin-modal-overlay {
+        display: none !important;
+      }
+      body.printing-modal .admin-modal-overlay:not(.print-modal-active) {
+        display: none !important;
+      }
+      .admin-modal-overlay.print-modal-active {
+        display: block !important;
+        position: static !important;
+        inset: auto !important;
+        background: #ffffff !important;
+        backdrop-filter: none !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        overflow: visible !important;
+        z-index: 99999 !important;
+      }
+      .admin-modal-overlay.print-modal-active .admin-modal-box {
+        max-width: 100% !important;
+        width: 100% !important;
+        max-height: none !important;
+        height: auto !important;
+        background: #ffffff !important;
+        color: #000000 !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        overflow: visible !important;
+      }
+      .admin-modal-overlay.print-modal-active .admin-modal-box h2,
+      .admin-modal-overlay.print-modal-active .admin-modal-box h3,
+      .admin-modal-overlay.print-modal-active .admin-modal-box h4 {
+        color: #9e7223 !important;
+      }
+      .admin-modal-overlay.print-modal-active .customer-kpi-card {
+        border: 1px solid #d1d5db !important;
+        background: #f9fafb !important;
+      }
+      .admin-modal-overlay.print-modal-active .customer-kpi-label {
+        color: #000000 !important;
+        font-size: 12pt !important;
+      }
+      .admin-modal-overlay.print-modal-active .customer-kpi-val {
+        color: #000000 !important;
+        font-size: 18pt !important;
+      }
+      .admin-modal-overlay.print-modal-active .customer-detail-panel {
+        border: 1px solid #d1d5db !important;
+        background: #ffffff !important;
+      }
+      .admin-modal-overlay.print-modal-active .customer-detail-panel h4 {
+        color: #9e7223 !important;
+        border-bottom: 1px solid #e5e7eb !important;
+      }
+      .admin-modal-overlay.print-modal-active .customer-detail-panel .lbl {
+        color: #000000 !important;
+        font-size: 12pt !important;
+      }
+      .admin-modal-overlay.print-modal-active .customer-detail-panel .val,
+      .admin-modal-overlay.print-modal-active #dossierViewNotes {
+        color: #000000 !important;
+        font-size: 12pt !important;
+      }
+      .admin-modal-overlay.print-modal-active button,
+      .admin-modal-overlay.print-modal-active .no-print,
+      .admin-modal-overlay.print-modal-active form#customerEditForm {
+        display: none !important;
+      }
+      .admin-modal-overlay.print-modal-active #dossierViewMode {
+        display: block !important;
+      }
+
+      /* When printing dashboard report */
+      .admin-layout {
+        display: block !important;
+      }
+      .admin-main {
+        padding: 0 !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        margin: 0 !important;
+        overflow: visible !important;
+      }
+      .admin-card {
+        background: #fff !important;
+        border: 1px solid #d1d5db !important;
+        box-shadow: none !important;
+        color: #000000 !important;
+        padding: 10px 14px !important;
+        margin-bottom: 14px !important;
+        page-break-inside: auto;
+      }
+      .admin-card-header {
+        margin-bottom: 8px !important;
+        padding-bottom: 6px !important;
+        border-bottom: 1px solid #e5e7eb !important;
+      }
+      /* Retain heading size & color */
+      .admin-card-title {
+        font-size: 14pt !important;
+        font-weight: 700 !important;
+        color: #9e7223 !important;
+        margin: 0 !important;
+      }
+      .stats-grid {
+        display: grid !important;
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 10px !important;
+        margin-bottom: 14px !important;
+      }
+      .stat-card {
+        border: 1px solid #d1d5db !important;
+        background: #f9fafb !important;
+        color: #000000 !important;
+        padding: 10px 12px !important;
+        border-radius: 6px !important;
+        page-break-inside: avoid;
+      }
+      .stat-card-title {
+        color: #000000 !important;
+        font-size: 12pt !important;
+        font-weight: 700 !important;
+        margin-bottom: 4px !important;
+        text-transform: uppercase !important;
+      }
+      .stat-card-val {
+        color: #000000 !important;
+        font-size: 18pt !important;
+        font-weight: 800 !important;
+        line-height: 1.15 !important;
+      }
+      .stat-card-sub {
+        color: #000000 !important;
+        font-size: 11pt !important;
+        margin-top: 3px !important;
+      }
+      .table-container {
+        overflow: visible !important;
+      }
+      table {
+        width: 100% !important;
+        border-collapse: collapse !important;
+        color: #000000 !important;
+        font-size: 12pt !important;
+      }
+      th, td {
+        border: 1px solid #d1d5db !important;
+        color: #000000 !important;
+        padding: 6px 8px !important;
+        font-size: 12pt !important;
+        line-height: 1.35 !important;
+        vertical-align: middle !important;
+      }
+      th {
+        background: #f3f4f6 !important;
+        font-weight: 700 !important;
+        font-size: 12pt !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.02em !important;
+        color: #000000 !important;
+        border: 1px solid #d1d5db !important;
+      }
+      td strong, td div, td span, td p {
+        color: #000000 !important;
+        font-size: 12pt !important;
+      }
+      td div[style*="font-weight:600"] {
+        font-size: 12pt !important;
+        font-weight: 700 !important;
+        color: #000000 !important;
+      }
+      td div[style*="font-size:0.75rem"] {
+        font-size: 11pt !important;
+        color: #000000 !important;
+      }
+      td [id^="inv-desc-"] {
+        font-size: 11.5pt !important;
+        line-height: 1.35 !important;
+        color: #000000 !important;
+        max-width: 320px !important;
+      }
+      /* Retain status badge borders color and badge styling */
+      .badge-status {
+        font-size: 11pt !important;
+        padding: 2px 7px !important;
+        border-radius: 4px !important;
+        font-weight: 700 !important;
+        display: inline-block !important;
+      }
+      .badge-status.qualified {
+        border: 1.5px solid #34d399 !important;
+        color: #065f46 !important;
+        background: #ecfdf5 !important;
+      }
+      .badge-status.pending {
+        border: 1.5px solid #f59e0b !important;
+        color: #92400e !important;
+        background: #fffbeb !important;
+      }
+      .badge-status.closed {
+        border: 1.5px solid #ef4444 !important;
+        color: #991b1b !important;
+        background: #fef2f2 !important;
+      }
+      .badge-status.contacted {
+        border: 1.5px solid #9e7223 !important;
+        color: #78350f !important;
+        background: #fefce8 !important;
+      }
+      #invWineSubcatList > div,
+      #invOilSubcatList > div {
+        font-size: 12pt !important;
+        color: #000000 !important;
+        border-bottom: 1px solid #e5e7eb !important;
+        padding: 5px 0 !important;
+      }
+      #invWineSubcatList div,
+      #invOilSubcatList div,
+      #invWineSubcatList strong,
+      #invOilSubcatList strong {
+        color: #000000 !important;
+        font-size: 12pt !important;
+      }
+      .tab-content {
+        display: none !important;
+      }
+      .tab-content.active {
+        display: block !important;
+      }
+      .report-view {
+        display: none !important;
+      }
+      .report-view.active {
+        display: block !important;
+      }
+      /* Retain heading and logo name size & color, and borders color */
+      .print-only-header {
+        display: block !important;
+        margin-bottom: 14px !important;
+        border-bottom: 2px solid #9e7223 !important;
+        padding-bottom: 8px !important;
+      }
+      .print-only-header h1 {
+        font-size: 16pt !important;
+        font-weight: 800 !important;
+        color: #111827 !important;
+        letter-spacing: 0.02em !important;
+      }
+      .print-only-header h2 {
+        font-size: 15pt !important;
+        font-weight: 700 !important;
+        color: #9e7223 !important;
+      }
+      .print-only-header div,
+      .print-only-header p,
+      .print-only-header span {
+        font-size: 11pt !important;
+        color: #000000 !important;
+        line-height: 1.4 !important;
+      }
+    }
+    .print-only-header {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ADMIN AUTH GATE -->
+  <div id="authGate" class="auth-container">
+    <img src="bedrock_logo.png" alt="Bedrock Trading" class="auth-logo">
+    <h2 style="margin: 0 0 0.5rem 0; color: #fff;">Bedrock Portal</h2>
+    <p style="color: var(--admin-muted); font-size: 0.9rem; margin-bottom: 1.75rem;">Sign in to access admin management</p>
+    
+    <div id="loginError" style="display:none; color: #ef4444; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 6px; padding: 0.6rem; font-size: 0.85rem; margin-bottom: 1rem;"></div>
+
+    <form id="adminLoginForm" autocomplete="off">
+      <div class="form-group" style="text-align: left;">
+        <label>Email or Username</label>
+        <input type="text" id="adminLoginInput" placeholder="admin@bedrocktrading.ph" autocomplete="off" required>
+      </div>
+      <div class="form-group" style="text-align: left;">
+        <label>Password</label>
+        <input type="password" id="adminPasswordInput" placeholder="••••••••••••" autocomplete="new-password" required>
+      </div>
+      <button type="submit" class="btn-gold" style="width: 100%; justify-content: center; margin-top: 0.5rem;">
+        Sign In to Portal
+      </button>
+    </form>
+    <div style="margin-top: 1.5rem; font-size: 0.85rem;">
+      <a href="index.html" style="color: var(--admin-gold); text-decoration: none;">← Back to Main Website</a>
+    </div>
+  </div>
+
+  <!-- ADMIN DASHBOARD LAYOUT -->
+  <div id="adminLayout" class="admin-layout" style="display: none;">
+    <!-- SIDEBAR -->
+    <aside class="admin-sidebar">
+      <div class="admin-brand">
+        <img src="bedrock_logo.png" alt="Bedrock">
+        <div>
+          <h2>Bedrock</h2>
+          <span>Admin Portal</span>
+        </div>
+      </div>
+      <ul class="admin-nav">
+        <li class="admin-nav-item active" data-tab="overview">
+          <a onclick="switchTab('overview')">
+            <span>📊</span> Overview
+          </a>
+        </li>
+        <li class="admin-nav-item" data-tab="reports">
+          <a onclick="switchTab('reports')">
+            <span>📈</span> Reports
+          </a>
+        </li>
+        <li class="admin-nav-item" data-tab="products">
+          <a onclick="switchTab('products')">
+            <span>🍷</span> Products
+            <span class="badge-count" id="navProductCount">0</span>
+          </a>
+        </li>
+        <li class="admin-nav-item" data-tab="leads">
+          <a onclick="switchTab('leads')">
+            <span>📬</span> Leads &amp; Inquiries
+            <span class="badge-count" id="navLeadCount">0</span>
+          </a>
+        </li>
+        <li class="admin-nav-item" data-tab="orders">
+          <a onclick="switchTab('orders')">
+            <span>📦</span> Orders
+            <span class="badge-count" id="navOrderCount">0</span>
+          </a>
+        </li>
+        <li class="admin-nav-item" data-tab="users">
+          <a onclick="switchTab('users')">
+            <span>👥</span> Customers
+          </a>
+        </li>
+      </ul>
+
+      <div class="admin-user-pill">
+        <div>
+          <div class="user-info-name" id="currentUserName">Admin</div>
+          <div class="user-info-role" id="currentUserRole">Administrator</div>
+        </div>
+        <button onclick="logoutAdmin()" class="btn-outline" style="padding: 0.35rem 0.65rem; font-size: 0.75rem;">
+          Logout
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="admin-main">
+      <div class="admin-header">
+        <h1 class="admin-title" id="pageTitle">Dashboard Overview</h1>
+        <div style="display:flex; align-items:center; gap:0.5rem;">
+          <a href="index.html" class="btn-outline" style="text-decoration: none;">View Live Website</a>
+          <button class="btn-outline" id="headerPrintBtn" onclick="printActiveView()" style="display:none;">
+            🖨️ Print Report
+          </button>
+          <button class="btn-gold" id="headerActionBtn" onclick="openAddProductModal()" style="display:none;">
+            + Add Product
+          </button>
+        </div>
+      </div>
+
+      <!-- TAB 1: OVERVIEW -->
+      <div id="tab-overview" class="tab-content active">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-card-title">Product Catalog</div>
+            <div class="stat-card-val" id="statProducts">0</div>
+            <div class="stat-card-sub">Wines &amp; BUENSALUD Olive Oils</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-title">New Inquiries / Leads</div>
+            <div class="stat-card-val" id="statLeads">0</div>
+            <div class="stat-card-sub" id="statLeadsSub">Awaiting follow-up</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-title">Pending Orders</div>
+            <div class="stat-card-val" id="statOrders">0</div>
+            <div class="stat-card-sub" id="statOrdersSub">Awaiting fulfillment</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-title">Registered Users</div>
+            <div class="stat-card-val" id="statUsers">0</div>
+            <div class="stat-card-sub">Admin &amp; Viewer accounts</div>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3 class="admin-card-title">Recent Inquiries &amp; Wholesale Leads</h3>
+            <button class="btn-outline" onclick="switchTab('leads')">View All</button>
+          </div>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Customer</th>
+                  <th>Company</th>
+                  <th>Type</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="overviewLeadsTable"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3 class="admin-card-title">Recent Orders</h3>
+            <button class="btn-outline" onclick="switchTab('orders')">View All</button>
+          </div>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Order #</th>
+                  <th>Customer</th>
+                  <th>Items</th>
+                  <th>Total</th>
+                  <th>Delivery</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="overviewOrdersTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: REPORTS -->
+      <div id="tab-reports" class="tab-content">
+        <!-- Print-only header for formal printed reports -->
+        <div class="print-only-header">
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:16px;">
+            <div style="display:flex; align-items:center; gap:14px;">
+              <img src="bedrock_logo.png" alt="Bedrock Logo" style="width:50px; height:50px; object-fit:contain; border-radius:50%; border:2px solid #9e7223; flex-shrink:0;">
+              <div>
+                <h1 style="margin:0; font-size:16pt; font-weight:800; color:#111827; letter-spacing:0.02em;">BEDROCK CONSUMER GOODS TRADING</h1>
+                <div style="margin:2px 0; font-size:11pt; color:#000000; line-height:1.35;">
+                  <strong>Address:</strong> #65 De Acosta St., San Antonio Village, Paciano Rizal, Calamba, Laguna 4027, Philippines
+                </div>
+                <div style="margin:2px 0; font-size:11pt; color:#000000;">
+                  <strong>Contact:</strong> +34 650-361-177 &bull; inquiry@bedrocktrading.ph &bull; bedrocktrading.ph
+                </div>
+              </div>
+            </div>
+            <div style="text-align:right; flex-shrink:0;">
+              <h2 style="margin:0; font-size:15pt; color:#9e7223; font-weight:700;" id="printReportTitle">Live Inventory &amp; Stock Level Report</h2>
+              <div style="margin-top:4px; font-size:12pt; color:#000000; font-weight:700;" id="printReportAsOf">
+                As of today: <span id="printReportAsOfDate">October 25, 2026</span>
+              </div>
+              <div style="margin-top:2px; font-size:10.5pt; color:#000000;" id="printReportTimestamp">Report Generated: October 25, 2026 at 8:56 PM</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Report Subnav Navigation -->
+        <div class="report-subnav">
+          <button class="report-subnav-btn active" id="btnSubnavInventory" onclick="switchReportSubTab('inventory')">
+            <span>📦</span> Inventory Report
+            <span class="badge-both-users">Admin &amp; Viewer</span>
+          </button>
+          <button class="report-subnav-btn" id="btnSubnavSales" onclick="switchReportSubTab('sales')">
+            <span>📊</span> Sales Report
+            <span class="badge-admin-only" id="badgeSalesRole">Admin Only</span>
+          </button>
+          <button class="report-subnav-btn" id="btnSubnavFinancial" onclick="switchReportSubTab('financial')">
+            <span>💰</span> Financial Report
+            <span class="badge-admin-only" id="badgeFinancialRole">Admin Only</span>
+          </button>
+
+          <div style="margin-left:auto; display:flex; gap:0.5rem; align-items:center;">
+            <button class="btn-gold" style="padding:0.45rem 0.9rem; font-size:0.85rem;" onclick="printActiveReport()">
+              🖨️ Print Report
+            </button>
+            <button class="btn-outline" style="padding:0.45rem 0.9rem; font-size:0.85rem;" onclick="exportActiveReportCSV()">
+              📥 Export CSV
+            </button>
+          </div>
+        </div>
+
+        <!-- SUBTAB 1: INVENTORY REPORT (Both Users) -->
+        <div id="subtab-inventory" class="report-view active">
+          <!-- Screen Header for Inventory Report -->
+          <div class="report-screen-header no-print" style="display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:1rem 1.25rem; background:rgba(255,255,255,0.02); border:1px solid var(--admin-border); border-radius:10px; margin-bottom:1.25rem; flex-wrap:wrap;">
+            <div style="display:flex; align-items:center; gap:1rem;">
+              <img src="bedrock_logo.png" alt="Bedrock Logo" style="width:48px; height:48px; object-fit:contain; border-radius:50%; border:2px solid var(--admin-gold); flex-shrink:0;">
+              <div>
+                <div style="font-family:var(--font-display); font-size:1.05rem; font-weight:700; color:#fff; letter-spacing:0.03em;">BEDROCK CONSUMER GOODS TRADING</div>
+                <div style="font-size:0.8rem; color:var(--admin-muted); margin-top:2px;">
+                  📍 #65 De Acosta St., San Antonio Village, Paciano Rizal, Calamba, Laguna 4027, Philippines
+                </div>
+                <div style="font-size:0.8rem; color:var(--admin-gold); margin-top:2px;">
+                  📞 +34 650-361-177 &nbsp;|&nbsp; ✉️ inquiry@bedrocktrading.ph &nbsp;|&nbsp; 🌐 bedrocktrading.ph
+                </div>
+              </div>
+            </div>
+            <div style="display:flex; flex-direction:column; align-items:flex-end; gap:0.4rem;">
+              <div style="display:inline-flex; align-items:center; gap:0.45rem; padding:0.35rem 0.85rem; background:rgba(196,150,60,0.12); border:1px solid var(--admin-gold); border-radius:100px; font-size:0.85rem; color:var(--admin-gold); font-weight:700;">
+                <span>📅</span> <span>As of today:</span> <strong id="invAsOfDateScreen">October 25, 2026</strong>
+              </div>
+              <div style="font-size:0.75rem; color:var(--admin-muted);" id="invGenTimeScreen">
+                Report Generated: October 25, 2026 at 8:56 PM
+              </div>
+              <button type="button" class="btn-outline" style="padding:0.25rem 0.65rem; font-size:0.75rem; display:inline-flex; align-items:center; gap:0.35rem;" onclick="loadInventoryReport(true)">
+                <span>🔄</span> <span>Refresh As of Today</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Inventory KPI Cards -->
+          <div class="stats-grid" style="margin-bottom:1.5rem;">
+            <div class="stat-card">
+              <div class="stat-card-title">Total Active SKUs</div>
+              <div class="stat-card-val" id="invKpiTotalSkus">0</div>
+              <div class="stat-card-sub" id="invKpiBreakdown">Wines &amp; Olive Oils</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-title">Total Stock on Hand</div>
+              <div class="stat-card-val" id="invKpiTotalUnits">0</div>
+              <div class="stat-card-sub">Bottles &amp; Containers</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-title">Low Stock Items</div>
+              <div class="stat-card-val" id="invKpiLowStock" style="color:#f59e0b;">0</div>
+              <div class="stat-card-sub">At or below reorder level</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-title">Inventory Valuation</div>
+              <div class="stat-card-val" id="invKpiTotalValuation" style="color:var(--admin-gold);">₱0</div>
+              <div class="stat-card-sub">Total retail stock value</div>
+            </div>
+          </div>
+
+          <!-- Sub-Category Stock Overview Cards -->
+          <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap:1.25rem; margin-bottom:1.5rem;">
+            <!-- Wine Categories Card -->
+            <div class="admin-card">
+              <div class="admin-card-header">
+                <h3 class="admin-card-title">🍷 Wine Sub-Categories</h3>
+                <span class="badge-status contacted">Spanish Wines</span>
+              </div>
+              <div id="invWineSubcatList" style="display:flex; flex-direction:column; gap:0.75rem;">
+                <!-- Populated by JS: Red, White, Sparkling, Rose -->
+              </div>
+            </div>
+            <!-- Olive Oil Categories Card -->
+            <div class="admin-card">
+              <div class="admin-card-header">
+                <h3 class="admin-card-title">🫒 Olive Oil Sub-Categories</h3>
+                <span class="badge-status qualified">BUENSALUD EVOO</span>
+              </div>
+              <div id="invOilSubcatList" style="display:flex; flex-direction:column; gap:0.75rem;">
+                <!-- Populated by JS: Picual, Arbequina, Coupage -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Master Stock Levels Table -->
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <div>
+                <h3 class="admin-card-title">Live Stock Levels &amp; Inventory Status</h3>
+                <div style="font-size:0.8rem; color:var(--admin-muted); margin-top:0.25rem;">
+                  Real-time stock quantities, thresholds, and valuation across all products
+                </div>
+              </div>
+              <div class="no-print" style="display:flex; gap:0.5rem; align-items:center;">
+                <select id="invFilterCategory" onchange="filterInventoryTable()" style="background:#0b0e14; color:#fff; border:1px solid rgba(255,255,255,0.12); padding:0.4rem 0.8rem; border-radius:6px; font-size:0.85rem;">
+                  <option value="">Category</option>
+                  <option value="wine">Wine</option>
+                  <option value="oil">Olive Oil</option>
+                </select>
+                <select id="invFilterStatus" onchange="filterInventoryTable()" style="background:#0b0e14; color:#fff; border:1px solid rgba(255,255,255,0.12); padding:0.4rem 0.8rem; border-radius:6px; font-size:0.85rem;">
+                  <option value="">Stock Status</option>
+                  <option value="in_stock">In Stock</option>
+                  <option value="low_stock">Low Stock (≤ Reorder)</option>
+                  <option value="out_of_stock">Out of Stock</option>
+                </select>
+              </div>
+            </div>
+            <div class="table-container">
+              <table id="inventoryReportTable">
+                <thead>
+                  <tr>
+                    <th>SKU</th>
+                    <th>Category</th>
+                    <th>Product Name &amp; Description</th>
+                    <th>Sub-Category</th>
+                    <th>Unit Price</th>
+                    <th>Stock Level</th>
+                    <th>Reorder Level</th>
+                    <th>Valuation</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="inventoryReportTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- SUBTAB 2: SALES REPORT (Admin Only) -->
+        <div id="subtab-sales" class="report-view">
+          <div id="salesReportRestrictedNotice" style="display:none; text-align:center; padding:3rem; background:rgba(239,68,68,0.08); border:1px solid rgba(239,68,68,0.25); border-radius:12px;">
+            <div style="font-size:2.5rem; margin-bottom:1rem;">🔒</div>
+            <h3 style="color:#f87171; margin-bottom:0.5rem;">Access Restricted: Administrator Only</h3>
+            <p style="color:var(--admin-muted); max-width:480px; margin:0 auto;">
+              Sales performance, order revenue, and transaction registers can only be accessed with administrative credentials.
+            </p>
+          </div>
+
+          <div id="salesReportContent">
+            <!-- Sales KPIs -->
+            <div class="stats-grid" style="margin-bottom:1.5rem;">
+              <div class="stat-card">
+                <div class="stat-card-title">Gross Sales Revenue</div>
+                <div class="stat-card-val" id="salesKpiGross" style="color:var(--admin-gold);">₱0</div>
+                <div class="stat-card-sub" id="salesKpiConfirmed">Across all completed orders</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-card-title">Total Orders Placed</div>
+                <div class="stat-card-val" id="salesKpiOrders">0</div>
+                <div class="stat-card-sub" id="salesKpiOrdersSub">Recorded commercial transactions</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-card-title">Average Order Value (AOV)</div>
+                <div class="stat-card-val" id="salesKpiAov">₱0</div>
+                <div class="stat-card-sub">Per completed transaction</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-card-title">Total Units Sold</div>
+                <div class="stat-card-val" id="salesKpiUnits">0</div>
+                <div class="stat-card-sub">Wines &amp; Olive Oil units</div>
+              </div>
+            </div>
+
+            <!-- Category & Sub-Category Sales Breakdown -->
+            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap:1.25rem; margin-bottom:1.5rem;">
+              <div class="admin-card">
+                <div class="admin-card-header">
+                  <h3 class="admin-card-title">Sales by Category</h3>
+                </div>
+                <div id="salesCategoryBreakdown" style="display:flex; flex-direction:column; gap:0.75rem;"></div>
+              </div>
+              <div class="admin-card">
+                <div class="admin-card-header">
+                  <h3 class="admin-card-title">Sales by Sub-Category</h3>
+                </div>
+                <div id="salesSubcategoryBreakdown" style="display:flex; flex-direction:column; gap:0.75rem;"></div>
+              </div>
+            </div>
+
+            <!-- Top Selling Products Table -->
+            <div class="admin-card" style="margin-bottom:1.5rem;">
+              <div class="admin-card-header">
+                <h3 class="admin-card-title">Top Selling Products</h3>
+              </div>
+              <div class="table-container">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Product</th>
+                      <th>Category</th>
+                      <th>Sub-Category</th>
+                      <th>Units Sold</th>
+                      <th>Total Revenue</th>
+                    </tr>
+                  </thead>
+                  <tbody id="salesTopProductsTableBody"></tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Transaction Register -->
+            <div class="admin-card">
+              <div class="admin-card-header">
+                <h3 class="admin-card-title">Commercial Sales Transaction Ledger</h3>
+              </div>
+              <div class="table-container">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Order #</th>
+                      <th>Date</th>
+                      <th>Customer</th>
+                      <th>Items Sold</th>
+                      <th>Payment Channel</th>
+                      <th>Status</th>
+                      <th>Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody id="salesLedgerTableBody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SUBTAB 3: FINANCIAL REPORT (Admin Only) -->
+        <div id="subtab-financial" class="report-view">
+          <div id="finReportRestrictedNotice" style="display:none; text-align:center; padding:3rem; background:rgba(239,68,68,0.08); border:1px solid rgba(239,68,68,0.25); border-radius:12px;">
+            <div style="font-size:2.5rem; margin-bottom:1rem;">🔒</div>
+            <h3 style="color:#f87171; margin-bottom:0.5rem;">Access Restricted: Administrator Only</h3>
+            <p style="color:var(--admin-muted); max-width:480px; margin:0 auto;">
+              Financial profit margins, tax obligations, and payment channel reconciliations are restricted to Administrators.
+            </p>
+          </div>
+
+          <div id="finReportContent">
+            <!-- Financial KPI Grid -->
+            <div class="stats-grid" style="margin-bottom:1.5rem;">
+              <div class="stat-card">
+                <div class="stat-card-title">Gross Revenue</div>
+                <div class="stat-card-val" id="finKpiGross" style="color:var(--admin-gold);">₱0</div>
+                <div class="stat-card-sub">Total billed sales</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-card-title">Estimated COGS</div>
+                <div class="stat-card-val" id="finKpiCogs" style="color:#94a3b8;">₱0</div>
+                <div class="stat-card-sub">Cost of goods sold (est. 55%)</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-card-title">Estimated Gross Margin</div>
+                <div class="stat-card-val" id="finKpiMargin" style="color:#34d399;">₱0</div>
+                <div class="stat-card-sub" id="finKpiMarginPct">45% Gross Profit Margin</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-card-title">Est. VAT Liability (12%)</div>
+                <div class="stat-card-val" id="finKpiVat" style="color:#60a5fa;">₱0</div>
+                <div class="stat-card-sub">Output value added tax</div>
+              </div>
+            </div>
+
+            <!-- Financial Breakdown Panels -->
+            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap:1.25rem; margin-bottom:1.5rem;">
+              <div class="admin-card">
+                <div class="admin-card-header">
+                  <h3 class="admin-card-title">Payment Channel Reconciliations</h3>
+                </div>
+                <div id="finPaymentBreakdown" style="display:flex; flex-direction:column; gap:0.75rem;"></div>
+              </div>
+              <div class="admin-card">
+                <div class="admin-card-header">
+                  <h3 class="admin-card-title">Cash Flow &amp; Fulfillment Aging</h3>
+                </div>
+                <div id="finStatusBreakdown" style="display:flex; flex-direction:column; gap:0.75rem;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 2: PRODUCTS -->
+      <div id="tab-products" class="tab-content">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <div>
+              <h3 class="admin-card-title">Product Catalog Inventory</h3>
+              <div style="font-size:0.8rem; color:var(--admin-muted); margin-top:0.25rem;">
+                Any edits, additions, or deletions automatically synchronize with <code style="color:var(--admin-gold); background:rgba(196,150,60,0.1); padding:2px 6px; border-radius:4px;">seed-data.js</code>
+              </div>
+            </div>
+            <div style="display:flex; gap:0.5rem;">
+              <button class="btn-outline" onclick="triggerSeedSync()" title="Manually re-synchronize seed-data.js with current database">
+                🔄 Sync seed-data.js
+              </button>
+              <button class="btn-gold" onclick="openAddProductModal()">+ Add Product</button>
+            </div>
+          </div>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th>Name</th>
+                  <th>Sub-Category</th>
+                  <th>Region / Volume</th>
+                  <th>Price</th>
+                  <th>Stock Level</th>
+                  <th style="white-space:nowrap; min-width:215px;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="productsTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 3: LEADS -->
+      <div id="tab-leads" class="tab-content">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3 class="admin-card-title">Customer &amp; Wholesale Inquiries</h3>
+            <div style="display: flex; gap: 0.5rem;">
+              <select id="leadFilterSelect" onchange="loadLeads()" style="background:#0b0e14; color:#fff; border:1px solid rgba(255,255,255,0.12); padding: 0.4rem 0.8rem; border-radius:6px;">
+                <option value="">All Statuses</option>
+                <option value="new">New</option>
+                <option value="contacted">Contacted</option>
+                <option value="qualified">Qualified</option>
+                <option value="closed">Closed</option>
+              </select>
+            </div>
+          </div>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Name &amp; Company</th>
+                  <th>Contact Info</th>
+                  <th>Inquiry Type</th>
+                  <th>Message</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="leadsTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 4: ORDERS -->
+      <div id="tab-orders" class="tab-content">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3 class="admin-card-title">Customer Orders</h3>
+            <select id="orderFilterSelect" onchange="loadOrders()" style="background:#0b0e14; color:#fff; border:1px solid rgba(255,255,255,0.12); padding: 0.4rem 0.8rem; border-radius:6px;">
+              <option value="">All Statuses</option>
+              <option value="pending">Pending</option>
+              <option value="confirmed">Confirmed</option>
+              <option value="processing">Processing</option>
+              <option value="shipped">Shipped</option>
+              <option value="delivered">Delivered</option>
+              <option value="cancelled">Cancelled</option>
+            </select>
+          </div>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Order #</th>
+                  <th>Date</th>
+                  <th>Customer</th>
+                  <th>Items &amp; Details</th>
+                  <th>Total</th>
+                  <th>Payment &amp; Delivery</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="ordersTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 5: USERS / CUSTOMERS -->
+      <div id="tab-users" class="tab-content">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <div>
+              <h3 class="admin-card-title">Customer Dossiers &amp; Client Accounts</h3>
+              <div style="font-size:0.8rem; color:var(--admin-muted); margin-top:0.25rem;">
+                Sophisticated client profiles, VIP tiers, contact logistics, commercial lifetime value &amp; purchase histories
+              </div>
+            </div>
+            <div style="display:flex; gap:0.5rem; align-items:center;">
+              <select id="userFilterTier" onchange="loadUsers()" style="background:#0b0e14; color:#fff; border:1px solid rgba(255,255,255,0.12); padding:0.4rem 0.8rem; border-radius:6px; font-size:0.85rem;">
+                <option value="">All Customer Tiers</option>
+                <option value="VIP Private Client">VIP Private Client</option>
+                <option value="Wholesale Premier">Wholesale Premier</option>
+                <option value="Corporate Hospitality">Corporate Hospitality</option>
+                <option value="Direct Retail">Direct Retail</option>
+              </select>
+            </div>
+          </div>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Client / Account</th>
+                  <th>Company &amp; Type</th>
+                  <th>Contact Details</th>
+                  <th>Tier &amp; Status</th>
+                  <th>Lifetime Spend</th>
+                  <th>Orders</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="usersTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- ADD / EDIT PRODUCT MODAL -->
+  <div id="productModal" class="admin-modal-overlay">
+    <div class="admin-modal-box">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 1.5rem;">
+        <h3 style="margin:0; color:#fff;" id="productModalTitle">Add Product</h3>
+        <button onclick="closeProductModal()" class="btn-outline">✕</button>
+      </div>
+      <form id="productForm">
+        <input type="hidden" id="prodEditId">
+        <div style="display:flex; gap: 1rem;">
+          <div class="form-group" style="flex:1;">
+            <label>Category</label>
+            <select id="prodCategory" required onchange="handleModalCategoryChange()">
+              <option value="wine">Wine</option>
+              <option value="oil">Olive Oil</option>
+            </select>
+          </div>
+          <div class="form-group" style="flex:1;">
+            <label>Sub-Category</label>
+            <select id="prodType" required>
+              <!-- Dynamically populated based on category -->
+            </select>
+          </div>
+        </div>
+        <div style="display:flex; gap: 1rem;">
+          <div class="form-group" style="flex:1;">
+            <label>Product ID <span style="font-size:0.75rem; color:var(--admin-muted);">(Auto-assigned if blank)</span></label>
+            <input type="text" id="prodCustomId" placeholder="e.g. w10 or o18">
+          </div>
+          <div class="form-group" style="flex:1;">
+            <label>Variety / Grape</label>
+            <input type="text" id="prodVariety" placeholder="e.g. Tempranillo / Picual">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Product Name</label>
+          <input type="text" id="prodName" required placeholder="e.g. Altos de Tamaron Crianza">
+        </div>
+        <div class="form-group">
+          <label>Full Commercial Name</label>
+          <input type="text" id="prodFullName" placeholder="e.g. Altos de Tamaron Ribera del Duero Crianza D.O.">
+        </div>
+        <div style="display:flex; gap: 1rem;">
+          <div class="form-group" style="flex:1;">
+            <label>Region / Origin</label>
+            <input type="text" id="prodRegion" placeholder="e.g. Ribera del Duero / Jaén">
+          </div>
+          <div class="form-group" style="flex:1;">
+            <label>Price (PHP)</label>
+            <input type="number" id="prodPrice" step="0.01" placeholder="1850" required>
+          </div>
+        </div>
+        <div style="display:flex; gap: 1rem;">
+          <div class="form-group" style="flex:1;">
+            <label>Stock Quantity (Units)</label>
+            <input type="number" id="prodStockQty" min="0" placeholder="100" value="100" required>
+          </div>
+          <div class="form-group" style="flex:1;">
+            <label>Reorder Alert Level</label>
+            <input type="number" id="prodReorderLevel" min="0" placeholder="15" value="15" required>
+          </div>
+        </div>
+        <div style="display:flex; gap: 1rem;">
+          <div class="form-group" style="flex:1;">
+            <label>Denomination (Wine)</label>
+            <input type="text" id="prodDenomination" placeholder="e.g. D.O. Ribera del Duero">
+          </div>
+          <div class="form-group" style="flex:1;">
+            <label>Special Classification (Oil)</label>
+            <input type="text" id="prodSpecial" placeholder="e.g. COSECHA TEMPRANA">
+          </div>
+        </div>
+        <div style="display:flex; gap: 1rem;">
+          <div class="form-group" style="flex:1;">
+            <label>Volume / Size</label>
+            <input type="text" id="prodVolume" placeholder="e.g. 750ml, 500ml">
+          </div>
+          <div class="form-group" style="flex:1;">
+            <label>Container</label>
+            <input type="text" id="prodContainer" placeholder="Glass Bottle / Plastic Bottle">
+          </div>
+        </div>
+        <div style="display:flex; gap: 1rem;">
+          <div class="form-group" style="flex:1;">
+            <label>Icon Emoji</label>
+            <input type="text" id="prodIcon" placeholder="🍷 or 🫒">
+          </div>
+          <div class="form-group" style="flex:1;">
+            <label>Accent Color</label>
+            <input type="text" id="prodColor" placeholder="#6b1d2a or #4a5b1d">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Image Path or URL</label>
+          <input type="text" id="prodImage" placeholder="images/Altos_de_Tamaron_Crianza.jpg">
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <textarea id="prodDesc" rows="3" placeholder="Tasting notes, aroma, palate..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>Tags (comma separated)</label>
+          <input type="text" id="prodTags" placeholder="Crianza, Tempranillo, D.O.">
+        </div>
+        <div class="form-group">
+          <label>Stock Status</label>
+          <select id="prodInStock">
+            <option value="1">In Stock</option>
+            <option value="0">Out of Stock</option>
+          </select>
+        </div>
+        <div style="display:flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem;">
+          <button type="button" onclick="closeProductModal()" class="btn-outline">Cancel</button>
+          <button type="submit" class="btn-gold">Save Product</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- SOPHISTICATED CUSTOMER PROFILE DOSSIER MODAL -->
+  <div id="customerProfileModal" class="admin-modal-overlay">
+    <div class="admin-modal-box" style="max-width: 900px;">
+      <!-- Header with Monogram, Tier Badge & Actions -->
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 1.25rem;">
+        <div style="display:flex; align-items:center; gap:1.25rem;">
+          <div id="dossierAvatar" class="customer-avatar-lg">JD</div>
+          <div>
+            <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+              <h2 id="dossierFullName" style="margin:0; color:#fff; font-size:1.5rem;">Customer Name</h2>
+              <span id="dossierTierBadge" class="customer-tier-badge vip">VIP Private Client</span>
+              <span id="dossierStatusBadge" class="badge-status qualified">Active</span>
+            </div>
+            <div style="color:var(--admin-muted); font-size:0.85rem; margin-top:0.35rem;">
+              <span id="dossierCompany">Company Name</span> &bull; Username: <strong id="dossierUsername" style="color:var(--admin-gold);">username</strong> &bull; Member Since <span id="dossierCreated">2026</span>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex; gap:0.5rem; align-items:center;" class="no-print">
+          <button class="btn-gold" onclick="printCustomerDossier()" style="padding:0.45rem 0.9rem; font-size:0.82rem;">
+            🖨️ Print Profile
+          </button>
+          <button class="btn-outline" id="btnToggleEditCustomer" onclick="toggleCustomerEditMode()" style="padding:0.45rem 0.9rem; font-size:0.82rem;">
+            ✏️ Edit Profile
+          </button>
+          <button onclick="closeCustomerModal()" class="btn-outline" style="padding:0.45rem 0.75rem;">✕</button>
+        </div>
+      </div>
+
+      <!-- Customer KPI Tiles -->
+      <div class="customer-kpi-grid">
+        <div class="customer-kpi-card">
+          <div class="customer-kpi-label">Lifetime Value (LTV)</div>
+          <div class="customer-kpi-val" id="dossierLtv" style="color:var(--admin-gold);">₱0</div>
+        </div>
+        <div class="customer-kpi-card">
+          <div class="customer-kpi-label">Total Orders</div>
+          <div class="customer-kpi-val" id="dossierOrderCount">0</div>
+        </div>
+        <div class="customer-kpi-card">
+          <div class="customer-kpi-label">Avg Order Value (AOV)</div>
+          <div class="customer-kpi-val" id="dossierAov">₱0</div>
+        </div>
+        <div class="customer-kpi-card">
+          <div class="customer-kpi-label">Preferred Category</div>
+          <div class="customer-kpi-val" id="dossierPreferredCategory" style="font-size:1.1rem; color:#60a5fa;">Spanish Wine</div>
+        </div>
+      </div>
+
+      <!-- VIEW MODE: Customer Details Panels -->
+      <div id="dossierViewMode">
+        <div class="customer-sections-grid">
+          <!-- Corporate & Contact Info -->
+          <div class="customer-detail-panel">
+            <h4>🏢 Corporate &amp; Contact Information</h4>
+            <div class="customer-field-row">
+              <span class="lbl">Full Name</span>
+              <span class="val" id="dossierViewName">—</span>
+            </div>
+            <div class="customer-field-row">
+              <span class="lbl">Company / Entity</span>
+              <span class="val" id="dossierViewCompany">—</span>
+            </div>
+            <div class="customer-field-row">
+              <span class="lbl">Primary Email</span>
+              <span class="val" id="dossierViewEmail">—</span>
+            </div>
+            <div class="customer-field-row">
+              <span class="lbl">Contact Phone</span>
+              <span class="val" id="dossierViewPhone">—</span>
+            </div>
+            <div class="customer-field-row">
+              <span class="lbl">Tax ID / TIN</span>
+              <span class="val" id="dossierViewTaxId">—</span>
+            </div>
+            <div class="customer-field-row">
+              <span class="lbl">Account Type</span>
+              <span class="val" id="dossierViewType">—</span>
+            </div>
+          </div>
+
+          <!-- Logistics & Shipping Address -->
+          <div class="customer-detail-panel">
+            <h4>📍 Logistics &amp; Shipping Address</h4>
+            <div class="customer-field-row">
+              <span class="lbl">Street Address</span>
+              <span class="val" id="dossierViewAddress">—</span>
+            </div>
+            <div class="customer-field-row">
+              <span class="lbl">Barangay</span>
+              <span class="val" id="dossierViewBarangay">—</span>
+            </div>
+            <div class="customer-field-row">
+              <span class="lbl">City / Municipality</span>
+              <span class="val" id="dossierViewCity">—</span>
+            </div>
+            <div class="customer-field-row">
+              <span class="lbl">Province / State</span>
+              <span class="val" id="dossierViewProvince">—</span>
+            </div>
+            <div class="customer-field-row">
+              <span class="lbl">Postal / ZIP Code</span>
+              <span class="val" id="dossierViewZip">—</span>
+            </div>
+            <div class="customer-field-row">
+              <span class="lbl">Account Status</span>
+              <span class="val" id="dossierViewStatusText">Active</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sommelier Notes Panel -->
+        <div class="customer-detail-panel" style="margin-bottom:1.5rem;">
+          <h4>🍷 Sommelier Cellar &amp; VIP Account Notes</h4>
+          <div id="dossierViewNotes" style="font-size:0.88rem; color:#e2e8f0; line-height:1.6; font-style:italic;">
+            No specific sommelier notes recorded for this client.
+          </div>
+        </div>
+
+        <!-- Customer Purchase History Ledger -->
+        <div class="admin-card" style="margin-bottom:0; background:rgba(255,255,255,0.015);">
+          <div class="admin-card-header">
+            <h4 style="margin:0; font-size:0.95rem; color:#fff;">📦 Customer Order History</h4>
+          </div>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Order #</th>
+                  <th>Date</th>
+                  <th>Items Purchased</th>
+                  <th>Total Amount</th>
+                  <th>Payment</th>
+                  <th>Status</th>
+                  <th>Invoice</th>
+                </tr>
+              </thead>
+              <tbody id="dossierOrdersTableBody">
+                <tr><td colspan="7" style="text-align:center; color:var(--admin-muted);">No orders found for this customer.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- EDIT MODE: Customer Profile Form -->
+      <form id="customerEditForm" style="display:none;" onsubmit="saveCustomerProfile(event)">
+        <input type="hidden" id="editCustUserId">
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1rem;">
+          <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" id="editCustFullName" required>
+          </div>
+          <div class="form-group">
+            <label>Company / Establishment</label>
+            <input type="text" id="editCustCompany">
+          </div>
+        </div>
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1rem;">
+          <div class="form-group">
+            <label>Direct Phone Number</label>
+            <input type="text" id="editCustPhone" placeholder="+63 917 555 0192">
+          </div>
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" id="editCustEmail" required>
+          </div>
+        </div>
+        <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:1rem;">
+          <div class="form-group">
+            <label>Customer Tier</label>
+            <select id="editCustTier">
+              <option value="VIP Private Client">VIP Private Client</option>
+              <option value="Wholesale Premier">Wholesale Premier</option>
+              <option value="Corporate Hospitality">Corporate Hospitality</option>
+              <option value="Direct Retail">Direct Retail</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Customer Type</label>
+            <select id="editCustType">
+              <option value="VIP Private Collector">VIP Private Collector</option>
+              <option value="Fine Dining / Restaurant">Fine Dining / Restaurant</option>
+              <option value="Hotel / Hospitality">Hotel / Hospitality</option>
+              <option value="Retail Boutique">Retail Boutique</option>
+              <option value="General Consumer">General Consumer</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Preferred Category</label>
+            <select id="editCustCategory">
+              <option value="Spanish Wine">Spanish Wine</option>
+              <option value="BUENSALUD Olive Oil">BUENSALUD Olive Oil</option>
+              <option value="Both Wine & Olive Oil">Both Wine &amp; Olive Oil</option>
+            </select>
+          </div>
+        </div>
+        <div style="display:grid; grid-template-columns: 2fr 1fr; gap:1rem;">
+          <div class="form-group">
+            <label>Street Address</label>
+            <input type="text" id="editCustAddress" placeholder="Suite / Unit / Street">
+          </div>
+          <div class="form-group">
+            <label>Barangay</label>
+            <input type="text" id="editCustBarangay" placeholder="Barangay / District">
+          </div>
+        </div>
+        <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:1rem;">
+          <div class="form-group">
+            <label>City / Municipality</label>
+            <input type="text" id="editCustCity" placeholder="Makati, Taguig...">
+          </div>
+          <div class="form-group">
+            <label>Province</label>
+            <input type="text" id="editCustProvince" placeholder="Metro Manila">
+          </div>
+          <div class="form-group">
+            <label>Postal / ZIP Code</label>
+            <input type="text" id="editCustPostal" placeholder="1226">
+          </div>
+        </div>
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1rem;">
+          <div class="form-group">
+            <label>Tax ID / TIN</label>
+            <input type="text" id="editCustTaxId" placeholder="123-456-789-000">
+          </div>
+          <div class="form-group">
+            <label>Account Status</label>
+            <select id="editCustStatus">
+              <option value="active">Active</option>
+              <option value="on-hold">On-Hold</option>
+              <option value="suspended">Suspended</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Sommelier Tasting Notes &amp; VIP Account Directives</label>
+          <textarea id="editCustNotes" rows="3" placeholder="Cellar preferences, favorite varieties, special delivery instructions..."></textarea>
+        </div>
+        <div style="display:flex; justify-content:flex-end; gap:0.75rem; margin-top:1.5rem;">
+          <button type="button" onclick="cancelCustomerEditMode()" class="btn-outline">Cancel</button>
+          <button type="submit" class="btn-gold">💾 Save Profile Information</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ORDER COMMERCIAL INVOICE PRINT MODAL -->
+  <div id="orderInvoiceModal" class="admin-modal-overlay">
+    <div class="admin-modal-box" style="max-width: 800px; background: #fff; color: #111;">
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 2px solid #e5e7eb; padding-bottom: 1rem; margin-bottom: 1.5rem;">
+        <div style="display:flex; align-items:center; gap:0.75rem;">
+          <img src="bedrock_logo.png" alt="Bedrock" style="height:44px; filter:none;">
+          <div>
+            <h2 style="margin:0; font-size:1.3rem; color:#111827;">BEDROCK CONSUMER GOODS TRADING</h2>
+            <div style="font-size:0.8rem; color:#6b7280;">Official Commercial Invoice &amp; Delivery Slip</div>
+          </div>
+        </div>
+        <div style="display:flex; gap:0.5rem;" class="no-print">
+          <button class="btn-gold" onclick="printActiveOrderInvoice()" style="padding:0.45rem 1rem; font-size:0.85rem;">
+            🖨️ Print Invoice
+          </button>
+          <button onclick="closeInvoiceModal()" class="btn-outline" style="padding:0.45rem 0.75rem; color:#374151; border-color:#d1d5db;">✕</button>
+        </div>
+      </div>
+
+      <div id="invoicePrintContent">
+        <!-- Injected dynamically by JS -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let token = localStorage.getItem('bedrock_token');
+    let currentUser = null;
+    let activeReportSubTab = 'inventory';
+    let cachedInventoryData = null;
+    let cachedSalesData = null;
+    let cachedFinancialData = null;
+    let activeCustomerData = null;
+    let allOrdersList = [];
+
+    // Category and Subcategory Definitions
+    const CATEGORY_SUBCATEGORIES = {
+      wine: ['Red', 'White', 'Sparkling', 'Rose'],
+      oil: ['Picual', 'Arbequina', 'Coupage']
+    };
+
+    function populateSubcategories(cat, selectedVal) {
+      const typeSelect = document.getElementById('prodType');
+      if (!typeSelect) return;
+      typeSelect.innerHTML = '';
+      const list = CATEGORY_SUBCATEGORIES[cat] || ['Red', 'White', 'Sparkling', 'Rose'];
+      list.forEach(sub => {
+        const opt = document.createElement('option');
+        opt.value = sub;
+        opt.textContent = sub;
+        if (selectedVal && selectedVal.trim().toLowerCase() === sub.toLowerCase()) {
+          opt.selected = true;
+        }
+        typeSelect.appendChild(opt);
+      });
+    }
+
+    function handleModalCategoryChange() {
+      const cat = document.getElementById('prodCategory').value;
+      populateSubcategories(cat);
+    }
+
+    // Check login state on load
+    async function initAdmin() {
+      if (!token) {
+        showAuthGate();
+        return;
+      }
+      try {
+        const res = await fetch('/api/auth/me', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (!res.ok) throw new Error('Unauthorized');
+        const data = await res.json();
+        if (!['admin', 'viewer'].includes(data.user.role)) {
+          alert('Access denied. Administrator or staff privileges required.');
+          logoutAdmin();
+          return;
+        }
+        currentUser = data.user;
+        showDashboard();
+      } catch (e) {
+        logoutAdmin();
+      }
+    }
+
+    function clearAdminLoginInputs() {
+      const loginForm = document.getElementById('adminLoginForm');
+      if (loginForm) loginForm.reset();
+
+      const loginInput = document.getElementById('adminLoginInput');
+      if (loginInput) {
+        loginInput.value = '';
+        loginInput.defaultValue = '';
+      }
+      const passwordInput = document.getElementById('adminPasswordInput');
+      if (passwordInput) {
+        passwordInput.value = '';
+        passwordInput.defaultValue = '';
+      }
+
+      const productForm = document.getElementById('productForm');
+      if (productForm) productForm.reset();
+      const prodEditId = document.getElementById('prodEditId');
+      if (prodEditId) prodEditId.value = '';
+
+      document.querySelectorAll('#authGate input').forEach(input => {
+        input.value = '';
+        input.defaultValue = '';
+      });
+
+      const errorDiv = document.getElementById('loginError');
+      if (errorDiv) {
+        errorDiv.style.display = 'none';
+        errorDiv.textContent = '';
+      }
+
+      setTimeout(() => {
+        if (loginInput) loginInput.value = '';
+        if (passwordInput) passwordInput.value = '';
+      }, 50);
+      setTimeout(() => {
+        if (loginInput) loginInput.value = '';
+        if (passwordInput) passwordInput.value = '';
+      }, 200);
+    }
+
+    function showAuthGate() {
+      document.getElementById('authGate').style.display = 'block';
+      document.getElementById('adminLayout').style.display = 'none';
+      clearAdminLoginInputs();
+    }
+
+    function showDashboard() {
+      document.getElementById('authGate').style.display = 'none';
+      document.getElementById('adminLayout').style.display = 'flex';
+      document.getElementById('currentUserName').textContent = currentUser.full_name || currentUser.username;
+      
+      const roleText = currentUser.role === 'admin' ? 'ADMINISTRATOR' : 'STAFF VIEWER';
+      document.getElementById('currentUserRole').textContent = roleText;
+
+      // Restrict admin-only UI elements if user is viewer
+      const isViewer = currentUser.role === 'viewer';
+      const badgeSales = document.getElementById('badgeSalesRole');
+      const badgeFinancial = document.getElementById('badgeFinancialRole');
+      if (badgeSales) badgeSales.textContent = isViewer ? 'Locked' : 'Admin Only';
+      if (badgeFinancial) badgeFinancial.textContent = isViewer ? 'Locked' : 'Admin Only';
+
+      refreshAll();
+    }
+
+    function refreshAll() {
+      loadStats();
+      loadProducts();
+      loadLeads();
+      loadOrders();
+      loadUsers();
+      if (document.getElementById('tab-reports').classList.contains('active')) {
+        loadActiveReport();
+      }
+    }
+
+    function logoutAdmin() {
+      localStorage.removeItem('bedrock_token');
+      token = null;
+      currentUser = null;
+      if (typeof closeProductModal === 'function') closeProductModal();
+      if (typeof closeCustomerModal === 'function') closeCustomerModal();
+      if (typeof closeInvoiceModal === 'function') closeInvoiceModal();
+      showAuthGate();
+      clearAdminLoginInputs();
+    }
+
+    // Login Form Submit
+    document.getElementById('adminLoginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const login = document.getElementById('adminLoginInput').value;
+      const password = document.getElementById('adminPasswordInput').value;
+      const errorDiv = document.getElementById('loginError');
+      errorDiv.style.display = 'none';
+
+      try {
+        const res = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ login, password })
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          throw new Error(data.error || 'Login failed');
+        }
+        if (!['admin', 'viewer'].includes(data.user.role)) {
+          throw new Error('This account does not have management portal permissions.');
+        }
+        token = data.token;
+        currentUser = data.user;
+        localStorage.setItem('bedrock_token', token);
+        clearAdminLoginInputs();
+        showDashboard();
+      } catch (err) {
+        const passInput = document.getElementById('adminPasswordInput');
+        if (passInput) passInput.value = '';
+        errorDiv.textContent = err.message;
+        errorDiv.style.display = 'block';
+      }
+    });
+
+    // Navigation Tabs
+    function switchTab(tabId) {
+      document.querySelectorAll('.admin-nav-item').forEach(el => el.classList.remove('active'));
+      const activeNav = document.querySelector(`.admin-nav-item[data-tab="${tabId}"]`);
+      if (activeNav) activeNav.classList.add('active');
+
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      const content = document.getElementById(`tab-${tabId}`);
+      if (content) content.classList.add('active');
+
+      const titles = {
+        overview: 'Dashboard Overview',
+        reports: 'Executive Reports & Analytics',
+        products: 'Product Catalog Management',
+        leads: 'Leads & Customer Inquiries',
+        orders: 'Customer Orders Management',
+        users: 'Customer Profile Management'
+      };
+      document.getElementById('pageTitle').textContent = titles[tabId] || 'Admin Portal';
+      
+      const isViewer = currentUser && currentUser.role === 'viewer';
+      document.getElementById('headerActionBtn').style.display = (tabId === 'products' && !isViewer) ? 'inline-flex' : 'none';
+      document.getElementById('headerPrintBtn').style.display = (tabId === 'reports' || tabId === 'products' || tabId === 'orders') ? 'inline-flex' : 'none';
+
+      if (tabId === 'reports') {
+        loadActiveReport();
+      }
+    }
+
+    // Reports Subtabs & Loader
+    function switchReportSubTab(subTab) {
+      const isViewer = currentUser && currentUser.role === 'viewer';
+      
+      // Enforce: Sales & Financial reports accessible ONLY to admin users
+      if (isViewer && (subTab === 'sales' || subTab === 'financial')) {
+        showToast('🔒 Sales and Financial reports are restricted to Administrator accounts.');
+        return;
+      }
+
+      activeReportSubTab = subTab;
+      document.querySelectorAll('.report-subnav-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.report-view').forEach(view => view.classList.remove('active'));
+
+      if (subTab === 'inventory') {
+        const btn = document.getElementById('btnSubnavInventory');
+        if (btn) btn.classList.add('active');
+        const view = document.getElementById('subtab-inventory');
+        if (view) view.classList.add('active');
+        document.getElementById('printReportTitle').textContent = 'Live Inventory & Stock Level Report';
+        const asOfEl = document.getElementById('printReportAsOf');
+        if (asOfEl) asOfEl.style.display = 'block';
+        loadInventoryReport();
+      } else if (subTab === 'sales') {
+        const btn = document.getElementById('btnSubnavSales');
+        if (btn) btn.classList.add('active');
+        const view = document.getElementById('subtab-sales');
+        if (view) view.classList.add('active');
+        document.getElementById('printReportTitle').textContent = 'Executive Sales & Commercial Transactions Report';
+        const asOfEl = document.getElementById('printReportAsOf');
+        if (asOfEl) asOfEl.style.display = 'none';
+        loadSalesReport();
+      } else if (subTab === 'financial') {
+        const btn = document.getElementById('btnSubnavFinancial');
+        if (btn) btn.classList.add('active');
+        const view = document.getElementById('subtab-financial');
+        if (view) view.classList.add('active');
+        document.getElementById('printReportTitle').textContent = 'Financial Profit Margins & Fiscal Audit Report';
+        const asOfEl = document.getElementById('printReportAsOf');
+        if (asOfEl) asOfEl.style.display = 'none';
+        loadFinancialReport();
+      }
+    }
+
+    function loadActiveReport() {
+      switchReportSubTab(activeReportSubTab);
+    }
+
+    // Inventory Report (Accessible to BOTH Admin and Viewer)
+    async function loadInventoryReport(isManual = false) {
+      try {
+        const res = await fetch('/api/reports/inventory', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (!res.ok) throw new Error('Failed to load inventory report');
+        const data = await res.json();
+        cachedInventoryData = data;
+
+        // "As of today" timestamp calculation
+        const now = new Date();
+        const dateFormatted = now.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        const timeFormatted = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+
+        // Update Screen Elements
+        const screenDateEl = document.getElementById('invAsOfDateScreen');
+        if (screenDateEl) screenDateEl.textContent = dateFormatted;
+        const screenTimeEl = document.getElementById('invGenTimeScreen');
+        if (screenTimeEl) screenTimeEl.textContent = `Report Generated: ${dateFormatted} at ${timeFormatted}`;
+        document.querySelectorAll('.inv-live-date').forEach(el => el.textContent = dateFormatted);
+
+        // Update Print Header
+        const printAsOfDate = document.getElementById('printReportAsOfDate');
+        if (printAsOfDate) printAsOfDate.textContent = dateFormatted;
+        const tsEl = document.getElementById('printReportTimestamp');
+        if (tsEl) {
+          tsEl.textContent = `Report Generated: ${dateFormatted} at ${timeFormatted} by ${currentUser ? currentUser.username : 'Admin'}`;
+        }
+
+        if (isManual) {
+          showToast(`⚡ Inventory updated as of today (${dateFormatted})`);
+        }
+
+        document.getElementById('invKpiTotalSkus').textContent = data.kpis.total_skus;
+        document.getElementById('invKpiBreakdown').textContent = `${data.kpis.wine_skus} Wines • ${data.kpis.oil_skus} Olive Oils`;
+        document.getElementById('invKpiTotalUnits').textContent = `${(data.kpis.total_stock_units || 0).toLocaleString()} units`;
+        document.getElementById('invKpiLowStock').textContent = data.kpis.low_stock_skus;
+        document.getElementById('invKpiTotalValuation').textContent = `₱${(data.kpis.total_valuation || 0).toLocaleString()}`;
+
+        // Render Wine Subcategories breakdown (Red, White, Sparkling, Rose)
+        const wineListEl = document.getElementById('invWineSubcatList');
+        if (wineListEl) {
+          const wineSubs = ['Red', 'White', 'Sparkling', 'Rose'];
+          wineListEl.innerHTML = wineSubs.map(sub => {
+            const info = data.by_sub_category[sub] || { count: 0, stock: 0, valuation: 0 };
+            return `
+              <div style="display:flex; justify-content:space-between; align-items:center; padding:0.4rem 0.6rem; background:rgba(255,255,255,0.02); border-radius:6px;">
+                <div style="font-weight:600; color:#fff;">${sub} Wine</div>
+                <div style="font-size:0.85rem; color:var(--admin-muted);">
+                  <strong style="color:var(--admin-gold);">${info.count}</strong> SKUs &bull; 
+                  <strong style="color:#34d399;">${info.stock}</strong> units &bull; 
+                  ₱${info.valuation.toLocaleString()}
+                </div>
+              </div>
+            `;
+          }).join('');
+        }
+
+        // Render Olive Oil Subcategories breakdown (Picual, Arbequina, Coupage)
+        const oilListEl = document.getElementById('invOilSubcatList');
+        if (oilListEl) {
+          const oilSubs = ['Picual', 'Arbequina', 'Coupage'];
+          oilListEl.innerHTML = oilSubs.map(sub => {
+            const info = data.by_sub_category[sub] || { count: 0, stock: 0, valuation: 0 };
+            return `
+              <div style="display:flex; justify-content:space-between; align-items:center; padding:0.4rem 0.6rem; background:rgba(255,255,255,0.02); border-radius:6px;">
+                <div style="font-weight:600; color:#fff;">${sub} EVOO</div>
+                <div style="font-size:0.85rem; color:var(--admin-muted);">
+                  <strong style="color:var(--admin-gold);">${info.count}</strong> SKUs &bull; 
+                  <strong style="color:#34d399;">${info.stock}</strong> units &bull; 
+                  ₱${info.valuation.toLocaleString()}
+                </div>
+              </div>
+            `;
+          }).join('');
+        }
+
+        renderInventoryTable(data.inventory);
+      } catch (err) {
+        console.error('Inventory report error:', err);
+      }
+    }
+
+    function renderAdminDesc(desc, id) {
+      if (!desc) return '';
+      const clean = String(desc).trim();
+      const needsToggle = clean.length > 55 || clean.includes('\n');
+      if (!needsToggle) {
+        return `<div style="font-size:0.75rem; color:#94a3b8; margin-top:0.25rem; line-height:1.4;">${clean}</div>`;
+      }
+      return `
+        <div style="margin-top:0.35rem; max-width:320px;">
+          <div id="${id}" style="font-size:0.75rem; color:#94a3b8; line-height:1.4; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; line-clamp:2; overflow:hidden; word-break:break-word;">${clean}</div>
+          <button type="button" onclick="toggleAdminDesc(event, '${id}')" style="background:none; border:none; padding:0; margin-top:3px; font-size:0.72rem; color:var(--admin-gold); cursor:pointer; font-weight:600; display:inline-flex; align-items:center; gap:3px;">
+            <span>Read more</span>
+            <span style="font-size:0.65rem;">▼</span>
+          </button>
+        </div>
+      `;
+    }
+
+    function toggleAdminDesc(event, id) {
+      if (event) { event.stopPropagation(); event.preventDefault(); }
+      const el = document.getElementById(id);
+      const btn = event ? event.currentTarget : null;
+      if (!el) return;
+      const isExpanded = el.style.webkitLineClamp === 'unset';
+      if (isExpanded) {
+        el.style.webkitLineClamp = '2';
+        el.style.display = '-webkit-box';
+        if (btn) btn.innerHTML = '<span>Read more</span><span style="font-size:0.65rem;">▼</span>';
+      } else {
+        el.style.webkitLineClamp = 'unset';
+        el.style.display = 'block';
+        if (btn) btn.innerHTML = '<span>Read less</span><span style="font-size:0.65rem;">▲</span>';
+      }
+    }
+
+    function renderInventoryTable(items) {
+      const tbody = document.getElementById('inventoryReportTableBody');
+      if (!tbody) return;
+      tbody.innerHTML = items.map(p => {
+        const isLow = p.stock_quantity <= p.reorder_level;
+        const isOutOfStock = p.stock_quantity <= 0 || !p.in_stock;
+        let statusBadge = '<span class="badge-status qualified">In Stock</span>';
+        if (isOutOfStock) {
+          statusBadge = '<span class="badge-status closed">Out of Stock</span>';
+        } else if (isLow) {
+          statusBadge = '<span class="badge-status pending">Low Stock</span>';
+        }
+
+        return `
+          <tr>
+            <td><strong style="color:var(--admin-gold);">${p.id}</strong></td>
+            <td><span class="badge-status ${p.category === 'wine' ? 'contacted' : 'qualified'}">${p.category === 'wine' ? 'Wine' : 'Olive Oil'}</span></td>
+            <td>
+              <div style="font-weight:600; color:#fff;">${p.name}</div>
+              <div style="font-size:0.75rem; color:var(--admin-muted);">${p.volume || p.region || 'Spain'}</div>
+              ${renderAdminDesc(p.description, 'inv-desc-' + p.id)}
+            </td>
+            <td><strong style="color:#cbd5e1;">${p.type || '—'}</strong></td>
+            <td>₱${(p.price || 0).toLocaleString()}</td>
+            <td>
+              <div style="font-weight:700; color:${isLow ? '#f59e0b' : '#34d399'}; font-size:0.95rem;">
+                ${p.stock_quantity} units
+              </div>
+            </td>
+            <td><span style="color:var(--admin-muted);">${p.reorder_level} units</span></td>
+            <td><strong>₱${(p.valuation || (p.price * p.stock_quantity)).toLocaleString()}</strong></td>
+            <td>${statusBadge}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function filterInventoryTable() {
+      if (!cachedInventoryData || !cachedInventoryData.inventory) return;
+      const cat = document.getElementById('invFilterCategory').value;
+      const status = document.getElementById('invFilterStatus').value;
+
+      let filtered = cachedInventoryData.inventory.slice();
+      if (cat) {
+        filtered = filtered.filter(p => p.category === cat);
+      }
+      if (status === 'in_stock') {
+        filtered = filtered.filter(p => p.stock_quantity > p.reorder_level && p.in_stock);
+      } else if (status === 'low_stock') {
+        filtered = filtered.filter(p => p.stock_quantity <= p.reorder_level && p.stock_quantity > 0);
+      } else if (status === 'out_of_stock') {
+        filtered = filtered.filter(p => p.stock_quantity <= 0 || !p.in_stock);
+      }
+
+      renderInventoryTable(filtered);
+    }
+
+    // Sales Report (Admin Only)
+    async function loadSalesReport() {
+      const restrictedNotice = document.getElementById('salesReportRestrictedNotice');
+      const salesContent = document.getElementById('salesReportContent');
+
+      if (currentUser.role !== 'admin') {
+        if (restrictedNotice) restrictedNotice.style.display = 'block';
+        if (salesContent) salesContent.style.display = 'none';
+        return;
+      }
+
+      if (restrictedNotice) restrictedNotice.style.display = 'none';
+      if (salesContent) salesContent.style.display = 'block';
+
+      try {
+        const res = await fetch('/api/reports/sales', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (!res.ok) throw new Error('Failed to load sales report');
+        const data = await res.json();
+        cachedSalesData = data;
+
+        document.getElementById('salesKpiGross').textContent = `₱${(data.kpis.gross_revenue || 0).toLocaleString()}`;
+        document.getElementById('salesKpiConfirmed').textContent = `${data.kpis.total_orders} total orders recorded`;
+        document.getElementById('salesKpiOrders').textContent = data.kpis.total_orders;
+        document.getElementById('salesKpiAov').textContent = `₱${(data.kpis.aov || 0).toLocaleString()}`;
+        document.getElementById('salesKpiUnits').textContent = `${data.kpis.total_units_sold || 0} units`;
+
+        // Category breakdown
+        const catContainer = document.getElementById('salesCategoryBreakdown');
+        if (catContainer) {
+          const wineRev = data.by_category.wine.revenue || 0;
+          const oilRev = data.by_category.oil.revenue || 0;
+          catContainer.innerHTML = `
+            <div style="display:flex; justify-content:space-between; align-items:center; padding:0.6rem 0.8rem; background:rgba(255,255,255,0.02); border-radius:6px;">
+              <div><strong>🍷 Spanish Wines</strong></div>
+              <div style="text-align:right;">
+                <div style="color:var(--admin-gold); font-weight:700;">₱${wineRev.toLocaleString()}</div>
+                <div style="font-size:0.75rem; color:var(--admin-muted);">${data.by_category.wine.units_sold || 0} units sold</div>
+              </div>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; padding:0.6rem 0.8rem; background:rgba(255,255,255,0.02); border-radius:6px;">
+              <div><strong>🫒 BUENSALUD Olive Oils</strong></div>
+              <div style="text-align:right;">
+                <div style="color:#34d399; font-weight:700;">₱${oilRev.toLocaleString()}</div>
+                <div style="font-size:0.75rem; color:var(--admin-muted);">${data.by_category.oil.units_sold || 0} units sold</div>
+              </div>
+            </div>
+          `;
+        }
+
+        // Subcategory breakdown
+        const subcatContainer = document.getElementById('salesSubcategoryBreakdown');
+        if (subcatContainer) {
+          const subkeys = Object.keys(data.by_sub_category);
+          subcatContainer.innerHTML = subkeys.map(k => `
+            <div style="display:flex; justify-content:space-between; align-items:center; padding:0.4rem 0.6rem; border-bottom:1px solid rgba(255,255,255,0.03);">
+              <div style="font-size:0.9rem; color:#fff;">${k}</div>
+              <div style="font-size:0.85rem; text-align:right;">
+                <span style="color:var(--admin-gold); font-weight:600;">₱${(data.by_sub_category[k].revenue || 0).toLocaleString()}</span>
+                <span style="color:var(--admin-muted); font-size:0.75rem;">(${data.by_sub_category[k].units_sold || 0} units)</span>
+              </div>
+            </div>
+          `).join('');
+        }
+
+        // Top selling products table
+        const topTableBody = document.getElementById('salesTopProductsTableBody');
+        if (topTableBody) {
+          topTableBody.innerHTML = (data.top_products || []).map(p => `
+            <tr>
+              <td><strong style="color:#fff;">${p.name}</strong></td>
+              <td><span class="badge-status ${p.category === 'wine' ? 'contacted' : 'qualified'}">${p.category === 'wine' ? 'Wine' : 'Olive Oil'}</span></td>
+              <td>${p.sub_category}</td>
+              <td><strong style="color:#34d399;">${p.units_sold} units</strong></td>
+              <td><strong style="color:var(--admin-gold);">₱${p.revenue.toLocaleString()}</strong></td>
+            </tr>
+          `).join('');
+        }
+
+        // Commercial sales ledger table
+        const ledgerTableBody = document.getElementById('salesLedgerTableBody');
+        if (ledgerTableBody) {
+          ledgerTableBody.innerHTML = (data.ledger || []).map(o => `
+            <tr>
+              <td><strong style="color:var(--admin-gold);">${o.order_number}</strong></td>
+              <td>${new Date(o.date).toLocaleDateString()}</td>
+              <td><strong>${o.customer}</strong></td>
+              <td><span style="font-size:0.85rem;">${(o.items || []).map(i => `${i.qty}x ${i.name}`).join(', ')}</span></td>
+              <td><span style="text-transform:uppercase; font-size:0.8rem;">${o.payment_method}</span></td>
+              <td><span class="badge-status ${o.status}">${o.status}</span></td>
+              <td><strong style="color:#fff;">₱${(o.total || 0).toLocaleString()}</strong></td>
+            </tr>
+          `).join('');
+        }
+      } catch (err) {
+        console.error('Sales report error:', err);
+      }
+    }
+
+    // Financial Report (Admin Only)
+    async function loadFinancialReport() {
+      const restrictedNotice = document.getElementById('finReportRestrictedNotice');
+      const finContent = document.getElementById('finReportContent');
+
+      if (currentUser.role !== 'admin') {
+        if (restrictedNotice) restrictedNotice.style.display = 'block';
+        if (finContent) finContent.style.display = 'none';
+        return;
+      }
+
+      if (restrictedNotice) restrictedNotice.style.display = 'none';
+      if (finContent) finContent.style.display = 'block';
+
+      try {
+        const res = await fetch('/api/reports/financial', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (!res.ok) throw new Error('Failed to load financial report');
+        const data = await res.json();
+        cachedFinancialData = data;
+
+        document.getElementById('finKpiGross').textContent = `₱${(data.summary.gross_revenue || 0).toLocaleString()}`;
+        document.getElementById('finKpiCogs').textContent = `₱${(data.summary.estimated_cogs || 0).toLocaleString()}`;
+        document.getElementById('finKpiMargin').textContent = `₱${(data.summary.estimated_gross_margin || 0).toLocaleString()}`;
+        document.getElementById('finKpiMarginPct').textContent = `${data.summary.gross_margin_percentage}% Gross Margin Rate`;
+        document.getElementById('finKpiVat').textContent = `₱${(data.summary.estimated_vat_12_pct || 0).toLocaleString()}`;
+
+        // Payment channel reconciliations
+        const payContainer = document.getElementById('finPaymentBreakdown');
+        if (payContainer) {
+          const channels = Object.keys(data.payment_channels || {});
+          payContainer.innerHTML = channels.map(c => `
+            <div style="display:flex; justify-content:space-between; align-items:center; padding:0.6rem 0.8rem; background:rgba(255,255,255,0.02); border-radius:6px;">
+              <div>
+                <strong style="text-transform:uppercase; color:#fff;">${c}</strong>
+                <div style="font-size:0.75rem; color:var(--admin-muted);">${data.payment_channels[c].count} transactions</div>
+              </div>
+              <div style="color:var(--admin-gold); font-weight:700; font-size:1.05rem;">
+                ₱${(data.payment_channels[c].total || 0).toLocaleString()}
+              </div>
+            </div>
+          `).join('');
+        }
+
+        // Cash flow & fulfillment status
+        const statusContainer = document.getElementById('finStatusBreakdown');
+        if (statusContainer) {
+          const statuses = Object.keys(data.status_breakdown || {});
+          statusContainer.innerHTML = statuses.map(s => `
+            <div style="display:flex; justify-content:space-between; align-items:center; padding:0.55rem 0.8rem; border-bottom:1px solid rgba(255,255,255,0.03);">
+              <div><span class="badge-status ${s}">${s}</span></div>
+              <div style="text-align:right;">
+                <span style="font-weight:700; color:#fff;">₱${(data.status_breakdown[s].total || 0).toLocaleString()}</span>
+                <span style="color:var(--admin-muted); font-size:0.75rem;">(${data.status_breakdown[s].count} orders)</span>
+              </div>
+            </div>
+          `).join('');
+        }
+      } catch (err) {
+        console.error('Financial report error:', err);
+      }
+    }
+
+    // Print Active Report
+    function printActiveReport() {
+      const now = new Date();
+      const dateFormatted = now.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+      const timeFormatted = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+      
+      const asOfEl = document.getElementById('printReportAsOf');
+      const asOfDateEl = document.getElementById('printReportAsOfDate');
+      const tsEl = document.getElementById('printReportTimestamp');
+
+      if (activeReportSubTab === 'inventory') {
+        if (asOfEl) asOfEl.style.display = 'block';
+        if (asOfDateEl) asOfDateEl.textContent = dateFormatted;
+        if (tsEl) tsEl.textContent = `Report Generated: ${dateFormatted} at ${timeFormatted} by ${currentUser ? currentUser.username : 'Admin'}`;
+      } else {
+        if (asOfEl) asOfEl.style.display = 'none';
+        if (tsEl) tsEl.textContent = `Report Generated: ${dateFormatted} at ${timeFormatted} by ${currentUser ? currentUser.username : 'Admin'}`;
+      }
+      window.print();
+    }
+
+    function printActiveView() {
+      const now = new Date();
+      const tsEl = document.getElementById('printReportTimestamp');
+      if (tsEl) {
+        tsEl.textContent = `Printed: ${now.toLocaleDateString()} at ${now.toLocaleTimeString()}`;
+      }
+      window.print();
+    }
+
+    // Export CSV Helper
+    function exportActiveReportCSV() {
+      if (activeReportSubTab === 'inventory') {
+        if (!cachedInventoryData || !cachedInventoryData.inventory) {
+          alert('Inventory data not loaded yet.');
+          return;
+        }
+        let csv = 'SKU,Category,SubCategory,ProductName,Price,StockQuantity,ReorderLevel,Valuation,InStock\n';
+        cachedInventoryData.inventory.forEach(p => {
+          csv += `"${p.id}","${p.category}","${p.type || ''}","${p.name.replace(/"/g, '""')}",${p.price},${p.stock_quantity},${p.reorder_level},${p.price * p.stock_quantity},${p.in_stock ? 1 : 0}\n`;
+        });
+        downloadCSVFile(csv, `Bedrock_Inventory_Report_${new Date().toISOString().slice(0,10)}.csv`);
+      } else if (activeReportSubTab === 'sales') {
+        if (!cachedSalesData || !cachedSalesData.ledger) {
+          alert('Sales data not loaded yet.');
+          return;
+        }
+        let csv = 'OrderNumber,Date,Customer,PaymentMethod,Status,TotalAmount\n';
+        cachedSalesData.ledger.forEach(o => {
+          csv += `"${o.order_number}","${o.date}","${o.customer.replace(/"/g, '""')}","${o.payment_method}","${o.status}",${o.total}\n`;
+        });
+        downloadCSVFile(csv, `Bedrock_Sales_Report_${new Date().toISOString().slice(0,10)}.csv`);
+      } else if (activeReportSubTab === 'financial') {
+        if (!cachedFinancialData || !cachedFinancialData.summary) {
+          alert('Financial data not loaded yet.');
+          return;
+        }
+        let csv = 'Metric,Value\n';
+        csv += `"Gross Revenue",${cachedFinancialData.summary.gross_revenue}\n`;
+        csv += `"Estimated COGS",${cachedFinancialData.summary.estimated_cogs}\n`;
+        csv += `"Estimated Gross Margin",${cachedFinancialData.summary.estimated_gross_margin}\n`;
+        csv += `"Gross Margin Rate %",${cachedFinancialData.summary.gross_margin_percentage}\n`;
+        csv += `"Estimated 12% VAT",${cachedFinancialData.summary.estimated_vat_12_pct}\n`;
+        downloadCSVFile(csv, `Bedrock_Financial_Report_${new Date().toISOString().slice(0,10)}.csv`);
+      }
+    }
+
+    function downloadCSVFile(csvContent, fileName) {
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.setAttribute('href', url);
+      link.setAttribute('download', fileName);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+      showToast(`✓ Exported ${fileName}`);
+    }
+
+    // Load Stats
+    async function loadStats() {
+      try {
+        const res = await fetch('/api/stats', { headers: { 'Authorization': `Bearer ${token}` } });
+        if (!res.ok) return;
+        const data = await res.json();
+        document.getElementById('statProducts').textContent = data.products;
+        document.getElementById('statLeads').textContent = data.leads.new;
+        document.getElementById('statLeadsSub').textContent = `${data.leads.total} total inquiries`;
+        document.getElementById('statOrders').textContent = data.orders.pending;
+        document.getElementById('statOrdersSub').textContent = `${data.orders.total} total orders`;
+        document.getElementById('statUsers').textContent = data.users;
+
+        document.getElementById('navProductCount').textContent = data.products;
+        document.getElementById('navLeadCount').textContent = data.leads.new;
+        document.getElementById('navOrderCount').textContent = data.orders.pending;
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    let productsMap = {};
+
+    function openEditProductModalById(id) {
+      const prod = productsMap[id];
+      if (prod) openEditProductModal(prod);
+    }
+
+    // Load Products with Stock Levels & Inline Actions
+    async function loadProducts() {
+      try {
+        const res = await fetch('/api/products');
+        const data = await res.json();
+
+        // Sort products by category (wines first, then oils) and numeric ID (w1..w9, o1..o17)
+        data.products.sort((a, b) => {
+          const catA = a.category === 'wine' ? 1 : 2;
+          const catB = b.category === 'wine' ? 1 : 2;
+          if (catA !== catB) return catA - catB;
+          const numA = parseInt(a.id.replace(/\D/g, ''), 10) || 0;
+          const numB = parseInt(b.id.replace(/\D/g, ''), 10) || 0;
+          if (numA !== numB) return numA - numB;
+          return a.id.localeCompare(b.id);
+        });
+
+        productsMap = {};
+        data.products.forEach(p => { productsMap[p.id] = p; });
+
+        const isViewer = currentUser && currentUser.role === 'viewer';
+        const tbody = document.getElementById('productsTableBody');
+        tbody.innerHTML = data.products.map(p => {
+          const stockQty = p.stock_quantity != null ? p.stock_quantity : 100;
+          const reorderLvl = p.reorder_level != null ? p.reorder_level : 15;
+          const isLow = stockQty <= reorderLvl;
+          const isOutOfStock = stockQty <= 0 || !p.in_stock;
+
+          return `
+            <tr>
+              <td><span class="badge-status ${p.category==='wine'?'contacted':'qualified'}">${p.category==='wine'?'Wine':'Olive Oil'}</span></td>
+              <td>
+                <div style="font-weight:600; color:#fff;">${p.name}</div>
+                <div style="font-size:0.75rem; color:var(--admin-gold); font-weight:700;">${p.id}</div>
+                ${renderAdminDesc(p.description, 'prod-desc-' + p.id)}
+              </td>
+              <td><strong style="color:#e2e8f0;">${p.type || '—'}</strong></td>
+              <td>${p.region || p.volume || '—'}</td>
+              <td>₱${(p.price || 0).toLocaleString()}</td>
+              <td>
+                <div style="font-weight:700; color:${isOutOfStock ? '#ef4444' : (isLow ? '#f59e0b' : '#34d399')}; font-size:0.95rem;">
+                  ${stockQty} units
+                </div>
+                <div style="font-size:0.75rem; color:var(--admin-muted);">
+                  ${isOutOfStock ? '🔴 Depleted' : (isLow ? '⚠️ Low Stock' : 'Min: ' + reorderLvl)}
+                </div>
+              </td>
+              <td style="white-space:nowrap;">
+                <div class="actions-inline-group">
+                  <button class="btn-stock ${p.in_stock ? 'in-stock' : 'out-stock'}" onclick="toggleProductStock('${p.id}')" title="Click to toggle in stock / out of stock status">
+                    ${p.in_stock ? '✓ In Stock' : '✕ Out of Stock'}
+                  </button>
+                  ${!isViewer ? `
+                    <button class="btn-outline" style="padding:0.3rem 0.6rem; font-size:0.75rem;" onclick="openEditProductModalById('${p.id}')">Edit</button>
+                    <button class="btn-danger" style="padding:0.3rem 0.6rem; font-size:0.75rem;" onclick="deleteProduct('${p.id}')">Delete</button>
+                  ` : `
+                    <button class="btn-outline" style="padding:0.3rem 0.6rem; font-size:0.75rem;" onclick="openEditProductModalById('${p.id}')">View</button>
+                  `}
+                </div>
+              </td>
+            </tr>
+          `;
+        }).join('');
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    // Toggle product stock status
+    async function toggleProductStock(id) {
+      try {
+        const res = await fetch(`/api/products/${id}/toggle-stock`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        const data = await res.json();
+        if (res.ok) {
+          showToast(`✓ "${data.product.name}" is now ${data.product.in_stock ? 'IN STOCK' : 'OUT OF STOCK'}`);
+          refreshAll();
+        } else {
+          alert('Failed to toggle stock status: ' + (data.error || 'Unknown error'));
+        }
+      } catch (err) {
+        alert('Stock toggle error: ' + err.message);
+      }
+    }
+
+    // Load Leads
+    async function loadLeads() {
+      const status = document.getElementById('leadFilterSelect').value;
+      try {
+        const url = status ? `/api/leads?status=${status}` : '/api/leads';
+        const res = await fetch(url, { headers: { 'Authorization': `Bearer ${token}` } });
+        const data = await res.json();
+        
+        const tbody = document.getElementById('leadsTableBody');
+        tbody.innerHTML = data.leads.map(l => `
+          <tr>
+            <td>${new Date(l.created_at).toLocaleDateString()}</td>
+            <td>
+              <div style="font-weight:600; color:#fff;">${l.name}</div>
+              <div style="font-size:0.8rem; color:var(--admin-muted);">${l.company || 'Individual Customer'}</div>
+            </td>
+            <td>
+              <div>${l.email}</div>
+              <div style="font-size:0.8rem; color:var(--admin-muted);">${l.phone || 'No phone'}</div>
+            </td>
+            <td><span class="badge-status contacted">${l.inquiry_type}</span></td>
+            <td style="max-width:240px; font-size:0.85rem;">${l.message}</td>
+            <td>
+              <select onchange="updateLeadStatus(${l.id}, this.value)" style="background:#0b0e14; color:#fff; border:1px solid rgba(255,255,255,0.12); padding:0.25rem; border-radius:4px; font-size:0.8rem;">
+                <option value="new" ${l.status==='new'?'selected':''}>New</option>
+                <option value="contacted" ${l.status==='contacted'?'selected':''}>Contacted</option>
+                <option value="qualified" ${l.status==='qualified'?'selected':''}>Qualified</option>
+                <option value="closed" ${l.status==='closed'?'selected':''}>Closed</option>
+              </select>
+            </td>
+            <td>
+              <button class="btn-danger" onclick="deleteLead(${l.id})">Delete</button>
+            </td>
+          </tr>
+        `).join('');
+
+        const overviewTbody = document.getElementById('overviewLeadsTable');
+        overviewTbody.innerHTML = data.leads.slice(0, 5).map(l => `
+          <tr>
+            <td>${new Date(l.created_at).toLocaleDateString()}</td>
+            <td><strong>${l.name}</strong></td>
+            <td>${l.company || '—'}</td>
+            <td>${l.inquiry_type}</td>
+            <td><span class="badge-status ${l.status}">${l.status}</span></td>
+          </tr>
+        `).join('');
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    async function updateLeadStatus(id, status) {
+      await fetch(`/api/leads/${id}/status`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ status })
+      });
+      refreshAll();
+    }
+
+    async function deleteLead(id) {
+      if (!confirm('Are you sure you want to delete this lead?')) return;
+      await fetch(`/api/leads/${id}`, {
+        method: 'DELETE',
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      refreshAll();
+    }
+
+    // Load Orders with Invoice Print Button
+    async function loadOrders() {
+      const status = document.getElementById('orderFilterSelect').value;
+      try {
+        const url = status ? `/api/orders?status=${status}` : '/api/orders';
+        const res = await fetch(url, { headers: { 'Authorization': `Bearer ${token}` } });
+        const data = await res.json();
+        allOrdersList = data.orders || [];
+
+        const tbody = document.getElementById('ordersTableBody');
+        tbody.innerHTML = data.orders.map(o => `
+          <tr>
+            <td><strong style="color:var(--admin-gold);">${o.order_number}</strong></td>
+            <td>${new Date(o.created_at).toLocaleDateString()}</td>
+            <td>
+              <div><strong>${o.customer_name}</strong></div>
+              <div style="font-size:0.8rem; color:var(--admin-muted);">${o.phone}</div>
+              <div style="font-size:0.75rem; color:var(--admin-muted);">${o.address}, ${o.city}</div>
+            </td>
+            <td>
+              <div style="font-size:0.85rem;">${o.items.map(i => `${i.qty}x ${i.name}`).join('<br>')}</div>
+              <div style="font-size:0.75rem; color:var(--admin-muted); margin-top:4px;">${o.total_items} items</div>
+            </td>
+            <td><strong style="color:#fff;">₱${(o.total_amount || 0).toLocaleString()}</strong></td>
+            <td>
+              <div style="text-transform:uppercase; font-size:0.8rem;">${o.payment_method}</div>
+              <div style="font-size:0.75rem; color:var(--admin-muted);">${o.delivery_method}</div>
+            </td>
+            <td>
+              <select onchange="updateOrderStatus(${o.id}, this.value)" style="background:#0b0e14; color:#fff; border:1px solid rgba(255,255,255,0.12); padding:0.25rem; border-radius:4px; font-size:0.8rem;">
+                <option value="pending" ${o.status==='pending'?'selected':''}>Pending</option>
+                <option value="confirmed" ${o.status==='confirmed'?'selected':''}>Confirmed</option>
+                <option value="processing" ${o.status==='processing'?'selected':''}>Processing</option>
+                <option value="shipped" ${o.status==='shipped'?'selected':''}>Shipped</option>
+                <option value="delivered" ${o.status==='delivered'?'selected':''}>Delivered</option>
+                <option value="cancelled" ${o.status==='cancelled'?'selected':''}>Cancelled</option>
+              </select>
+            </td>
+            <td>
+              <div class="actions-inline-group">
+                <button class="btn-gold" style="padding:0.3rem 0.6rem; font-size:0.75rem;" onclick="openOrderInvoiceModal('${o.order_number}')">
+                  🖨️ Invoice
+                </button>
+                <button class="btn-outline" style="padding:0.3rem 0.5rem; font-size:0.75rem;" onclick='alert("Full Delivery Address:\\n${o.address}\\n${o.barangay}, ${o.city}, ${o.province} ${o.zip}\\nNotes: ${o.notes || "None"}")'>
+                  Details
+                </button>
+              </div>
+            </td>
+          </tr>
+        `).join('');
+
+        const overviewTbody = document.getElementById('overviewOrdersTable');
+        overviewTbody.innerHTML = data.orders.slice(0, 5).map(o => `
+          <tr>
+            <td><strong>${o.order_number}</strong></td>
+            <td>${o.customer_name}</td>
+            <td>${o.total_items} items</td>
+            <td>₱${(o.total_amount || 0).toLocaleString()}</td>
+            <td>${o.delivery_method}</td>
+            <td><span class="badge-status ${o.status}">${o.status}</span></td>
+          </tr>
+        `).join('');
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    async function updateOrderStatus(id, status) {
+      await fetch(`/api/orders/${id}/status`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ status })
+      });
+      refreshAll();
+    }
+
+    // Load Sophisticated Customer Profiles
+    async function loadUsers() {
+      try {
+        const res = await fetch('/api/users', { headers: { 'Authorization': `Bearer ${token}` } });
+        const data = await res.json();
+        const tierFilter = document.getElementById('userFilterTier').value;
+
+        let users = data.users || [];
+        if (tierFilter) {
+          users = users.filter(u => u.customer_tier === tierFilter);
+        }
+
+        const tbody = document.getElementById('usersTableBody');
+        tbody.innerHTML = users.map(u => {
+          const initials = (u.full_name || u.username).split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase();
+          const tier = u.customer_tier || 'Direct Retail';
+          let tierClass = 'vip';
+          if (tier.includes('Wholesale')) tierClass = 'wholesale';
+          else if (tier.includes('Corporate')) tierClass = 'corporate';
+          else if (tier.includes('Retail')) tierClass = 'standard';
+
+          return `
+            <tr>
+              <td>
+                <div style="display:flex; align-items:center; gap:0.75rem;">
+                  <div class="customer-avatar-sm">${initials}</div>
+                  <div>
+                    <div style="font-weight:700; color:#fff;">${u.full_name || u.username}</div>
+                    <div style="font-size:0.75rem; color:var(--admin-gold); font-weight:600;">@${u.username}</div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div style="font-weight:600; color:#e2e8f0;">${u.company || 'Private Account'}</div>
+                <div style="font-size:0.75rem; color:var(--admin-muted);">${u.customer_type || 'General Collector'}</div>
+              </td>
+              <td>
+                <div>${u.email}</div>
+                <div style="font-size:0.75rem; color:var(--admin-muted);">${u.phone || 'No direct phone'}</div>
+              </td>
+              <td>
+                <span class="customer-tier-badge ${tierClass}">${tier}</span>
+                <span class="badge-status ${u.status === 'active' ? 'qualified' : 'pending'}" style="margin-left:4px; font-size:0.7rem;">
+                  ${u.status || 'Active'}
+                </span>
+              </td>
+              <td><strong style="color:var(--admin-gold); font-size:0.95rem;">₱${(u.lifetime_spend || 0).toLocaleString()}</strong></td>
+              <td><span style="font-weight:600;">${u.orders_count || 0} orders</span></td>
+              <td>
+                <div class="actions-inline-group">
+                  <button class="btn-gold" style="font-size:0.75rem; padding:0.3rem 0.65rem;" onclick="openCustomerDossier(${u.id})">
+                    👤 Dossier
+                  </button>
+                  ${(currentUser.role === 'admin' && u.id !== currentUser.id) ? `
+                    <button class="btn-outline" style="font-size:0.75rem; padding:0.3rem 0.55rem;" onclick="changeRole(${u.id}, '${u.role==='admin'?'viewer':'admin'}')">
+                      Make ${u.role==='admin'?'Viewer':'Admin'}
+                    </button>
+                  ` : ''}
+                </div>
+              </td>
+            </tr>
+          `;
+        }).join('');
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    async function changeRole(id, newRole) {
+      if (!confirm(`Are you sure you want to change this user's role to ${newRole}?`)) return;
+      await fetch(`/api/users/${id}/role`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ role: newRole })
+      });
+      refreshAll();
+    }
+
+    // Open Sophisticated Customer Dossier Modal
+    async function openCustomerDossier(userId) {
+      try {
+        const res = await fetch(`/api/users/${userId}`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (!res.ok) throw new Error('Failed to load user profile');
+        const data = await res.json();
+        activeCustomerData = data.user;
+        const u = data.user;
+
+        const initials = (u.full_name || u.username).split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase();
+        document.getElementById('dossierAvatar').textContent = initials;
+        document.getElementById('dossierFullName').textContent = u.full_name || u.username;
+        document.getElementById('dossierCompany').textContent = u.company || 'Private Cellar Client';
+        document.getElementById('dossierUsername').textContent = u.username;
+        document.getElementById('dossierCreated').textContent = new Date(u.created_at).getFullYear();
+
+        const tierEl = document.getElementById('dossierTierBadge');
+        tierEl.textContent = u.customer_tier || 'VIP Private Client';
+        tierEl.className = 'customer-tier-badge ' + (u.customer_tier && u.customer_tier.includes('Wholesale') ? 'wholesale' : (u.customer_tier && u.customer_tier.includes('Corporate') ? 'corporate' : 'vip'));
+
+        const statusEl = document.getElementById('dossierStatusBadge');
+        statusEl.textContent = (u.status || 'Active').toUpperCase();
+        statusEl.className = `badge-status ${u.status === 'active' ? 'qualified' : 'pending'}`;
+
+        const m = u.metrics || data.stats || {};
+        document.getElementById('dossierLtv').textContent = `₱${(m.lifetime_spend || m.totalSpent || 0).toLocaleString()}`;
+        document.getElementById('dossierOrderCount').textContent = m.orders_count || m.totalOrders || 0;
+        document.getElementById('dossierAov').textContent = `₱${(m.aov || m.avgOrderValue || 0).toLocaleString()}`;
+        document.getElementById('dossierPreferredCategory').textContent = u.preferred_category || 'Spanish Wine';
+
+        // View Mode Information
+        document.getElementById('dossierViewName').textContent = u.full_name || '—';
+        document.getElementById('dossierViewCompany').textContent = u.company || 'Individual / None';
+        document.getElementById('dossierViewEmail').textContent = u.email || '—';
+        document.getElementById('dossierViewPhone').textContent = u.phone || '—';
+        document.getElementById('dossierViewTaxId').textContent = u.tax_id || '—';
+        document.getElementById('dossierViewType').textContent = u.customer_type || 'Private VIP Collector';
+
+        document.getElementById('dossierViewAddress').textContent = u.address || '—';
+        document.getElementById('dossierViewBarangay').textContent = u.barangay || '—';
+        document.getElementById('dossierViewCity').textContent = u.city || '—';
+        document.getElementById('dossierViewProvince').textContent = u.province || '—';
+        document.getElementById('dossierViewZip').textContent = u.postal_code || '—';
+        document.getElementById('dossierViewStatusText').textContent = (u.status || 'Active').toUpperCase();
+
+        document.getElementById('dossierViewNotes').textContent = u.notes || 'No specialized sommelier tasting notes recorded.';
+
+        // Order history table in dossier
+        const ordersTbody = document.getElementById('dossierOrdersTableBody');
+        const customerOrders = u.orders || data.orders || [];
+        if (ordersTbody) {
+          if (customerOrders.length > 0) {
+            ordersTbody.innerHTML = customerOrders.map(o => `
+              <tr>
+                <td><strong style="color:var(--admin-gold);">${o.order_number}</strong></td>
+                <td>${new Date(o.created_at).toLocaleDateString()}</td>
+                <td><span style="font-size:0.85rem;">${(o.items || []).map(i => `${i.qty}x ${i.name}`).join(', ')}</span></td>
+                <td><strong style="color:#fff;">₱${(o.total_amount || 0).toLocaleString()}</strong></td>
+                <td><span style="text-transform:uppercase; font-size:0.75rem;">${o.payment_method}</span></td>
+                <td><span class="badge-status ${o.status}">${o.status}</span></td>
+                <td>
+                  <button class="btn-gold" style="padding:0.25rem 0.5rem; font-size:0.75rem;" onclick="openOrderInvoiceModal('${o.order_number}')">
+                    🖨️ Invoice
+                  </button>
+                </td>
+              </tr>
+            `).join('');
+          } else {
+            ordersTbody.innerHTML = `<tr><td colspan="7" style="text-align:center; color:var(--admin-muted); padding:1rem;">No commercial orders found for this customer.</td></tr>`;
+          }
+        }
+
+        cancelCustomerEditMode();
+        document.getElementById('customerProfileModal').classList.add('active');
+      } catch (err) {
+        alert('Could not open customer profile: ' + err.message);
+      }
+    }
+
+    function closeCustomerModal() {
+      document.getElementById('customerProfileModal').classList.remove('active');
+    }
+
+    function toggleCustomerEditMode() {
+      const u = activeCustomerData;
+      if (!u) return;
+
+      document.getElementById('editCustUserId').value = u.id;
+      document.getElementById('editCustFullName').value = u.full_name || '';
+      document.getElementById('editCustCompany').value = u.company || '';
+      document.getElementById('editCustPhone').value = u.phone || '';
+      document.getElementById('editCustEmail').value = u.email || '';
+      document.getElementById('editCustTier').value = u.customer_tier || 'VIP Private Client';
+      document.getElementById('editCustType').value = u.customer_type || 'VIP Private Collector';
+      document.getElementById('editCustCategory').value = u.preferred_category || 'Spanish Wine';
+      document.getElementById('editCustAddress').value = u.address || '';
+      document.getElementById('editCustBarangay').value = u.barangay || '';
+      document.getElementById('editCustCity').value = u.city || '';
+      document.getElementById('editCustProvince').value = u.province || '';
+      document.getElementById('editCustPostal').value = u.postal_code || '';
+      document.getElementById('editCustTaxId').value = u.tax_id || '';
+      document.getElementById('editCustStatus').value = u.status || 'active';
+      document.getElementById('editCustNotes').value = u.notes || '';
+
+      document.getElementById('dossierViewMode').style.display = 'none';
+      document.getElementById('customerEditForm').style.display = 'block';
+      document.getElementById('btnToggleEditCustomer').style.display = 'none';
+    }
+
+    function cancelCustomerEditMode() {
+      document.getElementById('dossierViewMode').style.display = 'block';
+      document.getElementById('customerEditForm').style.display = 'none';
+      document.getElementById('btnToggleEditCustomer').style.display = 'inline-flex';
+    }
+
+    async function saveCustomerProfile(e) {
+      e.preventDefault();
+      const userId = document.getElementById('editCustUserId').value;
+      const payload = {
+        full_name: document.getElementById('editCustFullName').value,
+        company: document.getElementById('editCustCompany').value,
+        phone: document.getElementById('editCustPhone').value,
+        email: document.getElementById('editCustEmail').value,
+        customer_tier: document.getElementById('editCustTier').value,
+        customer_type: document.getElementById('editCustType').value,
+        preferred_category: document.getElementById('editCustCategory').value,
+        address: document.getElementById('editCustAddress').value,
+        barangay: document.getElementById('editCustBarangay').value,
+        city: document.getElementById('editCustCity').value,
+        province: document.getElementById('editCustProvince').value,
+        postal_code: document.getElementById('editCustPostal').value,
+        tax_id: document.getElementById('editCustTaxId').value,
+        status: document.getElementById('editCustStatus').value,
+        notes: document.getElementById('editCustNotes').value
+      };
+
+      try {
+        const res = await fetch(`/api/users/${userId}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (res.ok) {
+          showToast('✓ Customer profile data updated successfully!');
+          openCustomerDossier(userId);
+          loadUsers();
+        } else {
+          alert('Failed to update profile: ' + (data.error || 'Server error'));
+        }
+      } catch (err) {
+        alert('Network error saving profile: ' + err.message);
+      }
+    }
+
+    function printCustomerDossier() {
+      const modal = document.getElementById('customerProfileModal');
+      if (!modal) return;
+      document.body.classList.add('printing-modal');
+      modal.classList.add('print-modal-active');
+      window.print();
+      setTimeout(() => {
+        document.body.classList.remove('printing-modal');
+        modal.classList.remove('print-modal-active');
+      }, 1000);
+    }
+
+    // Order Commercial Invoice Print Modal
+    function openOrderInvoiceModal(orderNumber) {
+      const order = allOrdersList.find(o => o.order_number === orderNumber);
+      if (!order) {
+        alert(`Order ${orderNumber} details not found.`);
+        return;
+      }
+
+      const content = document.getElementById('invoicePrintContent');
+      const subtotal = order.total_amount / 1.12;
+      const vat = order.total_amount - subtotal;
+
+      content.innerHTML = `
+        <div style="display:flex; justify-content:space-between; margin-bottom:1.5rem; font-size:0.9rem;">
+          <div>
+            <div style="font-weight:700; color:#111;">Billed / Delivered To:</div>
+            <div style="font-size:1.1rem; font-weight:700; color:#111; margin-top:2px;">${order.customer_name}</div>
+            <div style="color:#4b5563;">${order.address}</div>
+            <div style="color:#4b5563;">${order.barangay ? order.barangay + ', ' : ''}${order.city}, ${order.province || ''} ${order.zip || ''}</div>
+            <div style="color:#4b5563; margin-top:2px;">Phone: <strong>${order.phone}</strong></div>
+          </div>
+          <div style="text-align:right;">
+            <div>Invoice Reference: <strong style="color:#9e7223; font-size:1.1rem;">${order.order_number}</strong></div>
+            <div style="color:#4b5563;">Date: ${new Date(order.created_at).toLocaleDateString()}</div>
+            <div style="color:#4b5563;">Payment: <strong style="text-transform:uppercase;">${order.payment_method}</strong></div>
+            <div style="color:#4b5563;">Fulfillment: <strong style="text-transform:uppercase;">${order.delivery_method}</strong></div>
+            <div style="margin-top:4px;"><span class="badge-status ${order.status}">${order.status}</span></div>
+          </div>
+        </div>
+
+        <table style="width:100%; border-collapse:collapse; margin-bottom:1.5rem; font-size:0.9rem;">
+          <thead>
+            <tr style="background:#f3f4f6; text-align:left; border-bottom:2px solid #e5e7eb;">
+              <th style="padding:8px 12px; color:#374151;">Item Description</th>
+              <th style="padding:8px 12px; text-align:center; color:#374151;">Qty</th>
+              <th style="padding:8px 12px; text-align:right; color:#374151;">Unit Price</th>
+              <th style="padding:8px 12px; text-align:right; color:#374151;">Line Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${order.items.map(item => `
+              <tr style="border-bottom:1px solid #e5e7eb;">
+                <td style="padding:8px 12px; color:#111827;"><strong>${item.name}</strong></td>
+                <td style="padding:8px 12px; text-align:center; color:#111827;">${item.qty}</td>
+                <td style="padding:8px 12px; text-align:right; color:#111827;">₱${(item.price || 0).toLocaleString()}</td>
+                <td style="padding:8px 12px; text-align:right; font-weight:700; color:#111827;">₱${((item.price || 0) * item.qty).toLocaleString()}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:1.5rem;">
+          <div style="font-size:0.85rem; color:#4b5563; max-width:380px;">
+            <p style="margin:0 0 4px 0;"><strong>Delivery Notes:</strong> ${order.notes || 'Handle with extreme care. Temperature-controlled fine wine and EVOO shipment.'}</p>
+            <p style="margin:0; font-size:0.8rem; color:#6b7280;">Bedrock Consumer Goods Trading • High-Grade Import Distribution • Philippines</p>
+          </div>
+          <div style="width:260px; font-size:0.9rem;">
+            <div style="display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px solid #f3f4f6;">
+              <span style="color:#4b5563;">Net Subtotal:</span>
+              <strong style="color:#111;">₱${Math.round(subtotal).toLocaleString()}</strong>
+            </div>
+            <div style="display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px solid #f3f4f6;">
+              <span style="color:#4b5563;">EVAT (12%):</span>
+              <strong style="color:#111;">₱${Math.round(vat).toLocaleString()}</strong>
+            </div>
+            <div style="display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px solid #f3f4f6;">
+              <span style="color:#4b5563;">Delivery Shipping:</span>
+              <strong style="color:#16a34a;">FREE</strong>
+            </div>
+            <div style="display:flex; justify-content:space-between; padding:8px 0; font-size:1.15rem; color:#9e7223; font-weight:700; border-top:2px solid #e5e7eb; margin-top:4px;">
+              <span>Total Amount:</span>
+              <span>₱${(order.total_amount || 0).toLocaleString()}</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:2.5rem; padding-top:1rem; border-top:1px dashed #d1d5db; display:flex; justify-content:space-between; font-size:0.8rem; color:#6b7280;">
+          <div>Received in good order and condition by: ________________________</div>
+          <div>Date: ____________________</div>
+        </div>
+      `;
+
+      document.getElementById('orderInvoiceModal').classList.add('active');
+    }
+
+    function closeInvoiceModal() {
+      document.getElementById('orderInvoiceModal').classList.remove('active');
+    }
+
+    function printActiveOrderInvoice() {
+      const modal = document.getElementById('orderInvoiceModal');
+      if (!modal) return;
+      document.body.classList.add('printing-modal');
+      modal.classList.add('print-modal-active');
+      window.print();
+      setTimeout(() => {
+        document.body.classList.remove('printing-modal');
+        modal.classList.remove('print-modal-active');
+      }, 1000);
+    }
+
+    window.addEventListener('afterprint', () => {
+      document.body.classList.remove('printing-modal');
+      document.querySelectorAll('.print-modal-active').forEach(el => el.classList.remove('print-modal-active'));
+    });
+
+    // Toast Notification Helper
+    function showToast(msg) {
+      let toast = document.getElementById('adminToast');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'adminToast';
+        toast.style.cssText = `
+          position: fixed;
+          bottom: 24px;
+          right: 24px;
+          background: #151a26;
+          color: #c4963c;
+          border: 1px solid rgba(196, 150, 60, 0.4);
+          box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+          padding: 12px 20px;
+          border-radius: 8px;
+          font-size: 0.9rem;
+          font-weight: 600;
+          z-index: 9999;
+          transition: opacity 0.3s ease, transform 0.3s ease;
+          opacity: 0;
+          transform: translateY(10px);
+          pointer-events: none;
+        `;
+        document.body.appendChild(toast);
+      }
+      toast.textContent = msg;
+      toast.style.opacity = '1';
+      toast.style.transform = 'translateY(0)';
+      clearTimeout(toast._timeout);
+      toast._timeout = setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(10px)';
+      }, 3500);
+    }
+
+    // Manual seed-data.js sync trigger
+    async function triggerSeedSync() {
+      try {
+        const res = await fetch('/api/products/sync-seed', {
+          method: 'POST',
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await res.json();
+        if (res.ok) {
+          showToast(`✓ seed-data.js synchronized (${data.count} products)`);
+        } else {
+          alert('Sync failed: ' + (data.error || 'Unknown error'));
+        }
+      } catch (err) {
+        alert('Sync error: ' + err.message);
+      }
+    }
+
+    // Product Modal Helpers
+    function openAddProductModal() {
+      document.getElementById('productModalTitle').textContent = 'Add Product';
+      document.getElementById('productForm').reset();
+      document.getElementById('prodEditId').value = '';
+      const customIdInput = document.getElementById('prodCustomId');
+      customIdInput.value = '';
+      customIdInput.disabled = false;
+      
+      document.getElementById('prodCategory').value = 'wine';
+      populateSubcategories('wine', 'Red');
+      document.getElementById('prodStockQty').value = '100';
+      document.getElementById('prodReorderLevel').value = '15';
+      
+      document.getElementById('productModal').classList.add('active');
+    }
+
+    function openEditProductModal(prod) {
+      document.getElementById('productModalTitle').textContent = 'Edit Product';
+      document.getElementById('prodEditId').value = prod.id;
+      const customIdInput = document.getElementById('prodCustomId');
+      customIdInput.value = prod.id;
+      customIdInput.disabled = false;
+      document.getElementById('prodCategory').value = prod.category;
+      
+      // Populate subcategories for this category and select the current one
+      populateSubcategories(prod.category, prod.type);
+
+      document.getElementById('prodName').value = prod.name;
+      document.getElementById('prodFullName').value = prod.fullName || prod.name;
+      document.getElementById('prodVariety').value = prod.variety || '';
+      document.getElementById('prodRegion').value = prod.region || '';
+      document.getElementById('prodDenomination').value = prod.denomination || '';
+      document.getElementById('prodSpecial').value = prod.special || '';
+      document.getElementById('prodPrice').value = prod.price || 0;
+      document.getElementById('prodStockQty').value = prod.stock_quantity != null ? prod.stock_quantity : 100;
+      document.getElementById('prodReorderLevel').value = prod.reorder_level != null ? prod.reorder_level : 15;
+      document.getElementById('prodVolume').value = prod.volume || '';
+      document.getElementById('prodContainer').value = prod.container || '';
+      document.getElementById('prodIcon').value = prod.icon || '';
+      document.getElementById('prodColor').value = prod.color || '';
+      document.getElementById('prodImage').value = prod.image || '';
+      document.getElementById('prodDesc').value = prod.description || '';
+      document.getElementById('prodTags').value = (prod.tags || []).join(', ');
+      document.getElementById('prodInStock').value = prod.in_stock ? '1' : '0';
+      document.getElementById('productModal').classList.add('active');
+    }
+
+    function closeProductModal() {
+      document.getElementById('productModal').classList.remove('active');
+    }
+
+    document.getElementById('productForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const editId = document.getElementById('prodEditId').value;
+      const customIdVal = document.getElementById('prodCustomId').value.trim();
+
+      const payload = {
+        category: document.getElementById('prodCategory').value,
+        name: document.getElementById('prodName').value,
+        fullName: document.getElementById('prodFullName').value,
+        variety: document.getElementById('prodVariety').value,
+        type: document.getElementById('prodType').value,
+        region: document.getElementById('prodRegion').value,
+        denomination: document.getElementById('prodDenomination').value,
+        special: document.getElementById('prodSpecial').value,
+        price: parseFloat(document.getElementById('prodPrice').value) || 0,
+        stock_quantity: parseInt(document.getElementById('prodStockQty').value, 10) || 0,
+        reorder_level: parseInt(document.getElementById('prodReorderLevel').value, 10) || 15,
+        volume: document.getElementById('prodVolume').value,
+        container: document.getElementById('prodContainer').value,
+        icon: document.getElementById('prodIcon').value,
+        color: document.getElementById('prodColor').value,
+        image: document.getElementById('prodImage').value,
+        description: document.getElementById('prodDesc').value,
+        tags: document.getElementById('prodTags').value.split(',').map(s=>s.trim()).filter(Boolean),
+        in_stock: document.getElementById('prodInStock').value === '1'
+      };
+
+      if (customIdVal) {
+        payload.id = customIdVal;
+        payload.newId = customIdVal;
+      }
+
+      const url = editId ? `/api/products/${editId}` : '/api/products';
+      const method = editId ? 'PUT' : 'POST';
+
+      try {
+        const res = await fetch(url, {
+          method,
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify(payload)
+        });
+
+        if (res.ok) {
+          closeProductModal();
+          showToast(editId ? '✓ Product updated & seed-data.js synchronized!' : '✓ Product added & seed-data.js synchronized!');
+          refreshAll();
+        } else {
+          const err = await res.json().catch(() => ({}));
+          alert('Error saving product: ' + (err.error || 'Failed'));
+        }
+      } catch (netErr) {
+        alert('Connection error: could not reach server. ' + netErr.message);
+      }
+    });
+
+    async function deleteProduct(id) {
+      if (!confirm(`Are you sure you want to delete product "${id}"?\nThis will automatically remove it from seed-data.js as well.`)) return;
+      const res = await fetch(`/api/products/${id}`, {
+        method: 'DELETE',
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (res.ok) {
+        showToast(`✓ Product "${id}" deleted & seed-data.js synchronized!`);
+        refreshAll();
+      } else {
+        const err = await res.json().catch(() => ({}));
+        alert('Failed to delete product: ' + (err.error || 'Unknown error'));
+      }
+    }
+
+    // Start
+    initAdmin();
+  </script>
+</body>
+</html>
