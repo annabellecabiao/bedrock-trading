@@ -897,30 +897,63 @@
       .report-view.active {
         display: block !important;
       }
-      /* Retain heading and logo name size & color, and borders color */
+      /* Formal Printed Report Header Styles */
       .print-only-header {
         display: block !important;
-        margin-bottom: 14px !important;
-        border-bottom: 2px solid #9e7223 !important;
+        margin-bottom: 12px !important;
+        border-bottom: 1.5px solid #9e7223 !important;
         padding-bottom: 8px !important;
+        width: 100% !important;
+      }
+      .print-only-header .print-header-grid {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: flex-start !important;
+        width: 100% !important;
+        gap: 16px !important;
       }
       .print-only-header h1 {
-        font-size: 16pt !important;
-        font-weight: 800 !important;
+        font-size: 11pt !important;
+        font-weight: 700 !important;
         color: #111827 !important;
         letter-spacing: 0.02em !important;
+        margin: 0 0 2px 0 !important;
+        line-height: 1.25 !important;
       }
       .print-only-header h2 {
-        font-size: 15pt !important;
+        font-size: 11.5pt !important;
         font-weight: 700 !important;
         color: #9e7223 !important;
+        margin: 0 0 2px 0 !important;
+        line-height: 1.25 !important;
+        text-align: right !important;
       }
-      .print-only-header div,
-      .print-only-header p,
-      .print-only-header span {
-        font-size: 11pt !important;
-        color: #000000 !important;
-        line-height: 1.4 !important;
+      .print-only-header .print-address,
+      .print-only-header .print-contact {
+        font-size: 8pt !important;
+        color: #374151 !important;
+        line-height: 1.35 !important;
+      }
+      .print-only-header #printReportAsOf {
+        font-size: 8.5pt !important;
+        font-weight: 600 !important;
+        color: #111827 !important;
+        line-height: 1.35 !important;
+        text-align: right !important;
+      }
+      .print-only-header #printReportTimestamp {
+        font-size: 7.5pt !important;
+        color: #6b7280 !important;
+        line-height: 1.35 !important;
+        text-align: right !important;
+      }
+      .print-only-header .print-header-right {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-end !important;
+        text-align: right !important;
+        margin-left: auto !important;
+        flex-shrink: 0 !important;
       }
     }
     .print-only-header {
@@ -1102,25 +1135,25 @@
       <div id="tab-reports" class="tab-content">
         <!-- Print-only header for formal printed reports -->
         <div class="print-only-header">
-          <div style="display:flex; justify-content:space-between; align-items:center; gap:16px;">
-            <div style="display:flex; align-items:center; gap:14px;">
-              <img src="bedrock_logo.png" alt="Bedrock Logo" style="width:50px; height:50px; object-fit:contain; border-radius:50%; border:2px solid #9e7223; flex-shrink:0;">
+          <div class="print-header-grid" style="display:flex; justify-content:space-between; align-items:flex-start; width:100%; gap:16px;">
+            <div style="display:flex; align-items:flex-start; gap:10px;">
+              <img src="bedrock_logo.png" alt="Bedrock Logo" style="width:36px; height:36px; object-fit:contain; border-radius:50%; border:1.5px solid #9e7223; flex-shrink:0; margin-top:2px;">
               <div>
-                <h1 style="margin:0; font-size:16pt; font-weight:800; color:#111827; letter-spacing:0.02em;">BEDROCK CONSUMER GOODS TRADING</h1>
-                <div style="margin:2px 0; font-size:11pt; color:#000000; line-height:1.35;">
+                <h1 style="margin:0 0 2px 0; font-size:11pt; font-weight:700; color:#111827; letter-spacing:0.02em; line-height:1.25;">BEDROCK CONSUMER GOODS TRADING</h1>
+                <div class="print-address" style="margin:0; font-size:8pt; color:#374151; line-height:1.35;">
                   <strong>Address:</strong> #65 De Acosta St., San Antonio Village, Paciano Rizal, Calamba, Laguna 4027, Philippines
                 </div>
-                <div style="margin:2px 0; font-size:11pt; color:#000000;">
+                <div class="print-contact" style="margin:1px 0 0 0; font-size:8pt; color:#374151; line-height:1.35;">
                   <strong>Contact:</strong> +34 650-361-177 &bull; inquiry@bedrocktrading.ph &bull; bedrocktrading.ph
                 </div>
               </div>
             </div>
-            <div style="text-align:right; flex-shrink:0;">
-              <h2 style="margin:0; font-size:15pt; color:#9e7223; font-weight:700;" id="printReportTitle">Live Inventory &amp; Stock Level Report</h2>
-              <div style="margin-top:4px; font-size:12pt; color:#000000; font-weight:700;" id="printReportAsOf">
+            <div class="print-header-right" style="display:flex; flex-direction:column; align-items:flex-end; text-align:right; margin-left:auto; flex-shrink:0;">
+              <h2 style="margin:0 0 2px 0; font-size:11.5pt; color:#9e7223; font-weight:700; line-height:1.25; text-align:right;" id="printReportTitle">Live Inventory &amp; Stock Level Report</h2>
+              <div style="margin:0; font-size:8.5pt; color:#111827; font-weight:600; text-align:right; line-height:1.35;" id="printReportAsOf">
                 As of today: <span id="printReportAsOfDate">October 25, 2026</span>
               </div>
-              <div style="margin-top:2px; font-size:10.5pt; color:#000000;" id="printReportTimestamp">Report Generated: October 25, 2026 at 8:56 PM</div>
+              <div style="margin:1px 0 0 0; font-size:7.5pt; color:#6b7280; text-align:right; line-height:1.35;" id="printReportTimestamp">Report Generated: October 25, 2026 at 8:56 PM</div>
             </div>
           </div>
         </div>
@@ -1153,27 +1186,27 @@
         <!-- SUBTAB 1: INVENTORY REPORT (Both Users) -->
         <div id="subtab-inventory" class="report-view active">
           <!-- Screen Header for Inventory Report -->
-          <div class="report-screen-header no-print" style="display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:1rem 1.25rem; background:rgba(255,255,255,0.02); border:1px solid var(--admin-border); border-radius:10px; margin-bottom:1.25rem; flex-wrap:wrap;">
-            <div style="display:flex; align-items:center; gap:1rem;">
-              <img src="bedrock_logo.png" alt="Bedrock Logo" style="width:48px; height:48px; object-fit:contain; border-radius:50%; border:2px solid var(--admin-gold); flex-shrink:0;">
+          <div class="report-screen-header no-print" style="display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; padding:0.85rem 1.25rem; background:rgba(255,255,255,0.02); border:1px solid var(--admin-border); border-radius:10px; margin-bottom:1.25rem;">
+            <div style="display:flex; align-items:flex-start; gap:0.75rem;">
+              <img src="bedrock_logo.png" alt="Bedrock Logo" style="width:36px; height:36px; object-fit:contain; border-radius:50%; border:1.5px solid var(--admin-gold); flex-shrink:0; margin-top:2px;">
               <div>
-                <div style="font-family:var(--font-display); font-size:1.05rem; font-weight:700; color:#fff; letter-spacing:0.03em;">BEDROCK CONSUMER GOODS TRADING</div>
-                <div style="font-size:0.8rem; color:var(--admin-muted); margin-top:2px;">
+                <div style="font-family:var(--font-display); font-size:0.95rem; font-weight:700; color:#fff; letter-spacing:0.02em; line-height:1.2;">BEDROCK CONSUMER GOODS TRADING</div>
+                <div style="font-size:0.75rem; color:var(--admin-muted); margin-top:2px; line-height:1.35;">
                   📍 #65 De Acosta St., San Antonio Village, Paciano Rizal, Calamba, Laguna 4027, Philippines
                 </div>
-                <div style="font-size:0.8rem; color:var(--admin-gold); margin-top:2px;">
+                <div style="font-size:0.75rem; color:var(--admin-gold); margin-top:2px; line-height:1.35;">
                   📞 +34 650-361-177 &nbsp;|&nbsp; ✉️ inquiry@bedrocktrading.ph &nbsp;|&nbsp; 🌐 bedrocktrading.ph
                 </div>
               </div>
             </div>
-            <div style="display:flex; flex-direction:column; align-items:flex-end; gap:0.4rem;">
-              <div style="display:inline-flex; align-items:center; gap:0.45rem; padding:0.35rem 0.85rem; background:rgba(196,150,60,0.12); border:1px solid var(--admin-gold); border-radius:100px; font-size:0.85rem; color:var(--admin-gold); font-weight:700;">
+            <div style="display:flex; flex-direction:column; align-items:flex-end; text-align:right; gap:0.35rem; margin-left:auto; flex-shrink:0;">
+              <div style="display:inline-flex; align-items:center; gap:0.4rem; padding:0.25rem 0.75rem; background:rgba(196,150,60,0.12); border:1px solid var(--admin-gold); border-radius:100px; font-size:0.8rem; color:var(--admin-gold); font-weight:600;">
                 <span>📅</span> <span>As of today:</span> <strong id="invAsOfDateScreen">October 25, 2026</strong>
               </div>
-              <div style="font-size:0.75rem; color:var(--admin-muted);" id="invGenTimeScreen">
+              <div style="font-size:0.72rem; color:var(--admin-muted); text-align:right;" id="invGenTimeScreen">
                 Report Generated: October 25, 2026 at 8:56 PM
               </div>
-              <button type="button" class="btn-outline" style="padding:0.25rem 0.65rem; font-size:0.75rem; display:inline-flex; align-items:center; gap:0.35rem;" onclick="loadInventoryReport(true)">
+              <button type="button" class="btn-outline" style="padding:0.2rem 0.55rem; font-size:0.72rem; display:inline-flex; align-items:center; gap:0.3rem;" onclick="loadInventoryReport(true)">
                 <span>🔄</span> <span>Refresh As of Today</span>
               </button>
             </div>
@@ -1282,6 +1315,33 @@
           </div>
 
           <div id="salesReportContent">
+            <!-- Screen Header for Sales Report -->
+            <div class="report-screen-header no-print" style="display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; padding:0.85rem 1.25rem; background:rgba(255,255,255,0.02); border:1px solid var(--admin-border); border-radius:10px; margin-bottom:1.25rem;">
+              <div style="display:flex; align-items:flex-start; gap:0.75rem;">
+                <img src="bedrock_logo.png" alt="Bedrock Logo" style="width:36px; height:36px; object-fit:contain; border-radius:50%; border:1.5px solid var(--admin-gold); flex-shrink:0; margin-top:2px;">
+                <div>
+                  <div style="font-family:var(--font-display); font-size:0.95rem; font-weight:700; color:#fff; letter-spacing:0.02em; line-height:1.2;">BEDROCK CONSUMER GOODS TRADING</div>
+                  <div style="font-size:0.75rem; color:var(--admin-muted); margin-top:2px; line-height:1.35;">
+                    📍 #65 De Acosta St., San Antonio Village, Paciano Rizal, Calamba, Laguna 4027, Philippines
+                  </div>
+                  <div style="font-size:0.75rem; color:var(--admin-gold); margin-top:2px; line-height:1.35;">
+                    📞 +34 650-361-177 &nbsp;|&nbsp; ✉️ inquiry@bedrocktrading.ph &nbsp;|&nbsp; 🌐 bedrocktrading.ph
+                  </div>
+                </div>
+              </div>
+              <div style="display:flex; flex-direction:column; align-items:flex-end; text-align:right; gap:0.35rem; margin-left:auto; flex-shrink:0;">
+                <div style="display:inline-flex; align-items:center; gap:0.4rem; padding:0.25rem 0.75rem; background:rgba(196,150,60,0.12); border:1px solid var(--admin-gold); border-radius:100px; font-size:0.8rem; color:var(--admin-gold); font-weight:600;">
+                  <span>📊</span> <span>Executive Sales Report</span>
+                </div>
+                <div style="font-size:0.72rem; color:var(--admin-muted); text-align:right;">
+                  Updated Live from Orders Register
+                </div>
+                <button type="button" class="btn-outline" style="padding:0.2rem 0.55rem; font-size:0.72rem; display:inline-flex; align-items:center; gap:0.3rem;" onclick="loadSalesReport()">
+                  <span>🔄</span> <span>Refresh Sales Data</span>
+                </button>
+              </div>
+            </div>
+
             <!-- Sales KPIs -->
             <div class="stats-grid" style="margin-bottom:1.5rem;">
               <div class="stat-card">
@@ -1379,6 +1439,33 @@
           </div>
 
           <div id="finReportContent">
+            <!-- Screen Header for Financial Report -->
+            <div class="report-screen-header no-print" style="display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; padding:0.85rem 1.25rem; background:rgba(255,255,255,0.02); border:1px solid var(--admin-border); border-radius:10px; margin-bottom:1.25rem;">
+              <div style="display:flex; align-items:flex-start; gap:0.75rem;">
+                <img src="bedrock_logo.png" alt="Bedrock Logo" style="width:36px; height:36px; object-fit:contain; border-radius:50%; border:1.5px solid var(--admin-gold); flex-shrink:0; margin-top:2px;">
+                <div>
+                  <div style="font-family:var(--font-display); font-size:0.95rem; font-weight:700; color:#fff; letter-spacing:0.02em; line-height:1.2;">BEDROCK CONSUMER GOODS TRADING</div>
+                  <div style="font-size:0.75rem; color:var(--admin-muted); margin-top:2px; line-height:1.35;">
+                    📍 #65 De Acosta St., San Antonio Village, Paciano Rizal, Calamba, Laguna 4027, Philippines
+                  </div>
+                  <div style="font-size:0.75rem; color:var(--admin-gold); margin-top:2px; line-height:1.35;">
+                    📞 +34 650-361-177 &nbsp;|&nbsp; ✉️ inquiry@bedrocktrading.ph &nbsp;|&nbsp; 🌐 bedrocktrading.ph
+                  </div>
+                </div>
+              </div>
+              <div style="display:flex; flex-direction:column; align-items:flex-end; text-align:right; gap:0.35rem; margin-left:auto; flex-shrink:0;">
+                <div style="display:inline-flex; align-items:center; gap:0.4rem; padding:0.25rem 0.75rem; background:rgba(196,150,60,0.12); border:1px solid var(--admin-gold); border-radius:100px; font-size:0.8rem; color:var(--admin-gold); font-weight:600;">
+                  <span>💰</span> <span>Fiscal &amp; Profit Audit</span>
+                </div>
+                <div style="font-size:0.72rem; color:var(--admin-muted); text-align:right;">
+                  Tax, COGS &amp; Channel Reconciliation
+                </div>
+                <button type="button" class="btn-outline" style="padding:0.2rem 0.55rem; font-size:0.72rem; display:inline-flex; align-items:center; gap:0.3rem;" onclick="loadFinancialReport()">
+                  <span>🔄</span> <span>Refresh Financials</span>
+                </button>
+              </div>
+            </div>
+
             <!-- Financial KPI Grid -->
             <div class="stats-grid" style="margin-bottom:1.5rem;">
               <div class="stat-card">
