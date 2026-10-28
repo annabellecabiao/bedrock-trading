@@ -411,6 +411,23 @@
         max-width: 800px;
         padding: 2.5rem;
       }
+    /* Master Print Wrapper for Reports (Repeats header on multi-page printouts) */
+    .report-print-wrapper {
+      width: 100%;
+      border-collapse: collapse;
+      border: none;
+      background: transparent;
+      margin: 0;
+      padding: 0;
+    }
+    .report-print-wrapper > thead {
+      display: none;
+    }
+    .report-print-wrapper > tbody > tr > td {
+      border: none;
+      padding: 0;
+      background: transparent;
+      vertical-align: top;
     }
 
     /* Reports Navigation & Subtabs */
@@ -622,7 +639,23 @@
     @media print {
       @page {
         size: auto;
-        margin: 10mm 8mm;
+        margin: 10mm 10mm 14mm 10mm;
+
+        @bottom-right {
+          content: "Page " counter(page) " of " counter(pages);
+          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+          font-size: 8pt;
+          font-weight: 600;
+          color: #374151;
+        }
+
+        @bottom-left {
+          content: "Bedrock Consumer Goods Trading \2022  Official Report";
+          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+          font-size: 7.5pt;
+          font-weight: 500;
+          color: #6b7280;
+        }
       }
       body {
         background: #ffffff !important;
@@ -805,7 +838,14 @@
         width: 100% !important;
         border-collapse: collapse !important;
         color: #000000 !important;
-        font-size: 12pt !important;
+        font-size: 11pt !important;
+      }
+      thead {
+        display: table-header-group !important;
+      }
+      tr {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
       }
       th, td {
         border: 1px solid #d1d5db !important;
@@ -897,6 +937,39 @@
       .report-view.active {
         display: block !important;
       }
+      /* Master Report Print Layout (Repeats header on every page) */
+      .report-print-wrapper,
+      .report-print-wrapper > thead,
+      .report-print-wrapper > thead > tr,
+      .report-print-wrapper > thead > tr > td,
+      .report-print-wrapper > tbody,
+      .report-print-wrapper > tbody > tr,
+      .report-print-wrapper > tbody > tr > td {
+        border: none !important;
+        box-shadow: none !important;
+        background: transparent !important;
+      }
+      .report-print-wrapper {
+        width: 100% !important;
+        border-collapse: collapse !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        display: table !important;
+      }
+      .report-print-wrapper > thead {
+        display: table-header-group !important;
+      }
+      .report-print-wrapper > thead > tr > td {
+        padding: 0 0 6px 0 !important;
+      }
+      .report-print-wrapper > tbody {
+        display: table-row-group !important;
+      }
+      .report-print-wrapper > tbody > tr > td {
+        padding: 0 !important;
+        vertical-align: top !important;
+      }
+
       /* Formal Printed Report Header Styles */
       .print-only-header {
         display: block !important;
@@ -1133,32 +1206,41 @@
 
       <!-- TAB: REPORTS -->
       <div id="tab-reports" class="tab-content">
-        <!-- Print-only header for formal printed reports -->
-        <div class="print-only-header">
-          <div class="print-header-grid" style="display:flex; justify-content:space-between; align-items:flex-start; width:100%; gap:16px;">
-            <div style="display:flex; align-items:flex-start; gap:10px;">
-              <img src="bedrock_logo.png" alt="Bedrock Logo" style="width:36px; height:36px; object-fit:contain; border-radius:50%; border:1.5px solid #9e7223; flex-shrink:0; margin-top:2px;">
-              <div>
-                <h1 style="margin:0 0 2px 0; font-size:11pt; font-weight:700; color:#111827; letter-spacing:0.02em; line-height:1.25;">BEDROCK CONSUMER GOODS TRADING</h1>
-                <div class="print-address" style="margin:0; font-size:8pt; color:#374151; line-height:1.35;">
-                  <strong>Address:</strong> #65 De Acosta St., San Antonio Village, Paciano Rizal, Calamba, Laguna 4027, Philippines
+        <table class="report-print-wrapper">
+          <thead>
+            <tr>
+              <td>
+                <!-- Print-only header for formal printed reports (repeats on every printed page) -->
+                <div class="print-only-header">
+                  <div class="print-header-grid" style="display:flex; justify-content:space-between; align-items:flex-start; width:100%; gap:16px;">
+                    <div style="display:flex; align-items:flex-start; gap:10px;">
+                      <img src="bedrock_logo.png" alt="Bedrock Logo" style="width:36px; height:36px; object-fit:contain; border-radius:50%; border:1.5px solid #9e7223; flex-shrink:0; margin-top:2px;">
+                      <div>
+                        <h1 style="margin:0 0 2px 0; font-size:11pt; font-weight:700; color:#111827; letter-spacing:0.02em; line-height:1.25;">BEDROCK CONSUMER GOODS TRADING</h1>
+                        <div class="print-address" style="margin:0; font-size:8pt; color:#374151; line-height:1.35;">
+                          <strong>Address:</strong> #65 De Acosta St., San Antonio Village, Paciano Rizal, Calamba, Laguna 4027, Philippines
+                        </div>
+                        <div class="print-contact" style="margin:1px 0 0 0; font-size:8pt; color:#374151; line-height:1.35;">
+                          <strong>Contact:</strong> +34 650-361-177 &bull; inquiry@bedrocktrading.ph &bull; bedrocktrading.ph
+                        </div>
+                      </div>
+                    </div>
+                    <div class="print-header-right" style="display:flex; flex-direction:column; align-items:flex-end; text-align:right; margin-left:auto; flex-shrink:0;">
+                      <h2 style="margin:0 0 2px 0; font-size:11.5pt; color:#9e7223; font-weight:700; line-height:1.25; text-align:right;" id="printReportTitle">Live Inventory &amp; Stock Level Report</h2>
+                      <div style="margin:0; font-size:8.5pt; color:#111827; font-weight:600; text-align:right; line-height:1.35;" id="printReportAsOf">
+                        As of today: <span id="printReportAsOfDate">October 25, 2026</span>
+                      </div>
+                      <div style="margin:1px 0 0 0; font-size:7.5pt; color:#6b7280; text-align:right; line-height:1.35;" id="printReportTimestamp">Report Generated: October 25, 2026 at 8:56 PM</div>
+                    </div>
+                  </div>
                 </div>
-                <div class="print-contact" style="margin:1px 0 0 0; font-size:8pt; color:#374151; line-height:1.35;">
-                  <strong>Contact:</strong> +34 650-361-177 &bull; inquiry@bedrocktrading.ph &bull; bedrocktrading.ph
-                </div>
-              </div>
-            </div>
-            <div class="print-header-right" style="display:flex; flex-direction:column; align-items:flex-end; text-align:right; margin-left:auto; flex-shrink:0;">
-              <h2 style="margin:0 0 2px 0; font-size:11.5pt; color:#9e7223; font-weight:700; line-height:1.25; text-align:right;" id="printReportTitle">Live Inventory &amp; Stock Level Report</h2>
-              <div style="margin:0; font-size:8.5pt; color:#111827; font-weight:600; text-align:right; line-height:1.35;" id="printReportAsOf">
-                As of today: <span id="printReportAsOfDate">October 25, 2026</span>
-              </div>
-              <div style="margin:1px 0 0 0; font-size:7.5pt; color:#6b7280; text-align:right; line-height:1.35;" id="printReportTimestamp">Report Generated: October 25, 2026 at 8:56 PM</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Report Subnav Navigation -->
+              </td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <!-- Report Subnav Navigation -->
         <div class="report-subnav">
           <button class="report-subnav-btn active" id="btnSubnavInventory" onclick="switchReportSubTab('inventory')">
             <span>📦</span> Inventory Report
@@ -1507,6 +1589,10 @@
             </div>
           </div>
         </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
       <!-- TAB 2: PRODUCTS -->
