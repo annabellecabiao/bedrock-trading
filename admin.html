@@ -127,7 +127,7 @@
     /* Main Content */
     .admin-main {
       flex: 1;
-      padding: 2rem;
+      padding: 1.5rem 2rem;
       overflow-y: auto;
     }
 
@@ -135,30 +135,32 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 2rem;
-      padding-bottom: 1rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
       border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     }
 
     .admin-title {
       margin: 0;
-      font-size: 1.75rem;
+      font-size: 1.35rem;
       font-weight: 700;
       color: #fff;
+      letter-spacing: 0.01em;
     }
 
     .btn-gold {
       background: linear-gradient(135deg, #c4963c, #9e7223);
       color: #0c0f17;
       border: none;
-      padding: 0.65rem 1.25rem;
+      padding: 0.45rem 1rem;
       border-radius: 6px;
       font-weight: 600;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.45rem;
       text-decoration: none;
+      font-size: 0.82rem;
       transition: opacity 0.2s;
     }
 
@@ -170,10 +172,10 @@
       background: transparent;
       border: 1px solid var(--admin-border);
       color: var(--admin-text);
-      padding: 0.5rem 1rem;
+      padding: 0.4rem 0.85rem;
       border-radius: 6px;
       cursor: pointer;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
     }
 
     .btn-outline:hover {
@@ -184,10 +186,10 @@
       background: rgba(239, 68, 68, 0.15);
       border: 1px solid rgba(239, 68, 68, 0.4);
       color: #f87171;
-      padding: 0.4rem 0.8rem;
+      padding: 0.35rem 0.7rem;
       border-radius: 5px;
       cursor: pointer;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
     }
 
     .btn-danger:hover {
@@ -197,57 +199,60 @@
     /* Stats Grid */
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1.25rem;
-      margin-bottom: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
     }
 
     .stat-card {
       background: var(--admin-card);
       border: 1px solid var(--admin-border);
-      border-radius: 10px;
-      padding: 1.5rem;
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
     }
 
     .stat-card-title {
-      font-size: 0.85rem;
+      font-size: 0.7rem;
       color: var(--admin-muted);
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.3rem;
       text-transform: uppercase;
       letter-spacing: 0.05em;
+      font-weight: 600;
     }
 
     .stat-card-val {
-      font-size: 2.2rem;
+      font-size: 1.35rem;
       font-weight: 700;
       color: #fff;
+      line-height: 1.2;
     }
 
     .stat-card-sub {
-      font-size: 0.8rem;
+      font-size: 0.7rem;
       color: var(--admin-gold);
-      margin-top: 0.35rem;
+      margin-top: 0.2rem;
     }
 
     /* Cards & Tables */
     .admin-card {
       background: var(--admin-card);
       border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 10px;
-      padding: 1.5rem;
-      margin-bottom: 2rem;
+      border-radius: 8px;
+      padding: 1.1rem 1.2rem;
+      margin-bottom: 1.5rem;
     }
 
     .admin-card-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 1.25rem;
+      margin-bottom: 1rem;
     }
 
     .admin-card-title {
       margin: 0;
-      font-size: 1.2rem;
+      font-size: 0.92rem;
+      font-weight: 600;
       color: #fff;
     }
 
@@ -260,21 +265,27 @@
       width: 100%;
       border-collapse: collapse;
       text-align: left;
-      font-size: 0.9rem;
+      font-size: 0.8rem;
     }
 
     th {
       background: rgba(255, 255, 255, 0.03);
       color: var(--admin-muted);
-      padding: 0.85rem 1rem;
+      padding: 0.55rem 0.75rem;
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.7rem;
       font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
     }
 
     td {
-      padding: 1rem;
+      padding: 0.6rem 0.75rem;
       border-bottom: 1px solid rgba(255, 255, 255, 0.04);
       vertical-align: middle;
+      font-size: 0.8rem;
+      line-height: 1.35;
     }
 
     tr:hover td {
@@ -413,68 +424,68 @@
     /* Media Queries for Admin Portal on Larger Monitors */
     @media (min-width: 1800px) {
       .admin-sidebar {
-        width: 300px;
+        width: 280px;
       }
 
       .admin-main {
-        padding: 3rem 4rem;
+        padding: 2rem 3rem;
         max-width: 2200px;
         margin: 0 auto;
       }
 
       .admin-title {
-        font-size: 2.2rem;
+        font-size: 1.35rem;
       }
 
       .stat-card-val {
-        font-size: 2.8rem;
+        font-size: 1.45rem;
       }
 
       .stats-grid {
-        gap: 1.75rem;
+        gap: 1rem;
       }
 
       .admin-card {
-        padding: 2rem;
+        padding: 1.25rem;
       }
 
       .auth-container {
-        max-width: 480px;
-        margin: 140px auto;
-        padding: 3rem;
+        max-width: 440px;
+        margin: 120px auto;
+        padding: 2.5rem;
       }
     }
 
     @media (min-width: 2560px) {
       .admin-sidebar {
-        width: 340px;
+        width: 300px;
       }
 
       .admin-main {
-        padding: 4rem 5rem;
+        padding: 2.5rem 4rem;
         max-width: 2600px;
         margin: 0 auto;
       }
 
       .admin-title {
-        font-size: 2.6rem;
+        font-size: 1.45rem;
       }
 
       .stat-card-val {
-        font-size: 3.2rem;
+        font-size: 1.55rem;
       }
 
       .stats-grid {
-        gap: 2rem;
+        gap: 1.25rem;
       }
 
       .admin-card {
-        padding: 2.5rem;
+        padding: 1.35rem 1.5rem;
       }
 
       .admin-modal-box {
-        max-width: 800px;
-        padding: 2.5rem;
+        max-width: 750px;
+        padding: 2rem;
       }
     }
 
@@ -672,19 +683,19 @@
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 8px;
-      padding: 1.1rem;
+      padding: 0.85rem 1rem;
     }
 
     .customer-kpi-label {
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       color: var(--admin-muted);
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      margin-bottom: 0.35rem;
+      margin-bottom: 0.3rem;
     }
 
     .customer-kpi-val {
-      font-size: 1.4rem;
+      font-size: 1.25rem;
       font-weight: 700;
       color: #fff;
     }
@@ -764,8 +775,8 @@
       body {
         background: #ffffff !important;
         color: #000000 !important;
-        font-size: 12pt !important;
-        line-height: 1.4 !important;
+        font-size: 8.5pt !important;
+        line-height: 1.35 !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
       }
@@ -847,12 +858,12 @@
 
       .admin-modal-overlay.print-modal-active .customer-kpi-label {
         color: #000000 !important;
-        font-size: 12pt !important;
+        font-size: 7.5pt !important;
       }
 
       .admin-modal-overlay.print-modal-active .customer-kpi-val {
         color: #000000 !important;
-        font-size: 18pt !important;
+        font-size: 12pt !important;
       }
 
       .admin-modal-overlay.print-modal-active .customer-detail-panel {
@@ -863,17 +874,18 @@
       .admin-modal-overlay.print-modal-active .customer-detail-panel h4 {
         color: #9e7223 !important;
         border-bottom: 1px solid #e5e7eb !important;
+        font-size: 9.5pt !important;
       }
 
       .admin-modal-overlay.print-modal-active .customer-detail-panel .lbl {
         color: #000000 !important;
-        font-size: 12pt !important;
+        font-size: 8pt !important;
       }
 
       .admin-modal-overlay.print-modal-active .customer-detail-panel .val,
       .admin-modal-overlay.print-modal-active #dossierViewNotes {
         color: #000000 !important;
-        font-size: 12pt !important;
+        font-size: 8pt !important;
       }
 
       .admin-modal-overlay.print-modal-active button,
@@ -904,20 +916,20 @@
         border: 1px solid #d1d5db !important;
         box-shadow: none !important;
         color: #000000 !important;
-        padding: 10px 14px !important;
-        margin-bottom: 14px !important;
+        padding: 8px 10px !important;
+        margin-bottom: 10px !important;
         page-break-inside: auto;
       }
 
       .admin-card-header {
-        margin-bottom: 8px !important;
-        padding-bottom: 6px !important;
+        margin-bottom: 6px !important;
+        padding-bottom: 4px !important;
         border-bottom: 1px solid #e5e7eb !important;
       }
 
       /* Retain heading size & color */
       .admin-card-title {
-        font-size: 14pt !important;
+        font-size: 9.5pt !important;
         font-weight: 700 !important;
         color: #9e7223 !important;
         margin: 0 !important;
@@ -926,38 +938,39 @@
       .stats-grid {
         display: grid !important;
         grid-template-columns: repeat(4, 1fr) !important;
-        gap: 10px !important;
-        margin-bottom: 14px !important;
+        gap: 8px !important;
+        margin-bottom: 10px !important;
       }
 
       .stat-card {
         border: 1px solid #d1d5db !important;
         background: #f9fafb !important;
         color: #000000 !important;
-        padding: 10px 12px !important;
-        border-radius: 6px !important;
+        padding: 6px 8px !important;
+        border-radius: 4px !important;
         page-break-inside: avoid;
       }
 
       .stat-card-title {
         color: #000000 !important;
-        font-size: 12pt !important;
+        font-size: 7pt !important;
         font-weight: 700 !important;
-        margin-bottom: 4px !important;
+        margin-bottom: 3px !important;
         text-transform: uppercase !important;
+        letter-spacing: 0.03em !important;
       }
 
       .stat-card-val {
         color: #000000 !important;
-        font-size: 18pt !important;
+        font-size: 11.5pt !important;
         font-weight: 800 !important;
         line-height: 1.15 !important;
       }
 
       .stat-card-sub {
         color: #000000 !important;
-        font-size: 11pt !important;
-        margin-top: 3px !important;
+        font-size: 6.8pt !important;
+        margin-top: 2px !important;
       }
 
       .table-container {
@@ -968,7 +981,7 @@
         width: 100% !important;
         border-collapse: collapse !important;
         color: #000000 !important;
-        font-size: 11pt !important;
+        font-size: 8pt !important;
       }
 
       thead {
@@ -984,18 +997,18 @@
       td {
         border: 1px solid #d1d5db !important;
         color: #000000 !important;
-        padding: 6px 8px !important;
-        font-size: 12pt !important;
-        line-height: 1.35 !important;
+        padding: 4px 6px !important;
+        font-size: 7.8pt !important;
+        line-height: 1.3 !important;
         vertical-align: middle !important;
       }
 
       th {
         background: #f3f4f6 !important;
         font-weight: 700 !important;
-        font-size: 12pt !important;
+        font-size: 7.2pt !important;
         text-transform: uppercase !important;
-        letter-spacing: 0.02em !important;
+        letter-spacing: 0.03em !important;
         color: #000000 !important;
         border: 1px solid #d1d5db !important;
       }
@@ -1005,66 +1018,66 @@
       td span,
       td p {
         color: #000000 !important;
-        font-size: 12pt !important;
+        font-size: 7.8pt !important;
       }
 
       td div[style*="font-weight:600"] {
-        font-size: 12pt !important;
+        font-size: 7.8pt !important;
         font-weight: 700 !important;
         color: #000000 !important;
       }
 
       td div[style*="font-size:0.75rem"] {
-        font-size: 11pt !important;
+        font-size: 7.2pt !important;
         color: #000000 !important;
       }
 
       td [id^="inv-desc-"] {
-        font-size: 11.5pt !important;
-        line-height: 1.35 !important;
+        font-size: 7.5pt !important;
+        line-height: 1.3 !important;
         color: #000000 !important;
         max-width: 320px !important;
       }
 
       /* Retain status badge borders color and badge styling */
       .badge-status {
-        font-size: 11pt !important;
-        padding: 2px 7px !important;
-        border-radius: 4px !important;
+        font-size: 7.2pt !important;
+        padding: 1px 5px !important;
+        border-radius: 3px !important;
         font-weight: 700 !important;
         display: inline-block !important;
       }
 
       .badge-status.qualified {
-        border: 1.5px solid #34d399 !important;
+        border: 1px solid #34d399 !important;
         color: #065f46 !important;
         background: #ecfdf5 !important;
       }
 
       .badge-status.pending {
-        border: 1.5px solid #f59e0b !important;
+        border: 1px solid #f59e0b !important;
         color: #92400e !important;
         background: #fffbeb !important;
       }
 
       .badge-status.closed {
-        border: 1.5px solid #ef4444 !important;
+        border: 1px solid #ef4444 !important;
         color: #991b1b !important;
         background: #fef2f2 !important;
       }
 
       .badge-status.contacted {
-        border: 1.5px solid #9e7223 !important;
+        border: 1px solid #9e7223 !important;
         color: #78350f !important;
         background: #fefce8 !important;
       }
 
       #invWineSubcatList>div,
       #invOilSubcatList>div {
-        font-size: 12pt !important;
+        font-size: 7.8pt !important;
         color: #000000 !important;
         border-bottom: 1px solid #e5e7eb !important;
-        padding: 5px 0 !important;
+        padding: 3px 0 !important;
       }
 
       #invWineSubcatList div,
@@ -1072,7 +1085,7 @@
       #invWineSubcatList strong,
       #invOilSubcatList strong {
         color: #000000 !important;
-        font-size: 12pt !important;
+        font-size: 7.8pt !important;
       }
 
       .tab-content {
