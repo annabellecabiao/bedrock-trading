@@ -288,6 +288,74 @@
       line-height: 1.35;
     }
 
+    tfoot td {
+      padding: 0.65rem 0.75rem;
+      font-weight: 700;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.03);
+      border-top: 2px solid var(--admin-gold);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      vertical-align: middle;
+    }
+
+    /* Centered Alignment for Admin Reports */
+    #inventoryReportTable th:nth-child(1),
+    #inventoryReportTable td:nth-child(1),
+    #inventoryReportTable th:nth-child(2),
+    #inventoryReportTable td:nth-child(2),
+    #inventoryReportTable th:nth-child(4),
+    #inventoryReportTable td:nth-child(4),
+    #inventoryReportTable th:nth-child(5),
+    #inventoryReportTable td:nth-child(5),
+    #inventoryReportTable th:nth-child(6),
+    #inventoryReportTable td:nth-child(6),
+    #inventoryReportTable th:nth-child(7),
+    #inventoryReportTable td:nth-child(7),
+    #inventoryReportTable th:nth-child(8),
+    #inventoryReportTable td:nth-child(8),
+    #inventoryReportTable th:nth-child(9),
+    #inventoryReportTable td:nth-child(9) {
+      text-align: center !important;
+    }
+
+    #inventoryReportTable th:nth-child(3),
+    #inventoryReportTable td:nth-child(3) {
+      text-align: left !important;
+    }
+
+    #salesTopProductsTable th:nth-child(2),
+    #salesTopProductsTable td:nth-child(2),
+    #salesTopProductsTable th:nth-child(3),
+    #salesTopProductsTable td:nth-child(3),
+    #salesTopProductsTable th:nth-child(4),
+    #salesTopProductsTable td:nth-child(4),
+    #salesTopProductsTable th:nth-child(5),
+    #salesTopProductsTable td:nth-child(5) {
+      text-align: center !important;
+    }
+
+    #salesLedgerTable th:nth-child(1),
+    #salesLedgerTable td:nth-child(1),
+    #salesLedgerTable th:nth-child(2),
+    #salesLedgerTable td:nth-child(2),
+    #salesLedgerTable th:nth-child(5),
+    #salesLedgerTable td:nth-child(5),
+    #salesLedgerTable th:nth-child(6),
+    #salesLedgerTable td:nth-child(6),
+    #salesLedgerTable th:nth-child(7),
+    #salesLedgerTable td:nth-child(7) {
+      text-align: center !important;
+    }
+
+    #finStatementTable th:nth-child(2),
+    #finStatementTable td:nth-child(2),
+    #finStatementTable th:nth-child(3),
+    #finStatementTable td:nth-child(3),
+    #finStatementTable th:nth-child(4),
+    #finStatementTable td:nth-child(4) {
+      text-align: center !important;
+    }
+
     tr:hover td {
       background: rgba(255, 255, 255, 0.02);
     }
@@ -988,6 +1056,77 @@
         display: table-header-group !important;
       }
 
+      tfoot {
+        display: table-footer-group !important;
+      }
+
+      tfoot td {
+        background: #f3f4f6 !important;
+        font-weight: 700 !important;
+        border-top: 2px solid #9e7223 !important;
+        border-bottom: 1px solid #d1d5db !important;
+        color: #000000 !important;
+        font-size: 8pt !important;
+      }
+
+      /* Print Alignment for Inventory Report Table */
+      #inventoryReportTable th:nth-child(1),
+      #inventoryReportTable td:nth-child(1),
+      #inventoryReportTable th:nth-child(2),
+      #inventoryReportTable td:nth-child(2),
+      #inventoryReportTable th:nth-child(4),
+      #inventoryReportTable td:nth-child(4),
+      #inventoryReportTable th:nth-child(5),
+      #inventoryReportTable td:nth-child(5),
+      #inventoryReportTable th:nth-child(6),
+      #inventoryReportTable td:nth-child(6),
+      #inventoryReportTable th:nth-child(7),
+      #inventoryReportTable td:nth-child(7),
+      #inventoryReportTable th:nth-child(8),
+      #inventoryReportTable td:nth-child(8),
+      #inventoryReportTable th:nth-child(9),
+      #inventoryReportTable td:nth-child(9) {
+        text-align: center !important;
+      }
+
+      #inventoryReportTable th:nth-child(3),
+      #inventoryReportTable td:nth-child(3) {
+        text-align: left !important;
+      }
+
+      #salesTopProductsTable th:nth-child(2),
+      #salesTopProductsTable td:nth-child(2),
+      #salesTopProductsTable th:nth-child(3),
+      #salesTopProductsTable td:nth-child(3),
+      #salesTopProductsTable th:nth-child(4),
+      #salesTopProductsTable td:nth-child(4),
+      #salesTopProductsTable th:nth-child(5),
+      #salesTopProductsTable td:nth-child(5) {
+        text-align: center !important;
+      }
+
+      #salesLedgerTable th:nth-child(1),
+      #salesLedgerTable td:nth-child(1),
+      #salesLedgerTable th:nth-child(2),
+      #salesLedgerTable td:nth-child(2),
+      #salesLedgerTable th:nth-child(5),
+      #salesLedgerTable td:nth-child(5),
+      #salesLedgerTable th:nth-child(6),
+      #salesLedgerTable td:nth-child(6),
+      #salesLedgerTable th:nth-child(7),
+      #salesLedgerTable td:nth-child(7) {
+        text-align: center !important;
+      }
+
+      #finStatementTable th:nth-child(2),
+      #finStatementTable td:nth-child(2),
+      #finStatementTable th:nth-child(3),
+      #finStatementTable td:nth-child(3),
+      #finStatementTable th:nth-child(4),
+      #finStatementTable td:nth-child(4) {
+        text-align: center !important;
+      }
+
       tr {
         page-break-inside: avoid !important;
         break-inside: avoid !important;
@@ -1582,18 +1721,19 @@
                       <table id="inventoryReportTable">
                         <thead>
                           <tr>
-                            <th>SKU</th>
-                            <th>Category</th>
-                            <th>Product Name &amp; Description</th>
-                            <th>Sub-Category</th>
-                            <th>Unit Price</th>
-                            <th>Stock Level</th>
-                            <th>Reorder Level</th>
-                            <th>Valuation</th>
-                            <th>Status</th>
+                            <th style="text-align:center;">SKU</th>
+                            <th style="text-align:center;">Category</th>
+                            <th style="text-align:left;">Product Name &amp; Description</th>
+                            <th style="text-align:center;">Sub-Category</th>
+                            <th style="text-align:center;">Unit Price</th>
+                            <th style="text-align:center;">Stock Level</th>
+                            <th style="text-align:center;">Reorder Level</th>
+                            <th style="text-align:center;">Valuation</th>
+                            <th style="text-align:center;">Status</th>
                           </tr>
                         </thead>
                         <tbody id="inventoryReportTableBody"></tbody>
+                        <tfoot id="inventoryReportTableFoot"></tfoot>
                       </table>
                     </div>
                   </div>
@@ -1697,17 +1837,18 @@
                         <h3 class="admin-card-title">Top Selling Products</h3>
                       </div>
                       <div class="table-container">
-                        <table>
+                        <table id="salesTopProductsTable">
                           <thead>
                             <tr>
                               <th>Product</th>
-                              <th>Category</th>
-                              <th>Sub-Category</th>
-                              <th>Units Sold</th>
-                              <th>Total Revenue</th>
+                              <th style="text-align:center;">Category</th>
+                              <th style="text-align:center;">Sub-Category</th>
+                              <th style="text-align:center;">Units Sold</th>
+                              <th style="text-align:center;">Total Revenue</th>
                             </tr>
                           </thead>
                           <tbody id="salesTopProductsTableBody"></tbody>
+                          <tfoot id="salesTopProductsTableFoot"></tfoot>
                         </table>
                       </div>
                     </div>
@@ -1718,19 +1859,20 @@
                         <h3 class="admin-card-title">Commercial Sales Transaction Ledger</h3>
                       </div>
                       <div class="table-container">
-                        <table>
+                        <table id="salesLedgerTable">
                           <thead>
                             <tr>
-                              <th>Order #</th>
-                              <th>Date</th>
+                              <th style="text-align:center;">Order #</th>
+                              <th style="text-align:center;">Date</th>
                               <th>Customer</th>
                               <th>Items Sold</th>
-                              <th>Payment Channel</th>
-                              <th>Status</th>
-                              <th>Amount</th>
+                              <th style="text-align:center;">Payment Channel</th>
+                              <th style="text-align:center;">Status</th>
+                              <th style="text-align:center;">Amount</th>
                             </tr>
                           </thead>
                           <tbody id="salesLedgerTableBody"></tbody>
+                          <tfoot id="salesLedgerTableFoot"></tfoot>
                         </table>
                       </div>
                     </div>
@@ -1824,6 +1966,27 @@
                           <h3 class="admin-card-title">Cash Flow &amp; Fulfillment Aging</h3>
                         </div>
                         <div id="finStatusBreakdown" style="display:flex; flex-direction:column; gap:0.75rem;"></div>
+                      </div>
+                    </div>
+
+                    <!-- Fiscal Summary Reconciliation Statement Table -->
+                    <div class="admin-card">
+                      <div class="admin-card-header">
+                        <h3 class="admin-card-title">Fiscal Audit &amp; Revenue Reconciliation Statement</h3>
+                      </div>
+                      <div class="table-container">
+                        <table id="finStatementTable">
+                          <thead>
+                            <tr>
+                              <th>Financial Account / Statement Line Item</th>
+                              <th style="text-align:center;">Rate / Basis</th>
+                              <th style="text-align:center;">Classification</th>
+                              <th style="text-align:center;">Total Amount</th>
+                            </tr>
+                          </thead>
+                          <tbody id="finStatementTableBody"></tbody>
+                          <tfoot id="finStatementTableFoot"></tfoot>
+                        </table>
                       </div>
                     </div>
                   </div>
@@ -2692,8 +2855,14 @@
         const wineListEl = document.getElementById('invWineSubcatList');
         if (wineListEl) {
           const wineSubs = ['Red', 'White', 'Sparkling', 'Rose'];
-          wineListEl.innerHTML = wineSubs.map(sub => {
+          let wineTotalSkus = 0;
+          let wineTotalStock = 0;
+          let wineTotalValuation = 0;
+          let wineHtml = wineSubs.map(sub => {
             const info = data.by_sub_category[sub] || { count: 0, stock: 0, valuation: 0 };
+            wineTotalSkus += (info.count || 0);
+            wineTotalStock += (info.stock || 0);
+            wineTotalValuation += (info.valuation || 0);
             return `
               <div style="display:flex; justify-content:space-between; align-items:center; padding:0.4rem 0.6rem; background:rgba(255,255,255,0.02); border-radius:6px;">
                 <div style="font-weight:600; color:#fff;">${sub} Wine</div>
@@ -2705,14 +2874,32 @@
               </div>
             `;
           }).join('');
+
+          wineHtml += `
+            <div style="display:flex; justify-content:space-between; align-items:center; padding:0.5rem 0.6rem; background:rgba(196,150,60,0.12); border-top:1.5px solid var(--admin-gold); border-radius:6px; margin-top:4px;">
+              <div style="font-weight:700; color:var(--admin-gold); text-transform:uppercase; font-size:0.8rem;">Total Wine Inventory Amount</div>
+              <div style="font-size:0.85rem; color:#fff; text-align:right;">
+                <strong style="color:var(--admin-gold);">${wineTotalSkus}</strong> SKUs &bull; 
+                <strong style="color:#34d399;">${wineTotalStock}</strong> units &bull; 
+                <strong style="color:var(--admin-gold); font-size:0.95rem;">₱${wineTotalValuation.toLocaleString()}</strong>
+              </div>
+            </div>
+          `;
+          wineListEl.innerHTML = wineHtml;
         }
 
         // Render Olive Oil Subcategories breakdown (Picual, Arbequina, Coupage)
         const oilListEl = document.getElementById('invOilSubcatList');
         if (oilListEl) {
           const oilSubs = ['Picual', 'Arbequina', 'Coupage'];
-          oilListEl.innerHTML = oilSubs.map(sub => {
+          let oilTotalSkus = 0;
+          let oilTotalStock = 0;
+          let oilTotalValuation = 0;
+          let oilHtml = oilSubs.map(sub => {
             const info = data.by_sub_category[sub] || { count: 0, stock: 0, valuation: 0 };
+            oilTotalSkus += (info.count || 0);
+            oilTotalStock += (info.stock || 0);
+            oilTotalValuation += (info.valuation || 0);
             return `
               <div style="display:flex; justify-content:space-between; align-items:center; padding:0.4rem 0.6rem; background:rgba(255,255,255,0.02); border-radius:6px;">
                 <div style="font-weight:600; color:#fff;">${sub} EVOO</div>
@@ -2724,6 +2911,18 @@
               </div>
             `;
           }).join('');
+
+          oilHtml += `
+            <div style="display:flex; justify-content:space-between; align-items:center; padding:0.5rem 0.6rem; background:rgba(52,211,153,0.12); border-top:1.5px solid #34d399; border-radius:6px; margin-top:4px;">
+              <div style="font-weight:700; color:#34d399; text-transform:uppercase; font-size:0.8rem;">Total Olive Oil Inventory Amount</div>
+              <div style="font-size:0.85rem; color:#fff; text-align:right;">
+                <strong style="color:var(--admin-gold);">${oilTotalSkus}</strong> SKUs &bull; 
+                <strong style="color:#34d399;">${oilTotalStock}</strong> units &bull; 
+                <strong style="color:#34d399; font-size:0.95rem;">₱${oilTotalValuation.toLocaleString()}</strong>
+              </div>
+            </div>
+          `;
+          oilListEl.innerHTML = oilHtml;
         }
 
         renderInventoryTable(data.inventory);
@@ -2769,7 +2968,15 @@
 
     function renderInventoryTable(items) {
       const tbody = document.getElementById('inventoryReportTableBody');
+      const tfoot = document.getElementById('inventoryReportTableFoot');
       if (!tbody) return;
+
+      if (!items || items.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; padding:2rem; color:var(--admin-muted);">No inventory products matched the current filters.</td></tr>`;
+        if (tfoot) tfoot.innerHTML = '';
+        return;
+      }
+
       tbody.innerHTML = items.map(p => {
         const isLow = p.stock_quantity <= p.reorder_level;
         const isOutOfStock = p.stock_quantity <= 0 || !p.in_stock;
@@ -2780,28 +2987,53 @@
           statusBadge = '<span class="badge-status pending">Low Stock</span>';
         }
 
+        const valuation = Number(p.valuation) || ((Number(p.price) || 0) * (Number(p.stock_quantity) || 0));
+
         return `
           <tr>
-            <td><strong style="color:var(--admin-gold);">${p.id}</strong></td>
-            <td><span class="badge-status ${p.category === 'wine' ? 'contacted' : 'qualified'}">${p.category === 'wine' ? 'Wine' : 'Olive Oil'}</span></td>
+            <td style="text-align:center;"><strong style="color:var(--admin-gold);">${p.id}</strong></td>
+            <td style="text-align:center;"><span class="badge-status ${p.category === 'wine' ? 'contacted' : 'qualified'}">${p.category === 'wine' ? 'Wine' : 'Olive Oil'}</span></td>
             <td>
               <div style="font-weight:600; color:#fff;">${p.name}</div>
               <div style="font-size:0.75rem; color:var(--admin-muted);">${p.volume || p.region || 'Spain'}</div>
               ${renderAdminDesc(p.description, 'inv-desc-' + p.id)}
             </td>
-            <td><strong style="color:#cbd5e1;">${p.type || '—'}</strong></td>
-            <td>₱${(p.price || 0).toLocaleString()}</td>
-            <td>
+            <td style="text-align:center;"><strong style="color:#cbd5e1;">${p.type || '—'}</strong></td>
+            <td style="text-align:center;">₱${(p.price || 0).toLocaleString()}</td>
+            <td style="text-align:center;">
               <div style="font-weight:700; color:${isLow ? '#f59e0b' : '#34d399'}; font-size:0.95rem;">
                 ${p.stock_quantity} units
               </div>
             </td>
-            <td><span style="color:var(--admin-muted);">${p.reorder_level} units</span></td>
-            <td><strong>₱${(p.valuation || (p.price * p.stock_quantity)).toLocaleString()}</strong></td>
-            <td>${statusBadge}</td>
+            <td style="text-align:center;"><span style="color:var(--admin-muted);">${p.reorder_level} units</span></td>
+            <td style="text-align:center;"><strong style="color:var(--admin-gold);">₱${valuation.toLocaleString()}</strong></td>
+            <td style="text-align:center;">${statusBadge}</td>
           </tr>
         `;
       }).join('');
+
+      if (tfoot) {
+        const totalUnits = items.reduce((sum, p) => sum + (Number(p.stock_quantity) || 0), 0);
+        const totalValuation = items.reduce((sum, p) => sum + (Number(p.valuation) || ((Number(p.price) || 0) * (Number(p.stock_quantity) || 0))), 0);
+
+        tfoot.innerHTML = `
+          <tr style="border-top:2px solid var(--admin-gold); background:rgba(196,150,60,0.08);">
+            <td colspan="3" style="text-align:right; font-weight:700; color:var(--admin-gold); text-transform:uppercase; letter-spacing:0.04em;">
+              Total Inventory Valuation &amp; Stock:
+            </td>
+            <td style="text-align:center; color:#cbd5e1; font-weight:600;">${items.length} SKUs</td>
+            <td style="text-align:center; color:var(--admin-muted);">—</td>
+            <td style="text-align:center; font-weight:700; color:#34d399; font-size:0.95rem;">
+              ${totalUnits.toLocaleString()} units
+            </td>
+            <td style="text-align:center; color:var(--admin-muted);">—</td>
+            <td style="text-align:center; font-weight:800; color:var(--admin-gold); font-size:1.05rem;">
+              ₱${totalValuation.toLocaleString()}
+            </td>
+            <td style="text-align:center;"><span class="badge-status qualified">Active Stock</span></td>
+          </tr>
+        `;
+      }
     }
 
     function filterInventoryTable() {
@@ -2857,19 +3089,30 @@
         if (catContainer) {
           const wineRev = data.by_category.wine.revenue || 0;
           const oilRev = data.by_category.oil.revenue || 0;
+          const totalRev = wineRev + oilRev;
+          const wineUnits = data.by_category.wine.units_sold || 0;
+          const oilUnits = data.by_category.oil.units_sold || 0;
+          const totalUnits = wineUnits + oilUnits;
           catContainer.innerHTML = `
             <div style="display:flex; justify-content:space-between; align-items:center; padding:0.6rem 0.8rem; background:rgba(255,255,255,0.02); border-radius:6px;">
               <div><strong>🍷 Spanish Wines</strong></div>
               <div style="text-align:right;">
                 <div style="color:var(--admin-gold); font-weight:700;">₱${wineRev.toLocaleString()}</div>
-                <div style="font-size:0.75rem; color:var(--admin-muted);">${data.by_category.wine.units_sold || 0} units sold</div>
+                <div style="font-size:0.75rem; color:var(--admin-muted);">${wineUnits} units sold</div>
               </div>
             </div>
             <div style="display:flex; justify-content:space-between; align-items:center; padding:0.6rem 0.8rem; background:rgba(255,255,255,0.02); border-radius:6px;">
               <div><strong>🫒 BUENSALUD Olive Oils</strong></div>
               <div style="text-align:right;">
                 <div style="color:#34d399; font-weight:700;">₱${oilRev.toLocaleString()}</div>
-                <div style="font-size:0.75rem; color:var(--admin-muted);">${data.by_category.oil.units_sold || 0} units sold</div>
+                <div style="font-size:0.75rem; color:var(--admin-muted);">${oilUnits} units sold</div>
+              </div>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; padding:0.65rem 0.8rem; background:rgba(196,150,60,0.12); border-top:1.5px solid var(--admin-gold); border-radius:6px; margin-top:4px;">
+              <div style="font-weight:700; color:var(--admin-gold); text-transform:uppercase; font-size:0.82rem;">Total Category Sales Amount</div>
+              <div style="text-align:right;">
+                <div style="color:var(--admin-gold); font-weight:800; font-size:1.05rem;">₱${totalRev.toLocaleString()}</div>
+                <div style="font-size:0.75rem; color:var(--admin-muted);">${totalUnits} total units sold</div>
               </div>
             </div>
           `;
@@ -2879,45 +3122,98 @@
         const subcatContainer = document.getElementById('salesSubcategoryBreakdown');
         if (subcatContainer) {
           const subkeys = Object.keys(data.by_sub_category);
-          subcatContainer.innerHTML = subkeys.map(k => `
-            <div style="display:flex; justify-content:space-between; align-items:center; padding:0.4rem 0.6rem; border-bottom:1px solid rgba(255,255,255,0.03);">
-              <div style="font-size:0.9rem; color:#fff;">${k}</div>
+          let totalSubRev = 0;
+          let totalSubUnits = 0;
+          let rows = subkeys.map(k => {
+            const rev = data.by_sub_category[k].revenue || 0;
+            const units = data.by_sub_category[k].units_sold || 0;
+            totalSubRev += rev;
+            totalSubUnits += units;
+            return `
+              <div style="display:flex; justify-content:space-between; align-items:center; padding:0.4rem 0.6rem; border-bottom:1px solid rgba(255,255,255,0.03);">
+                <div style="font-size:0.9rem; color:#fff;">${k}</div>
+                <div style="font-size:0.85rem; text-align:right;">
+                  <span style="color:var(--admin-gold); font-weight:600;">₱${rev.toLocaleString()}</span>
+                  <span style="color:var(--admin-muted); font-size:0.75rem;">(${units} units)</span>
+                </div>
+              </div>
+            `;
+          }).join('');
+
+          rows += `
+            <div style="display:flex; justify-content:space-between; align-items:center; padding:0.65rem 0.6rem; background:rgba(196,150,60,0.12); border-top:1.5px solid var(--admin-gold); border-radius:6px; margin-top:4px;">
+              <div style="font-weight:700; color:var(--admin-gold); text-transform:uppercase; font-size:0.82rem;">Total Sub-Category Sales Amount</div>
               <div style="font-size:0.85rem; text-align:right;">
-                <span style="color:var(--admin-gold); font-weight:600;">₱${(data.by_sub_category[k].revenue || 0).toLocaleString()}</span>
-                <span style="color:var(--admin-muted); font-size:0.75rem;">(${data.by_sub_category[k].units_sold || 0} units)</span>
+                <strong style="color:var(--admin-gold); font-size:1.05rem;">₱${totalSubRev.toLocaleString()}</strong>
+                <span style="color:var(--admin-muted); font-size:0.75rem;">(${totalSubUnits} units)</span>
               </div>
             </div>
-          `).join('');
+          `;
+          subcatContainer.innerHTML = rows;
         }
 
         // Top selling products table
         const topTableBody = document.getElementById('salesTopProductsTableBody');
+        const topTableFoot = document.getElementById('salesTopProductsTableFoot');
         if (topTableBody) {
           topTableBody.innerHTML = (data.top_products || []).map(p => `
             <tr>
               <td><strong style="color:#fff;">${p.name}</strong></td>
-              <td><span class="badge-status ${p.category === 'wine' ? 'contacted' : 'qualified'}">${p.category === 'wine' ? 'Wine' : 'Olive Oil'}</span></td>
-              <td>${p.sub_category}</td>
-              <td><strong style="color:#34d399;">${p.units_sold} units</strong></td>
-              <td><strong style="color:var(--admin-gold);">₱${p.revenue.toLocaleString()}</strong></td>
+              <td style="text-align:center;"><span class="badge-status ${p.category === 'wine' ? 'contacted' : 'qualified'}">${p.category === 'wine' ? 'Wine' : 'Olive Oil'}</span></td>
+              <td style="text-align:center;">${p.sub_category}</td>
+              <td style="text-align:center;"><strong style="color:#34d399;">${p.units_sold} units</strong></td>
+              <td style="text-align:center;"><strong style="color:var(--admin-gold);">₱${p.revenue.toLocaleString()}</strong></td>
             </tr>
           `).join('');
+
+          if (topTableFoot) {
+            const totalTopUnits = (data.top_products || []).reduce((sum, p) => sum + (Number(p.units_sold) || 0), 0);
+            const totalTopRevenue = (data.top_products || []).reduce((sum, p) => sum + (Number(p.revenue) || 0), 0);
+            topTableFoot.innerHTML = `
+              <tr style="border-top:2px solid var(--admin-gold); background:rgba(196,150,60,0.08);">
+                <td colspan="3" style="text-align:right; font-weight:700; color:var(--admin-gold); text-transform:uppercase; letter-spacing:0.04em;">
+                  Total Top Products Sales Amount:
+                </td>
+                <td style="text-align:center; font-weight:700; color:#34d399; font-size:0.95rem;">
+                  ${totalTopUnits.toLocaleString()} units
+                </td>
+                <td style="text-align:center; font-weight:800; color:var(--admin-gold); font-size:1.05rem;">
+                  ₱${totalTopRevenue.toLocaleString()}
+                </td>
+              </tr>
+            `;
+          }
         }
 
         // Commercial sales ledger table
         const ledgerTableBody = document.getElementById('salesLedgerTableBody');
+        const ledgerTableFoot = document.getElementById('salesLedgerTableFoot');
         if (ledgerTableBody) {
           ledgerTableBody.innerHTML = (data.ledger || []).map(o => `
             <tr>
-              <td><strong style="color:var(--admin-gold);">${o.order_number}</strong></td>
-              <td>${new Date(o.date).toLocaleDateString()}</td>
+              <td style="text-align:center;"><strong style="color:var(--admin-gold);">${o.order_number}</strong></td>
+              <td style="text-align:center;">${new Date(o.date).toLocaleDateString()}</td>
               <td><strong>${o.customer}</strong></td>
               <td><span style="font-size:0.85rem;">${(o.items || []).map(i => `${i.qty}x ${i.name}`).join(', ')}</span></td>
-              <td><span style="text-transform:uppercase; font-size:0.8rem;">${o.payment_method}</span></td>
-              <td><span class="badge-status ${o.status}">${o.status}</span></td>
-              <td><strong style="color:#fff;">₱${(o.total || 0).toLocaleString()}</strong></td>
+              <td style="text-align:center;"><span style="text-transform:uppercase; font-size:0.8rem; font-weight:600;">${o.payment_method}</span></td>
+              <td style="text-align:center;"><span class="badge-status ${o.status}">${o.status}</span></td>
+              <td style="text-align:center;"><strong style="color:#fff;">₱${(o.total || 0).toLocaleString()}</strong></td>
             </tr>
           `).join('');
+
+          if (ledgerTableFoot) {
+            const totalLedgerAmount = (data.ledger || []).reduce((sum, o) => sum + (Number(o.total) || 0), 0);
+            ledgerTableFoot.innerHTML = `
+              <tr style="border-top:2px solid var(--admin-gold); background:rgba(196,150,60,0.08);">
+                <td colspan="6" style="text-align:right; font-weight:700; color:var(--admin-gold); text-transform:uppercase; letter-spacing:0.04em;">
+                  Total Commercial Sales Amount:
+                </td>
+                <td style="text-align:center; font-weight:800; color:var(--admin-gold); font-size:1.05rem;">
+                  ₱${totalLedgerAmount.toLocaleString()}
+                </td>
+              </tr>
+            `;
+          }
         }
       } catch (err) {
         console.error('Sales report error:', err);
@@ -2956,32 +3252,125 @@
         const payContainer = document.getElementById('finPaymentBreakdown');
         if (payContainer) {
           const channels = Object.keys(data.payment_channels || {});
-          payContainer.innerHTML = channels.map(c => `
-            <div style="display:flex; justify-content:space-between; align-items:center; padding:0.6rem 0.8rem; background:rgba(255,255,255,0.02); border-radius:6px;">
-              <div>
-                <strong style="text-transform:uppercase; color:#fff;">${c}</strong>
-                <div style="font-size:0.75rem; color:var(--admin-muted);">${data.payment_channels[c].count} transactions</div>
+          let totalPayAmount = 0;
+          let totalPayCount = 0;
+          let rows = channels.map(c => {
+            const total = data.payment_channels[c].total || 0;
+            const count = data.payment_channels[c].count || 0;
+            totalPayAmount += total;
+            totalPayCount += count;
+            return `
+              <div style="display:flex; justify-content:space-between; align-items:center; padding:0.6rem 0.8rem; background:rgba(255,255,255,0.02); border-radius:6px;">
+                <div>
+                  <strong style="text-transform:uppercase; color:#fff;">${c}</strong>
+                  <div style="font-size:0.75rem; color:var(--admin-muted);">${count} transactions</div>
+                </div>
+                <div style="color:var(--admin-gold); font-weight:700; font-size:1.05rem;">
+                  ₱${total.toLocaleString()}
+                </div>
               </div>
-              <div style="color:var(--admin-gold); font-weight:700; font-size:1.05rem;">
-                ₱${(data.payment_channels[c].total || 0).toLocaleString()}
+            `;
+          }).join('');
+
+          rows += `
+            <div style="display:flex; justify-content:space-between; align-items:center; padding:0.65rem 0.8rem; background:rgba(196,150,60,0.12); border-top:1.5px solid var(--admin-gold); border-radius:6px; margin-top:4px;">
+              <div>
+                <strong style="text-transform:uppercase; color:var(--admin-gold); font-size:0.82rem;">Total Reconciled Amount</strong>
+                <div style="font-size:0.75rem; color:var(--admin-muted);">${totalPayCount} total transactions</div>
+              </div>
+              <div style="color:var(--admin-gold); font-weight:800; font-size:1.1rem;">
+                ₱${totalPayAmount.toLocaleString()}
               </div>
             </div>
-          `).join('');
+          `;
+          payContainer.innerHTML = rows;
         }
 
         // Cash flow & fulfillment status
         const statusContainer = document.getElementById('finStatusBreakdown');
         if (statusContainer) {
           const statuses = Object.keys(data.status_breakdown || {});
-          statusContainer.innerHTML = statuses.map(s => `
-            <div style="display:flex; justify-content:space-between; align-items:center; padding:0.55rem 0.8rem; border-bottom:1px solid rgba(255,255,255,0.03);">
-              <div><span class="badge-status ${s}">${s}</span></div>
+          let totalStatusAmount = 0;
+          let totalStatusCount = 0;
+          let rows = statuses.map(s => {
+            const total = data.status_breakdown[s].total || 0;
+            const count = data.status_breakdown[s].count || 0;
+            totalStatusAmount += total;
+            totalStatusCount += count;
+            return `
+              <div style="display:flex; justify-content:space-between; align-items:center; padding:0.55rem 0.8rem; border-bottom:1px solid rgba(255,255,255,0.03);">
+                <div><span class="badge-status ${s}">${s}</span></div>
+                <div style="text-align:right;">
+                  <span style="font-weight:700; color:#fff;">₱${total.toLocaleString()}</span>
+                  <span style="color:var(--admin-muted); font-size:0.75rem;">(${count} orders)</span>
+                </div>
+              </div>
+            `;
+          }).join('');
+
+          rows += `
+            <div style="display:flex; justify-content:space-between; align-items:center; padding:0.65rem 0.8rem; background:rgba(196,150,60,0.12); border-top:1.5px solid var(--admin-gold); border-radius:6px; margin-top:4px;">
+              <div>
+                <strong style="text-transform:uppercase; color:var(--admin-gold); font-size:0.82rem;">Total Pipeline Order Amount</strong>
+                <div style="font-size:0.75rem; color:var(--admin-muted);">${totalStatusCount} total orders</div>
+              </div>
               <div style="text-align:right;">
-                <span style="font-weight:700; color:#fff;">₱${(data.status_breakdown[s].total || 0).toLocaleString()}</span>
-                <span style="color:var(--admin-muted); font-size:0.75rem;">(${data.status_breakdown[s].count} orders)</span>
+                <span style="font-weight:800; color:var(--admin-gold); font-size:1.1rem;">₱${totalStatusAmount.toLocaleString()}</span>
               </div>
             </div>
-          `).join('');
+          `;
+          statusContainer.innerHTML = rows;
+        }
+
+        // Populate Fiscal Audit & Revenue Reconciliation Statement table
+        const finTableBody = document.getElementById('finStatementTableBody');
+        const finTableFoot = document.getElementById('finStatementTableFoot');
+        if (finTableBody) {
+          const gross = data.summary.gross_revenue || 0;
+          const cogs = data.summary.estimated_cogs || 0;
+          const margin = data.summary.estimated_gross_margin || 0;
+          const vat = data.summary.estimated_vat_12_pct || 0;
+          const net = margin - vat;
+
+          finTableBody.innerHTML = `
+            <tr>
+              <td><strong>Gross Billed Sales Revenue</strong></td>
+              <td style="text-align:center;">100.0%</td>
+              <td style="text-align:center;"><span class="badge-status qualified">Operating Income</span></td>
+              <td style="text-align:center; font-weight:700; color:var(--admin-gold);">₱${gross.toLocaleString()}</td>
+            </tr>
+            <tr>
+              <td><strong>Less: Estimated Cost of Goods Sold (COGS)</strong></td>
+              <td style="text-align:center;">55.0%</td>
+              <td style="text-align:center;"><span class="badge-status closed">Cost Expense</span></td>
+              <td style="text-align:center; font-weight:600; color:#94a3b8;">-₱${cogs.toLocaleString()}</td>
+            </tr>
+            <tr>
+              <td><strong>Estimated Gross Operating Margin</strong></td>
+              <td style="text-align:center;">${data.summary.gross_margin_percentage || 45}%</td>
+              <td style="text-align:center;"><span class="badge-status qualified">Operating Profit</span></td>
+              <td style="text-align:center; font-weight:700; color:#34d399;">₱${margin.toLocaleString()}</td>
+            </tr>
+            <tr>
+              <td><strong>Less: Estimated Output VAT Liability</strong></td>
+              <td style="text-align:center;">12.0%</td>
+              <td style="text-align:center;"><span class="badge-status pending">Tax Obligation</span></td>
+              <td style="text-align:center; font-weight:600; color:#f87171;">-₱${vat.toLocaleString()}</td>
+            </tr>
+          `;
+
+          if (finTableFoot) {
+            finTableFoot.innerHTML = `
+              <tr style="border-top:2px solid var(--admin-gold); background:rgba(196,150,60,0.08);">
+                <td colspan="3" style="text-align:right; font-weight:700; color:var(--admin-gold); text-transform:uppercase; letter-spacing:0.04em;">
+                  Total Net Margin &amp; Retained Earnings:
+                </td>
+                <td style="text-align:center; font-weight:800; color:var(--admin-gold); font-size:1.05rem;">
+                  ₱${net.toLocaleString()}
+                </td>
+              </tr>
+            `;
+          }
         }
       } catch (err) {
         console.error('Financial report error:', err);
@@ -3026,9 +3415,15 @@
           return;
         }
         let csv = 'SKU,Category,SubCategory,ProductName,Price,StockQuantity,ReorderLevel,Valuation,InStock\n';
+        let totalUnits = 0;
+        let totalValuation = 0;
         cachedInventoryData.inventory.forEach(p => {
-          csv += `"${p.id}","${p.category}","${p.type || ''}","${p.name.replace(/"/g, '""')}",${p.price},${p.stock_quantity},${p.reorder_level},${p.price * p.stock_quantity},${p.in_stock ? 1 : 0}\n`;
+          const val = (p.valuation !== undefined ? Number(p.valuation) : (Number(p.price) || 0) * (Number(p.stock_quantity) || 0));
+          totalUnits += (Number(p.stock_quantity) || 0);
+          totalValuation += val;
+          csv += `"${p.id}","${p.category}","${p.type || ''}","${p.name.replace(/"/g, '""')}",${p.price},${p.stock_quantity},${p.reorder_level},${val},${p.in_stock ? 1 : 0}\n`;
         });
+        csv += `"TOTAL","${cachedInventoryData.inventory.length} SKUs","","Total Valuation & Stock",,${totalUnits},,${totalValuation},\n`;
         downloadCSVFile(csv, `Bedrock_Inventory_Report_${new Date().toISOString().slice(0, 10)}.csv`);
       } else if (activeReportSubTab === 'sales') {
         if (!cachedSalesData || !cachedSalesData.ledger) {
@@ -3036,21 +3431,26 @@
           return;
         }
         let csv = 'OrderNumber,Date,Customer,PaymentMethod,Status,TotalAmount\n';
+        let totalLedger = 0;
         cachedSalesData.ledger.forEach(o => {
+          totalLedger += (Number(o.total) || 0);
           csv += `"${o.order_number}","${o.date}","${o.customer.replace(/"/g, '""')}","${o.payment_method}","${o.status}",${o.total}\n`;
         });
+        csv += `"TOTAL","","","Total Commercial Sales Amount","","",${totalLedger}\n`;
         downloadCSVFile(csv, `Bedrock_Sales_Report_${new Date().toISOString().slice(0, 10)}.csv`);
       } else if (activeReportSubTab === 'financial') {
         if (!cachedFinancialData || !cachedFinancialData.summary) {
           alert('Financial data not loaded yet.');
           return;
         }
-        let csv = 'Metric,Value\n';
-        csv += `"Gross Revenue",${cachedFinancialData.summary.gross_revenue}\n`;
-        csv += `"Estimated COGS",${cachedFinancialData.summary.estimated_cogs}\n`;
-        csv += `"Estimated Gross Margin",${cachedFinancialData.summary.estimated_gross_margin}\n`;
-        csv += `"Gross Margin Rate %",${cachedFinancialData.summary.gross_margin_percentage}\n`;
-        csv += `"Estimated 12% VAT",${cachedFinancialData.summary.estimated_vat_12_pct}\n`;
+        const s = cachedFinancialData.summary;
+        const net = (Number(s.estimated_gross_margin) || 0) - (Number(s.estimated_vat_12_pct) || 0);
+        let csv = 'Statement Line Item,Rate / Basis,Classification,Total Amount\n';
+        csv += `"Gross Billed Sales Revenue","100.0%","Operating Income",${s.gross_revenue}\n`;
+        csv += `"Estimated Cost of Goods Sold (COGS)","55.0%","Cost Expense",-${s.estimated_cogs}\n`;
+        csv += `"Estimated Gross Operating Margin","${s.gross_margin_percentage || 45}%","Operating Profit",${s.estimated_gross_margin}\n`;
+        csv += `"Estimated Output VAT Liability","12.0%","Tax Obligation",-${s.estimated_vat_12_pct}\n`;
+        csv += `"TOTAL NET MARGIN & RETAINED EARNINGS","","Retained Earnings",${net}\n`;
         downloadCSVFile(csv, `Bedrock_Financial_Report_${new Date().toISOString().slice(0, 10)}.csv`);
       }
     }
