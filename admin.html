@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -47,7 +48,7 @@
       display: flex;
       align-items: center;
       gap: 0.75rem;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     }
 
     .admin-brand img {
@@ -87,7 +88,8 @@
       cursor: pointer;
     }
 
-    .admin-nav-item a:hover, .admin-nav-item.active a {
+    .admin-nav-item a:hover,
+    .admin-nav-item.active a {
       color: #fff;
       background: rgba(196, 150, 60, 0.12);
       border-left: 3px solid var(--admin-gold);
@@ -105,7 +107,7 @@
 
     .admin-user-pill {
       padding: 1.25rem;
-      border-top: 1px solid rgba(255,255,255,0.06);
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -135,7 +137,7 @@
       align-items: center;
       margin-bottom: 2rem;
       padding-bottom: 1rem;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     }
 
     .admin-title {
@@ -159,7 +161,10 @@
       text-decoration: none;
       transition: opacity 0.2s;
     }
-    .btn-gold:hover { opacity: 0.9; }
+
+    .btn-gold:hover {
+      opacity: 0.9;
+    }
 
     .btn-outline {
       background: transparent;
@@ -170,7 +175,10 @@
       cursor: pointer;
       font-size: 0.85rem;
     }
-    .btn-outline:hover { background: rgba(255,255,255,0.05); }
+
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
 
     .btn-danger {
       background: rgba(239, 68, 68, 0.15);
@@ -181,7 +189,10 @@
       cursor: pointer;
       font-size: 0.8rem;
     }
-    .btn-danger:hover { background: rgba(239, 68, 68, 0.25); }
+
+    .btn-danger:hover {
+      background: rgba(239, 68, 68, 0.25);
+    }
 
     /* Stats Grid */
     .stats-grid {
@@ -221,7 +232,7 @@
     /* Cards & Tables */
     .admin-card {
       background: var(--admin-card);
-      border: 1px solid rgba(255,255,255,0.06);
+      border: 1px solid rgba(255, 255, 255, 0.06);
       border-radius: 10px;
       padding: 1.5rem;
       margin-bottom: 2rem;
@@ -253,21 +264,21 @@
     }
 
     th {
-      background: rgba(255,255,255,0.03);
+      background: rgba(255, 255, 255, 0.03);
       color: var(--admin-muted);
       padding: 0.85rem 1rem;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       font-weight: 600;
     }
 
     td {
       padding: 1rem;
-      border-bottom: 1px solid rgba(255,255,255,0.04);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
       vertical-align: middle;
     }
 
     tr:hover td {
-      background: rgba(255,255,255,0.02);
+      background: rgba(255, 255, 255, 0.02);
     }
 
     .badge-status {
@@ -278,16 +289,44 @@
       font-weight: 600;
       text-transform: capitalize;
     }
-    .badge-status.new, .badge-status.pending { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
-    .badge-status.contacted, .badge-status.processing { background: rgba(59, 130, 246, 0.15); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3); }
-    .badge-status.qualified, .badge-status.shipped, .badge-status.delivered { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
-    .badge-status.closed, .badge-status.cancelled { background: rgba(148, 163, 184, 0.15); color: #94a3b8; border: 1px solid rgba(148, 163, 184, 0.3); }
+
+    .badge-status.new,
+    .badge-status.pending {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .badge-status.contacted,
+    .badge-status.processing {
+      background: rgba(59, 130, 246, 0.15);
+      color: #60a5fa;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+
+    .badge-status.qualified,
+    .badge-status.shipped,
+    .badge-status.delivered {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .badge-status.closed,
+    .badge-status.cancelled {
+      background: rgba(148, 163, 184, 0.15);
+      color: #94a3b8;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+    }
 
     /* Modal */
     .admin-modal-overlay {
       position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.75);
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.75);
       backdrop-filter: blur(4px);
       display: flex;
       align-items: center;
@@ -297,10 +336,12 @@
       pointer-events: none;
       transition: opacity 0.2s ease;
     }
+
     .admin-modal-overlay.active {
       opacity: 1;
       pointer-events: auto;
     }
+
     .admin-modal-box {
       background: #141923;
       border: 1px solid var(--admin-border);
@@ -316,6 +357,7 @@
     .form-group {
       margin-bottom: 1.25rem;
     }
+
     .form-group label {
       display: block;
       font-size: 0.85rem;
@@ -323,17 +365,23 @@
       margin-bottom: 0.4rem;
       font-weight: 500;
     }
-    .form-group input, .form-group select, .form-group textarea {
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
       width: 100%;
       box-sizing: border-box;
       background: #0b0e14;
-      border: 1px solid rgba(255,255,255,0.12);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 6px;
       padding: 0.65rem 0.85rem;
       color: #fff;
       font-size: 0.9rem;
     }
-    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
       outline: none;
       border-color: var(--admin-gold);
     }
@@ -354,31 +402,42 @@
       margin-bottom: 1.25rem;
     }
 
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
 
     /* Media Queries for Admin Portal on Larger Monitors */
     @media (min-width: 1800px) {
       .admin-sidebar {
         width: 300px;
       }
+
       .admin-main {
         padding: 3rem 4rem;
         max-width: 2200px;
         margin: 0 auto;
       }
+
       .admin-title {
         font-size: 2.2rem;
       }
+
       .stat-card-val {
         font-size: 2.8rem;
       }
+
       .stats-grid {
         gap: 1.75rem;
       }
+
       .admin-card {
         padding: 2rem;
       }
+
       .auth-container {
         max-width: 480px;
         margin: 140px auto;
@@ -390,27 +449,35 @@
       .admin-sidebar {
         width: 340px;
       }
+
       .admin-main {
         padding: 4rem 5rem;
         max-width: 2600px;
         margin: 0 auto;
       }
+
       .admin-title {
         font-size: 2.6rem;
       }
+
       .stat-card-val {
         font-size: 3.2rem;
       }
+
       .stats-grid {
         gap: 2rem;
       }
+
       .admin-card {
         padding: 2.5rem;
       }
+
       .admin-modal-box {
         max-width: 800px;
         padding: 2.5rem;
       }
+    }
+
     /* Master Print Wrapper for Reports (Repeats header on multi-page printouts) */
     .report-print-wrapper {
       width: 100%;
@@ -420,10 +487,12 @@
       margin: 0;
       padding: 0;
     }
-    .report-print-wrapper > thead {
+
+    .report-print-wrapper>thead {
       display: none;
     }
-    .report-print-wrapper > tbody > tr > td {
+
+    .report-print-wrapper>tbody>tr>td {
       border: none;
       padding: 0;
       background: transparent;
@@ -442,6 +511,7 @@
       margin-bottom: 1.5rem;
       flex-wrap: wrap;
     }
+
     .report-subnav-btn {
       background: transparent;
       border: 1px solid transparent;
@@ -456,19 +526,23 @@
       gap: 0.5rem;
       transition: all 0.2s ease;
     }
+
     .report-subnav-btn:hover {
       color: #fff;
       background: rgba(255, 255, 255, 0.06);
     }
+
     .report-subnav-btn.active {
       background: var(--admin-gold);
       color: #0c0f17;
       font-weight: 700;
     }
+
     .report-subnav-btn.disabled {
       opacity: 0.45;
       cursor: not-allowed;
     }
+
     .badge-admin-only {
       font-size: 0.65rem;
       padding: 2px 6px;
@@ -479,6 +553,7 @@
       text-transform: uppercase;
       font-weight: 700;
     }
+
     .badge-both-users {
       font-size: 0.65rem;
       padding: 2px 6px;
@@ -489,8 +564,14 @@
       text-transform: uppercase;
       font-weight: 700;
     }
-    .report-view { display: none; }
-    .report-view.active { display: block; }
+
+    .report-view {
+      display: none;
+    }
+
+    .report-view.active {
+      display: block;
+    }
 
     /* In Stock, Edit, Delete Buttons placed on the exact same line */
     .actions-inline-group {
@@ -500,6 +581,7 @@
       white-space: nowrap;
       flex-wrap: nowrap;
     }
+
     .btn-stock {
       padding: 0.35rem 0.65rem;
       font-size: 0.75rem;
@@ -513,19 +595,25 @@
       align-items: center;
       gap: 4px;
     }
-    .btn-stock.in-stock, .btn-stock.active {
+
+    .btn-stock.in-stock,
+    .btn-stock.active {
       background: rgba(16, 185, 129, 0.18);
       color: #34d399;
       border: 1px solid rgba(16, 185, 129, 0.4);
     }
-    .btn-stock.in-stock:hover, .btn-stock.active:hover {
+
+    .btn-stock.in-stock:hover,
+    .btn-stock.active:hover {
       background: rgba(16, 185, 129, 0.3);
     }
+
     .btn-stock.out-stock {
       background: rgba(239, 68, 68, 0.15);
       color: #f87171;
       border: 1px solid rgba(239, 68, 68, 0.4);
     }
+
     .btn-stock.out-stock:hover {
       background: rgba(239, 68, 68, 0.28);
     }
@@ -543,6 +631,7 @@
       position: relative;
       box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
     }
+
     .customer-hero {
       display: flex;
       align-items: center;
@@ -555,6 +644,7 @@
       gap: 1.25rem;
       flex-wrap: wrap;
     }
+
     .customer-avatar {
       width: 64px;
       height: 64px;
@@ -568,20 +658,23 @@
       font-weight: 800;
       border: 2px solid #fff;
       flex-shrink: 0;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
     }
+
     .customer-kpi-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 1rem;
       margin-bottom: 1.5rem;
     }
+
     .customer-kpi-card {
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 8px;
       padding: 1.1rem;
     }
+
     .customer-kpi-label {
       font-size: 0.75rem;
       color: var(--admin-muted);
@@ -589,26 +682,33 @@
       letter-spacing: 0.05em;
       margin-bottom: 0.35rem;
     }
+
     .customer-kpi-val {
       font-size: 1.4rem;
       font-weight: 700;
       color: #fff;
     }
+
     .customer-sections-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1.25rem;
       margin-bottom: 1.5rem;
     }
+
     @media (max-width: 768px) {
-      .customer-sections-grid { grid-template-columns: 1fr; }
+      .customer-sections-grid {
+        grid-template-columns: 1fr;
+      }
     }
+
     .customer-detail-panel {
       background: rgba(255, 255, 255, 0.02);
       border: 1px solid rgba(255, 255, 255, 0.06);
       border-radius: 8px;
       padding: 1.25rem;
     }
+
     .customer-detail-panel h4 {
       margin: 0 0 1rem 0;
       font-size: 0.95rem;
@@ -616,19 +716,22 @@
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       padding-bottom: 0.5rem;
     }
+
     .customer-field-row {
       display: flex;
       justify-content: space-between;
       font-size: 0.85rem;
       margin-bottom: 0.65rem;
       line-height: 1.4;
-      border-bottom: 1px solid rgba(255,255,255,0.03);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
       padding-bottom: 0.35rem;
     }
+
     .customer-field-row .lbl {
       color: var(--admin-muted);
       min-width: 130px;
     }
+
     .customer-field-row .val {
       color: #fff;
       text-align: right;
@@ -657,6 +760,7 @@
           color: #6b7280;
         }
       }
+
       body {
         background: #ffffff !important;
         color: #000000 !important;
@@ -665,6 +769,7 @@
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
       }
+
       .admin-sidebar,
       .admin-header,
       #authGate,
@@ -690,12 +795,15 @@
       body.printing-modal .admin-layout {
         display: none !important;
       }
+
       body:not(.printing-modal) .admin-modal-overlay {
         display: none !important;
       }
+
       body.printing-modal .admin-modal-overlay:not(.print-modal-active) {
         display: none !important;
       }
+
       .admin-modal-overlay.print-modal-active {
         display: block !important;
         position: static !important;
@@ -711,6 +819,7 @@
         overflow: visible !important;
         z-index: 99999 !important;
       }
+
       .admin-modal-overlay.print-modal-active .admin-modal-box {
         max-width: 100% !important;
         width: 100% !important;
@@ -724,45 +833,55 @@
         margin: 0 !important;
         overflow: visible !important;
       }
+
       .admin-modal-overlay.print-modal-active .admin-modal-box h2,
       .admin-modal-overlay.print-modal-active .admin-modal-box h3,
       .admin-modal-overlay.print-modal-active .admin-modal-box h4 {
         color: #9e7223 !important;
       }
+
       .admin-modal-overlay.print-modal-active .customer-kpi-card {
         border: 1px solid #d1d5db !important;
         background: #f9fafb !important;
       }
+
       .admin-modal-overlay.print-modal-active .customer-kpi-label {
         color: #000000 !important;
         font-size: 12pt !important;
       }
+
       .admin-modal-overlay.print-modal-active .customer-kpi-val {
         color: #000000 !important;
         font-size: 18pt !important;
       }
+
       .admin-modal-overlay.print-modal-active .customer-detail-panel {
         border: 1px solid #d1d5db !important;
         background: #ffffff !important;
       }
+
       .admin-modal-overlay.print-modal-active .customer-detail-panel h4 {
         color: #9e7223 !important;
         border-bottom: 1px solid #e5e7eb !important;
       }
+
       .admin-modal-overlay.print-modal-active .customer-detail-panel .lbl {
         color: #000000 !important;
         font-size: 12pt !important;
       }
+
       .admin-modal-overlay.print-modal-active .customer-detail-panel .val,
       .admin-modal-overlay.print-modal-active #dossierViewNotes {
         color: #000000 !important;
         font-size: 12pt !important;
       }
+
       .admin-modal-overlay.print-modal-active button,
       .admin-modal-overlay.print-modal-active .no-print,
       .admin-modal-overlay.print-modal-active form#customerEditForm {
         display: none !important;
       }
+
       .admin-modal-overlay.print-modal-active #dossierViewMode {
         display: block !important;
       }
@@ -771,6 +890,7 @@
       .admin-layout {
         display: block !important;
       }
+
       .admin-main {
         padding: 0 !important;
         max-width: 100% !important;
@@ -778,6 +898,7 @@
         margin: 0 !important;
         overflow: visible !important;
       }
+
       .admin-card {
         background: #fff !important;
         border: 1px solid #d1d5db !important;
@@ -787,11 +908,13 @@
         margin-bottom: 14px !important;
         page-break-inside: auto;
       }
+
       .admin-card-header {
         margin-bottom: 8px !important;
         padding-bottom: 6px !important;
         border-bottom: 1px solid #e5e7eb !important;
       }
+
       /* Retain heading size & color */
       .admin-card-title {
         font-size: 14pt !important;
@@ -799,12 +922,14 @@
         color: #9e7223 !important;
         margin: 0 !important;
       }
+
       .stats-grid {
         display: grid !important;
         grid-template-columns: repeat(4, 1fr) !important;
         gap: 10px !important;
         margin-bottom: 14px !important;
       }
+
       .stat-card {
         border: 1px solid #d1d5db !important;
         background: #f9fafb !important;
@@ -813,6 +938,7 @@
         border-radius: 6px !important;
         page-break-inside: avoid;
       }
+
       .stat-card-title {
         color: #000000 !important;
         font-size: 12pt !important;
@@ -820,34 +946,42 @@
         margin-bottom: 4px !important;
         text-transform: uppercase !important;
       }
+
       .stat-card-val {
         color: #000000 !important;
         font-size: 18pt !important;
         font-weight: 800 !important;
         line-height: 1.15 !important;
       }
+
       .stat-card-sub {
         color: #000000 !important;
         font-size: 11pt !important;
         margin-top: 3px !important;
       }
+
       .table-container {
         overflow: visible !important;
       }
+
       table {
         width: 100% !important;
         border-collapse: collapse !important;
         color: #000000 !important;
         font-size: 11pt !important;
       }
+
       thead {
         display: table-header-group !important;
       }
+
       tr {
         page-break-inside: avoid !important;
         break-inside: avoid !important;
       }
-      th, td {
+
+      th,
+      td {
         border: 1px solid #d1d5db !important;
         color: #000000 !important;
         padding: 6px 8px !important;
@@ -855,6 +989,7 @@
         line-height: 1.35 !important;
         vertical-align: middle !important;
       }
+
       th {
         background: #f3f4f6 !important;
         font-weight: 700 !important;
@@ -864,25 +999,33 @@
         color: #000000 !important;
         border: 1px solid #d1d5db !important;
       }
-      td strong, td div, td span, td p {
+
+      td strong,
+      td div,
+      td span,
+      td p {
         color: #000000 !important;
         font-size: 12pt !important;
       }
+
       td div[style*="font-weight:600"] {
         font-size: 12pt !important;
         font-weight: 700 !important;
         color: #000000 !important;
       }
+
       td div[style*="font-size:0.75rem"] {
         font-size: 11pt !important;
         color: #000000 !important;
       }
+
       td [id^="inv-desc-"] {
         font-size: 11.5pt !important;
         line-height: 1.35 !important;
         color: #000000 !important;
         max-width: 320px !important;
       }
+
       /* Retain status badge borders color and badge styling */
       .badge-status {
         font-size: 11pt !important;
@@ -891,33 +1034,39 @@
         font-weight: 700 !important;
         display: inline-block !important;
       }
+
       .badge-status.qualified {
         border: 1.5px solid #34d399 !important;
         color: #065f46 !important;
         background: #ecfdf5 !important;
       }
+
       .badge-status.pending {
         border: 1.5px solid #f59e0b !important;
         color: #92400e !important;
         background: #fffbeb !important;
       }
+
       .badge-status.closed {
         border: 1.5px solid #ef4444 !important;
         color: #991b1b !important;
         background: #fef2f2 !important;
       }
+
       .badge-status.contacted {
         border: 1.5px solid #9e7223 !important;
         color: #78350f !important;
         background: #fefce8 !important;
       }
-      #invWineSubcatList > div,
-      #invOilSubcatList > div {
+
+      #invWineSubcatList>div,
+      #invOilSubcatList>div {
         font-size: 12pt !important;
         color: #000000 !important;
         border-bottom: 1px solid #e5e7eb !important;
         padding: 5px 0 !important;
       }
+
       #invWineSubcatList div,
       #invOilSubcatList div,
       #invWineSubcatList strong,
@@ -925,30 +1074,36 @@
         color: #000000 !important;
         font-size: 12pt !important;
       }
+
       .tab-content {
         display: none !important;
       }
+
       .tab-content.active {
         display: block !important;
       }
+
       .report-view {
         display: none !important;
       }
+
       .report-view.active {
         display: block !important;
       }
+
       /* Master Report Print Layout (Repeats header on every page) */
       .report-print-wrapper,
-      .report-print-wrapper > thead,
-      .report-print-wrapper > thead > tr,
-      .report-print-wrapper > thead > tr > td,
-      .report-print-wrapper > tbody,
-      .report-print-wrapper > tbody > tr,
-      .report-print-wrapper > tbody > tr > td {
+      .report-print-wrapper>thead,
+      .report-print-wrapper>thead>tr,
+      .report-print-wrapper>thead>tr>td,
+      .report-print-wrapper>tbody,
+      .report-print-wrapper>tbody>tr,
+      .report-print-wrapper>tbody>tr>td {
         border: none !important;
         box-shadow: none !important;
         background: transparent !important;
       }
+
       .report-print-wrapper {
         width: 100% !important;
         border-collapse: collapse !important;
@@ -956,16 +1111,20 @@
         padding: 0 !important;
         display: table !important;
       }
-      .report-print-wrapper > thead {
+
+      .report-print-wrapper>thead {
         display: table-header-group !important;
       }
-      .report-print-wrapper > thead > tr > td {
+
+      .report-print-wrapper>thead>tr>td {
         padding: 0 0 6px 0 !important;
       }
-      .report-print-wrapper > tbody {
+
+      .report-print-wrapper>tbody {
         display: table-row-group !important;
       }
-      .report-print-wrapper > tbody > tr > td {
+
+      .report-print-wrapper>tbody>tr>td {
         padding: 0 !important;
         vertical-align: top !important;
       }
@@ -978,6 +1137,7 @@
         padding-bottom: 8px !important;
         width: 100% !important;
       }
+
       .print-only-header .print-header-grid {
         display: flex !important;
         justify-content: space-between !important;
@@ -985,6 +1145,7 @@
         width: 100% !important;
         gap: 16px !important;
       }
+
       .print-only-header h1 {
         font-size: 11pt !important;
         font-weight: 700 !important;
@@ -993,6 +1154,7 @@
         margin: 0 0 2px 0 !important;
         line-height: 1.25 !important;
       }
+
       .print-only-header h2 {
         font-size: 11.5pt !important;
         font-weight: 700 !important;
@@ -1001,12 +1163,14 @@
         line-height: 1.25 !important;
         text-align: right !important;
       }
+
       .print-only-header .print-address,
       .print-only-header .print-contact {
         font-size: 8pt !important;
         color: #374151 !important;
         line-height: 1.35 !important;
       }
+
       .print-only-header #printReportAsOf {
         font-size: 8.5pt !important;
         font-weight: 600 !important;
@@ -1014,12 +1178,14 @@
         line-height: 1.35 !important;
         text-align: right !important;
       }
+
       .print-only-header #printReportTimestamp {
         font-size: 7.5pt !important;
         color: #6b7280 !important;
         line-height: 1.35 !important;
         text-align: right !important;
       }
+
       .print-only-header .print-header-right {
         display: flex !important;
         flex-direction: column !important;
@@ -1029,20 +1195,25 @@
         flex-shrink: 0 !important;
       }
     }
+
     .print-only-header {
       display: none;
     }
   </style>
 </head>
+
 <body>
 
   <!-- ADMIN AUTH GATE -->
   <div id="authGate" class="auth-container">
     <img src="bedrock_logo.png" alt="Bedrock Trading" class="auth-logo">
     <h2 style="margin: 0 0 0.5rem 0; color: #fff;">Bedrock Portal</h2>
-    <p style="color: var(--admin-muted); font-size: 0.9rem; margin-bottom: 1.75rem;">Sign in to access admin management</p>
-    
-    <div id="loginError" style="display:none; color: #ef4444; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 6px; padding: 0.6rem; font-size: 0.85rem; margin-bottom: 1rem;"></div>
+    <p style="color: var(--admin-muted); font-size: 0.9rem; margin-bottom: 1.75rem;">Sign in to access admin management
+    </p>
+
+    <div id="loginError"
+      style="display:none; color: #ef4444; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 6px; padding: 0.6rem; font-size: 0.85rem; margin-bottom: 1rem;">
+    </div>
 
     <form id="adminLoginForm" autocomplete="off">
       <div class="form-group" style="text-align: left;">
@@ -1212,25 +1383,38 @@
               <td>
                 <!-- Print-only header for formal printed reports (repeats on every printed page) -->
                 <div class="print-only-header">
-                  <div class="print-header-grid" style="display:flex; justify-content:space-between; align-items:flex-start; width:100%; gap:16px;">
+                  <div class="print-header-grid"
+                    style="display:flex; justify-content:space-between; align-items:flex-start; width:100%; gap:16px;">
                     <div style="display:flex; align-items:flex-start; gap:10px;">
-                      <img src="bedrock_logo.png" alt="Bedrock Logo" style="width:36px; height:36px; object-fit:contain; border-radius:50%; border:1.5px solid #9e7223; flex-shrink:0; margin-top:2px;">
+                      <img src="bedrock_logo.png" alt="Bedrock Logo"
+                        style="width:36px; height:36px; object-fit:contain; border-radius:50%; border:1.5px solid #9e7223; flex-shrink:0; margin-top:2px;">
                       <div>
-                        <h1 style="margin:0 0 2px 0; font-size:11pt; font-weight:700; color:#111827; letter-spacing:0.02em; line-height:1.25;">BEDROCK CONSUMER GOODS TRADING</h1>
+                        <h1
+                          style="margin:0 0 2px 0; font-size:11pt; font-weight:700; color:#111827; letter-spacing:0.02em; line-height:1.25;">
+                          BEDROCK CONSUMER GOODS TRADING</h1>
                         <div class="print-address" style="margin:0; font-size:8pt; color:#374151; line-height:1.35;">
-                          <strong>Address:</strong> #65 De Acosta St., San Antonio Village, Paciano Rizal, Calamba, Laguna 4027, Philippines
+                          <strong>Address:</strong> #65 De Acosta St., San Antonio Village, Paciano Rizal, Calamba,
+                          Laguna 4027, Philippines
                         </div>
-                        <div class="print-contact" style="margin:1px 0 0 0; font-size:8pt; color:#374151; line-height:1.35;">
-                          <strong>Contact:</strong> +34 650-361-177 &bull; inquiry@bedrocktrading.ph &bull; bedrocktrading.ph
+                        <div class="print-contact"
+                          style="margin:1px 0 0 0; font-size:8pt; color:#374151; line-height:1.35;">
+                          <strong>Contact:</strong> +34 650-361-177 &bull; inquiry@bedrocktrading.ph &bull;
+                          bedrocktrading.ph
                         </div>
                       </div>
                     </div>
-                    <div class="print-header-right" style="display:flex; flex-direction:column; align-items:flex-end; text-align:right; margin-left:auto; flex-shrink:0;">
-                      <h2 style="margin:0 0 2px 0; font-size:11.5pt; color:#9e7223; font-weight:700; line-height:1.25; text-align:right;" id="printReportTitle">Live Inventory &amp; Stock Level Report</h2>
-                      <div style="margin:0; font-size:8.5pt; color:#111827; font-weight:600; text-align:right; line-height:1.35;" id="printReportAsOf">
+                    <div class="print-header-right"
+                      style="display:flex; flex-direction:column; align-items:flex-end; text-align:right; margin-left:auto; flex-shrink:0;">
+                      <h2
+                        style="margin:0 0 2px 0; font-size:11.5pt; color:#9e7223; font-weight:700; line-height:1.25; text-align:right;"
+                        id="printReportTitle">Live Inventory &amp; Stock Level Report</h2>
+                      <div
+                        style="margin:0; font-size:8.5pt; color:#111827; font-weight:600; text-align:right; line-height:1.35;"
+                        id="printReportAsOf">
                         As of today: <span id="printReportAsOfDate">October 25, 2026</span>
                       </div>
-                      <div style="margin:1px 0 0 0; font-size:7.5pt; color:#6b7280; text-align:right; line-height:1.35;" id="printReportTimestamp">Report Generated: October 25, 2026 at 8:56 PM</div>
+                      <div style="margin:1px 0 0 0; font-size:7.5pt; color:#6b7280; text-align:right; line-height:1.35;"
+                        id="printReportTimestamp">Report Generated: October 25, 2026 at 8:56 PM</div>
                     </div>
                   </div>
                 </div>
@@ -1241,354 +1425,396 @@
             <tr>
               <td>
                 <!-- Report Subnav Navigation -->
-        <div class="report-subnav">
-          <button class="report-subnav-btn active" id="btnSubnavInventory" onclick="switchReportSubTab('inventory')">
-            <span>📦</span> Inventory Report
-            <span class="badge-both-users">Admin &amp; Viewer</span>
-          </button>
-          <button class="report-subnav-btn" id="btnSubnavSales" onclick="switchReportSubTab('sales')">
-            <span>📊</span> Sales Report
-            <span class="badge-admin-only" id="badgeSalesRole">Admin Only</span>
-          </button>
-          <button class="report-subnav-btn" id="btnSubnavFinancial" onclick="switchReportSubTab('financial')">
-            <span>💰</span> Financial Report
-            <span class="badge-admin-only" id="badgeFinancialRole">Admin Only</span>
-          </button>
+                <div class="report-subnav">
+                  <button class="report-subnav-btn active" id="btnSubnavInventory"
+                    onclick="switchReportSubTab('inventory')">
+                    <span>📦</span> Inventory Report
+                    <span class="badge-both-users">Admin &amp; Viewer</span>
+                  </button>
+                  <button class="report-subnav-btn" id="btnSubnavSales" onclick="switchReportSubTab('sales')">
+                    <span>📊</span> Sales Report
+                    <span class="badge-admin-only" id="badgeSalesRole">Admin Only</span>
+                  </button>
+                  <button class="report-subnav-btn" id="btnSubnavFinancial" onclick="switchReportSubTab('financial')">
+                    <span>💰</span> Financial Report
+                    <span class="badge-admin-only" id="badgeFinancialRole">Admin Only</span>
+                  </button>
 
-          <div style="margin-left:auto; display:flex; gap:0.5rem; align-items:center;">
-            <button class="btn-gold" style="padding:0.45rem 0.9rem; font-size:0.85rem;" onclick="printActiveReport()">
-              🖨️ Print Report
-            </button>
-            <button class="btn-outline" style="padding:0.45rem 0.9rem; font-size:0.85rem;" onclick="exportActiveReportCSV()">
-              📥 Export CSV
-            </button>
-          </div>
-        </div>
-
-        <!-- SUBTAB 1: INVENTORY REPORT (Both Users) -->
-        <div id="subtab-inventory" class="report-view active">
-          <!-- Screen Header for Inventory Report -->
-          <div class="report-screen-header no-print" style="display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; padding:0.85rem 1.25rem; background:rgba(255,255,255,0.02); border:1px solid var(--admin-border); border-radius:10px; margin-bottom:1.25rem;">
-            <div style="display:flex; align-items:flex-start; gap:0.75rem;">
-              <img src="bedrock_logo.png" alt="Bedrock Logo" style="width:36px; height:36px; object-fit:contain; border-radius:50%; border:1.5px solid var(--admin-gold); flex-shrink:0; margin-top:2px;">
-              <div>
-                <div style="font-family:var(--font-display); font-size:0.95rem; font-weight:700; color:#fff; letter-spacing:0.02em; line-height:1.2;">BEDROCK CONSUMER GOODS TRADING</div>
-                <div style="font-size:0.75rem; color:var(--admin-muted); margin-top:2px; line-height:1.35;">
-                  📍 #65 De Acosta St., San Antonio Village, Paciano Rizal, Calamba, Laguna 4027, Philippines
-                </div>
-                <div style="font-size:0.75rem; color:var(--admin-gold); margin-top:2px; line-height:1.35;">
-                  📞 +34 650-361-177 &nbsp;|&nbsp; ✉️ inquiry@bedrocktrading.ph &nbsp;|&nbsp; 🌐 bedrocktrading.ph
-                </div>
-              </div>
-            </div>
-            <div style="display:flex; flex-direction:column; align-items:flex-end; text-align:right; gap:0.35rem; margin-left:auto; flex-shrink:0;">
-              <div style="display:inline-flex; align-items:center; gap:0.4rem; padding:0.25rem 0.75rem; background:rgba(196,150,60,0.12); border:1px solid var(--admin-gold); border-radius:100px; font-size:0.8rem; color:var(--admin-gold); font-weight:600;">
-                <span>📅</span> <span>As of today:</span> <strong id="invAsOfDateScreen">October 25, 2026</strong>
-              </div>
-              <div style="font-size:0.72rem; color:var(--admin-muted); text-align:right;" id="invGenTimeScreen">
-                Report Generated: October 25, 2026 at 8:56 PM
-              </div>
-              <button type="button" class="btn-outline" style="padding:0.2rem 0.55rem; font-size:0.72rem; display:inline-flex; align-items:center; gap:0.3rem;" onclick="loadInventoryReport(true)">
-                <span>🔄</span> <span>Refresh As of Today</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Inventory KPI Cards -->
-          <div class="stats-grid" style="margin-bottom:1.5rem;">
-            <div class="stat-card">
-              <div class="stat-card-title">Total Active SKUs</div>
-              <div class="stat-card-val" id="invKpiTotalSkus">0</div>
-              <div class="stat-card-sub" id="invKpiBreakdown">Wines &amp; Olive Oils</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-card-title">Total Stock on Hand</div>
-              <div class="stat-card-val" id="invKpiTotalUnits">0</div>
-              <div class="stat-card-sub">Bottles &amp; Containers</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-card-title">Low Stock Items</div>
-              <div class="stat-card-val" id="invKpiLowStock" style="color:#f59e0b;">0</div>
-              <div class="stat-card-sub">At or below reorder level</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-card-title">Inventory Valuation</div>
-              <div class="stat-card-val" id="invKpiTotalValuation" style="color:var(--admin-gold);">₱0</div>
-              <div class="stat-card-sub">Total retail stock value</div>
-            </div>
-          </div>
-
-          <!-- Sub-Category Stock Overview Cards -->
-          <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap:1.25rem; margin-bottom:1.5rem;">
-            <!-- Wine Categories Card -->
-            <div class="admin-card">
-              <div class="admin-card-header">
-                <h3 class="admin-card-title">🍷 Wine Sub-Categories</h3>
-                <span class="badge-status contacted">Spanish Wines</span>
-              </div>
-              <div id="invWineSubcatList" style="display:flex; flex-direction:column; gap:0.75rem;">
-                <!-- Populated by JS: Red, White, Sparkling, Rose -->
-              </div>
-            </div>
-            <!-- Olive Oil Categories Card -->
-            <div class="admin-card">
-              <div class="admin-card-header">
-                <h3 class="admin-card-title">🫒 Olive Oil Sub-Categories</h3>
-                <span class="badge-status qualified">BUENSALUD EVOO</span>
-              </div>
-              <div id="invOilSubcatList" style="display:flex; flex-direction:column; gap:0.75rem;">
-                <!-- Populated by JS: Picual, Arbequina, Coupage -->
-              </div>
-            </div>
-          </div>
-
-          <!-- Master Stock Levels Table -->
-          <div class="admin-card">
-            <div class="admin-card-header">
-              <div>
-                <h3 class="admin-card-title">Live Stock Levels &amp; Inventory Status</h3>
-                <div style="font-size:0.8rem; color:var(--admin-muted); margin-top:0.25rem;">
-                  Real-time stock quantities, thresholds, and valuation across all products
-                </div>
-              </div>
-              <div class="no-print" style="display:flex; gap:0.5rem; align-items:center;">
-                <select id="invFilterCategory" onchange="filterInventoryTable()" style="background:#0b0e14; color:#fff; border:1px solid rgba(255,255,255,0.12); padding:0.4rem 0.8rem; border-radius:6px; font-size:0.85rem;">
-                  <option value="">Category</option>
-                  <option value="wine">Wine</option>
-                  <option value="oil">Olive Oil</option>
-                </select>
-                <select id="invFilterStatus" onchange="filterInventoryTable()" style="background:#0b0e14; color:#fff; border:1px solid rgba(255,255,255,0.12); padding:0.4rem 0.8rem; border-radius:6px; font-size:0.85rem;">
-                  <option value="">Stock Status</option>
-                  <option value="in_stock">In Stock</option>
-                  <option value="low_stock">Low Stock (≤ Reorder)</option>
-                  <option value="out_of_stock">Out of Stock</option>
-                </select>
-              </div>
-            </div>
-            <div class="table-container">
-              <table id="inventoryReportTable">
-                <thead>
-                  <tr>
-                    <th>SKU</th>
-                    <th>Category</th>
-                    <th>Product Name &amp; Description</th>
-                    <th>Sub-Category</th>
-                    <th>Unit Price</th>
-                    <th>Stock Level</th>
-                    <th>Reorder Level</th>
-                    <th>Valuation</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
-                <tbody id="inventoryReportTableBody"></tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-
-        <!-- SUBTAB 2: SALES REPORT (Admin Only) -->
-        <div id="subtab-sales" class="report-view">
-          <div id="salesReportRestrictedNotice" style="display:none; text-align:center; padding:3rem; background:rgba(239,68,68,0.08); border:1px solid rgba(239,68,68,0.25); border-radius:12px;">
-            <div style="font-size:2.5rem; margin-bottom:1rem;">🔒</div>
-            <h3 style="color:#f87171; margin-bottom:0.5rem;">Access Restricted: Administrator Only</h3>
-            <p style="color:var(--admin-muted); max-width:480px; margin:0 auto;">
-              Sales performance, order revenue, and transaction registers can only be accessed with administrative credentials.
-            </p>
-          </div>
-
-          <div id="salesReportContent">
-            <!-- Screen Header for Sales Report -->
-            <div class="report-screen-header no-print" style="display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; padding:0.85rem 1.25rem; background:rgba(255,255,255,0.02); border:1px solid var(--admin-border); border-radius:10px; margin-bottom:1.25rem;">
-              <div style="display:flex; align-items:flex-start; gap:0.75rem;">
-                <img src="bedrock_logo.png" alt="Bedrock Logo" style="width:36px; height:36px; object-fit:contain; border-radius:50%; border:1.5px solid var(--admin-gold); flex-shrink:0; margin-top:2px;">
-                <div>
-                  <div style="font-family:var(--font-display); font-size:0.95rem; font-weight:700; color:#fff; letter-spacing:0.02em; line-height:1.2;">BEDROCK CONSUMER GOODS TRADING</div>
-                  <div style="font-size:0.75rem; color:var(--admin-muted); margin-top:2px; line-height:1.35;">
-                    📍 #65 De Acosta St., San Antonio Village, Paciano Rizal, Calamba, Laguna 4027, Philippines
-                  </div>
-                  <div style="font-size:0.75rem; color:var(--admin-gold); margin-top:2px; line-height:1.35;">
-                    📞 +34 650-361-177 &nbsp;|&nbsp; ✉️ inquiry@bedrocktrading.ph &nbsp;|&nbsp; 🌐 bedrocktrading.ph
+                  <div style="margin-left:auto; display:flex; gap:0.5rem; align-items:center;">
+                    <button class="btn-gold" style="padding:0.45rem 0.9rem; font-size:0.85rem;"
+                      onclick="printActiveReport()">
+                      🖨️ Print Report
+                    </button>
+                    <button class="btn-outline" style="padding:0.45rem 0.9rem; font-size:0.85rem;"
+                      onclick="exportActiveReportCSV()">
+                      📥 Export CSV
+                    </button>
                   </div>
                 </div>
-              </div>
-              <div style="display:flex; flex-direction:column; align-items:flex-end; text-align:right; gap:0.35rem; margin-left:auto; flex-shrink:0;">
-                <div style="display:inline-flex; align-items:center; gap:0.4rem; padding:0.25rem 0.75rem; background:rgba(196,150,60,0.12); border:1px solid var(--admin-gold); border-radius:100px; font-size:0.8rem; color:var(--admin-gold); font-weight:600;">
-                  <span>📊</span> <span>Executive Sales Report</span>
-                </div>
-                <div style="font-size:0.72rem; color:var(--admin-muted); text-align:right;">
-                  Updated Live from Orders Register
-                </div>
-                <button type="button" class="btn-outline" style="padding:0.2rem 0.55rem; font-size:0.72rem; display:inline-flex; align-items:center; gap:0.3rem;" onclick="loadSalesReport()">
-                  <span>🔄</span> <span>Refresh Sales Data</span>
-                </button>
-              </div>
-            </div>
 
-            <!-- Sales KPIs -->
-            <div class="stats-grid" style="margin-bottom:1.5rem;">
-              <div class="stat-card">
-                <div class="stat-card-title">Gross Sales Revenue</div>
-                <div class="stat-card-val" id="salesKpiGross" style="color:var(--admin-gold);">₱0</div>
-                <div class="stat-card-sub" id="salesKpiConfirmed">Across all completed orders</div>
-              </div>
-              <div class="stat-card">
-                <div class="stat-card-title">Total Orders Placed</div>
-                <div class="stat-card-val" id="salesKpiOrders">0</div>
-                <div class="stat-card-sub" id="salesKpiOrdersSub">Recorded commercial transactions</div>
-              </div>
-              <div class="stat-card">
-                <div class="stat-card-title">Average Order Value (AOV)</div>
-                <div class="stat-card-val" id="salesKpiAov">₱0</div>
-                <div class="stat-card-sub">Per completed transaction</div>
-              </div>
-              <div class="stat-card">
-                <div class="stat-card-title">Total Units Sold</div>
-                <div class="stat-card-val" id="salesKpiUnits">0</div>
-                <div class="stat-card-sub">Wines &amp; Olive Oil units</div>
-              </div>
-            </div>
-
-            <!-- Category & Sub-Category Sales Breakdown -->
-            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap:1.25rem; margin-bottom:1.5rem;">
-              <div class="admin-card">
-                <div class="admin-card-header">
-                  <h3 class="admin-card-title">Sales by Category</h3>
-                </div>
-                <div id="salesCategoryBreakdown" style="display:flex; flex-direction:column; gap:0.75rem;"></div>
-              </div>
-              <div class="admin-card">
-                <div class="admin-card-header">
-                  <h3 class="admin-card-title">Sales by Sub-Category</h3>
-                </div>
-                <div id="salesSubcategoryBreakdown" style="display:flex; flex-direction:column; gap:0.75rem;"></div>
-              </div>
-            </div>
-
-            <!-- Top Selling Products Table -->
-            <div class="admin-card" style="margin-bottom:1.5rem;">
-              <div class="admin-card-header">
-                <h3 class="admin-card-title">Top Selling Products</h3>
-              </div>
-              <div class="table-container">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Product</th>
-                      <th>Category</th>
-                      <th>Sub-Category</th>
-                      <th>Units Sold</th>
-                      <th>Total Revenue</th>
-                    </tr>
-                  </thead>
-                  <tbody id="salesTopProductsTableBody"></tbody>
-                </table>
-              </div>
-            </div>
-
-            <!-- Transaction Register -->
-            <div class="admin-card">
-              <div class="admin-card-header">
-                <h3 class="admin-card-title">Commercial Sales Transaction Ledger</h3>
-              </div>
-              <div class="table-container">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Order #</th>
-                      <th>Date</th>
-                      <th>Customer</th>
-                      <th>Items Sold</th>
-                      <th>Payment Channel</th>
-                      <th>Status</th>
-                      <th>Amount</th>
-                    </tr>
-                  </thead>
-                  <tbody id="salesLedgerTableBody"></tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- SUBTAB 3: FINANCIAL REPORT (Admin Only) -->
-        <div id="subtab-financial" class="report-view">
-          <div id="finReportRestrictedNotice" style="display:none; text-align:center; padding:3rem; background:rgba(239,68,68,0.08); border:1px solid rgba(239,68,68,0.25); border-radius:12px;">
-            <div style="font-size:2.5rem; margin-bottom:1rem;">🔒</div>
-            <h3 style="color:#f87171; margin-bottom:0.5rem;">Access Restricted: Administrator Only</h3>
-            <p style="color:var(--admin-muted); max-width:480px; margin:0 auto;">
-              Financial profit margins, tax obligations, and payment channel reconciliations are restricted to Administrators.
-            </p>
-          </div>
-
-          <div id="finReportContent">
-            <!-- Screen Header for Financial Report -->
-            <div class="report-screen-header no-print" style="display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; padding:0.85rem 1.25rem; background:rgba(255,255,255,0.02); border:1px solid var(--admin-border); border-radius:10px; margin-bottom:1.25rem;">
-              <div style="display:flex; align-items:flex-start; gap:0.75rem;">
-                <img src="bedrock_logo.png" alt="Bedrock Logo" style="width:36px; height:36px; object-fit:contain; border-radius:50%; border:1.5px solid var(--admin-gold); flex-shrink:0; margin-top:2px;">
-                <div>
-                  <div style="font-family:var(--font-display); font-size:0.95rem; font-weight:700; color:#fff; letter-spacing:0.02em; line-height:1.2;">BEDROCK CONSUMER GOODS TRADING</div>
-                  <div style="font-size:0.75rem; color:var(--admin-muted); margin-top:2px; line-height:1.35;">
-                    📍 #65 De Acosta St., San Antonio Village, Paciano Rizal, Calamba, Laguna 4027, Philippines
+                <!-- SUBTAB 1: INVENTORY REPORT (Both Users) -->
+                <div id="subtab-inventory" class="report-view active">
+                  <!-- Screen Header for Inventory Report -->
+                  <div class="report-screen-header no-print"
+                    style="display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; padding:0.85rem 1.25rem; background:rgba(255,255,255,0.02); border:1px solid var(--admin-border); border-radius:10px; margin-bottom:1.25rem;">
+                    <div style="display:flex; align-items:flex-start; gap:0.75rem;">
+                      <img src="bedrock_logo.png" alt="Bedrock Logo"
+                        style="width:36px; height:36px; object-fit:contain; border-radius:50%; border:1.5px solid var(--admin-gold); flex-shrink:0; margin-top:2px;">
+                      <div>
+                        <div
+                          style="font-family:var(--font-display); font-size:0.95rem; font-weight:700; color:#fff; letter-spacing:0.02em; line-height:1.2;">
+                          BEDROCK CONSUMER GOODS TRADING</div>
+                        <div style="font-size:0.75rem; color:var(--admin-muted); margin-top:2px; line-height:1.35;">
+                          📍 #65 De Acosta St., San Antonio Village, Paciano Rizal, Calamba, Laguna 4027, Philippines
+                        </div>
+                        <div style="font-size:0.75rem; color:var(--admin-gold); margin-top:2px; line-height:1.35;">
+                          📞 +34 650-361-177 &nbsp;|&nbsp; ✉️ inquiry@bedrocktrading.ph &nbsp;|&nbsp; 🌐
+                          bedrocktrading.ph
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      style="display:flex; flex-direction:column; align-items:flex-end; text-align:right; gap:0.35rem; margin-left:auto; flex-shrink:0;">
+                      <div
+                        style="display:inline-flex; align-items:center; gap:0.4rem; padding:0.25rem 0.75rem; background:rgba(196,150,60,0.12); border:1px solid var(--admin-gold); border-radius:100px; font-size:0.8rem; color:var(--admin-gold); font-weight:600;">
+                        <span>📅</span> <span>As of today:</span> <strong id="invAsOfDateScreen">October 25,
+                          2026</strong>
+                      </div>
+                      <div style="font-size:0.72rem; color:var(--admin-muted); text-align:right;" id="invGenTimeScreen">
+                        Report Generated: October 25, 2026 at 8:56 PM
+                      </div>
+                      <button type="button" class="btn-outline"
+                        style="padding:0.2rem 0.55rem; font-size:0.72rem; display:inline-flex; align-items:center; gap:0.3rem;"
+                        onclick="loadInventoryReport(true)">
+                        <span>🔄</span> <span>Refresh As of Today</span>
+                      </button>
+                    </div>
                   </div>
-                  <div style="font-size:0.75rem; color:var(--admin-gold); margin-top:2px; line-height:1.35;">
-                    📞 +34 650-361-177 &nbsp;|&nbsp; ✉️ inquiry@bedrocktrading.ph &nbsp;|&nbsp; 🌐 bedrocktrading.ph
+
+                  <!-- Inventory KPI Cards -->
+                  <div class="stats-grid" style="margin-bottom:1.5rem;">
+                    <div class="stat-card">
+                      <div class="stat-card-title">Total Active SKUs</div>
+                      <div class="stat-card-val" id="invKpiTotalSkus">0</div>
+                      <div class="stat-card-sub" id="invKpiBreakdown">Wines &amp; Olive Oils</div>
+                    </div>
+                    <div class="stat-card">
+                      <div class="stat-card-title">Total Stock on Hand</div>
+                      <div class="stat-card-val" id="invKpiTotalUnits">0</div>
+                      <div class="stat-card-sub">Bottles &amp; Containers</div>
+                    </div>
+                    <div class="stat-card">
+                      <div class="stat-card-title">Low Stock Items</div>
+                      <div class="stat-card-val" id="invKpiLowStock" style="color:#f59e0b;">0</div>
+                      <div class="stat-card-sub">At or below reorder level</div>
+                    </div>
+                    <div class="stat-card">
+                      <div class="stat-card-title">Inventory Valuation</div>
+                      <div class="stat-card-val" id="invKpiTotalValuation" style="color:var(--admin-gold);">₱0</div>
+                      <div class="stat-card-sub">Total retail stock value</div>
+                    </div>
+                  </div>
+
+                  <!-- Sub-Category Stock Overview Cards -->
+                  <div
+                    style="display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap:1.25rem; margin-bottom:1.5rem;">
+                    <!-- Wine Categories Card -->
+                    <div class="admin-card">
+                      <div class="admin-card-header">
+                        <h3 class="admin-card-title">🍷 Wine Sub-Categories</h3>
+                        <span class="badge-status contacted">Spanish Wines</span>
+                      </div>
+                      <div id="invWineSubcatList" style="display:flex; flex-direction:column; gap:0.75rem;">
+                        <!-- Populated by JS: Red, White, Sparkling, Rose -->
+                      </div>
+                    </div>
+                    <!-- Olive Oil Categories Card -->
+                    <div class="admin-card">
+                      <div class="admin-card-header">
+                        <h3 class="admin-card-title">🫒 Olive Oil Sub-Categories</h3>
+                        <span class="badge-status qualified">BUENSALUD EVOO</span>
+                      </div>
+                      <div id="invOilSubcatList" style="display:flex; flex-direction:column; gap:0.75rem;">
+                        <!-- Populated by JS: Picual, Arbequina, Coupage -->
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Master Stock Levels Table -->
+                  <div class="admin-card">
+                    <div class="admin-card-header">
+                      <div>
+                        <h3 class="admin-card-title">Live Stock Levels &amp; Inventory Status</h3>
+                        <div style="font-size:0.8rem; color:var(--admin-muted); margin-top:0.25rem;">
+                          Real-time stock quantities, thresholds, and valuation across all products
+                        </div>
+                      </div>
+                      <div class="no-print" style="display:flex; gap:0.5rem; align-items:center;">
+                        <select id="invFilterCategory" onchange="filterInventoryTable()"
+                          style="background:#0b0e14; color:#fff; border:1px solid rgba(255,255,255,0.12); padding:0.4rem 0.8rem; border-radius:6px; font-size:0.85rem;">
+                          <option value="">Category</option>
+                          <option value="wine">Wine</option>
+                          <option value="oil">Olive Oil</option>
+                        </select>
+                        <select id="invFilterStatus" onchange="filterInventoryTable()"
+                          style="background:#0b0e14; color:#fff; border:1px solid rgba(255,255,255,0.12); padding:0.4rem 0.8rem; border-radius:6px; font-size:0.85rem;">
+                          <option value="">Stock Status</option>
+                          <option value="in_stock">In Stock</option>
+                          <option value="low_stock">Low Stock (≤ Reorder)</option>
+                          <option value="out_of_stock">Out of Stock</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="table-container">
+                      <table id="inventoryReportTable">
+                        <thead>
+                          <tr>
+                            <th>SKU</th>
+                            <th>Category</th>
+                            <th>Product Name &amp; Description</th>
+                            <th>Sub-Category</th>
+                            <th>Unit Price</th>
+                            <th>Stock Level</th>
+                            <th>Reorder Level</th>
+                            <th>Valuation</th>
+                            <th>Status</th>
+                          </tr>
+                        </thead>
+                        <tbody id="inventoryReportTableBody"></tbody>
+                      </table>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div style="display:flex; flex-direction:column; align-items:flex-end; text-align:right; gap:0.35rem; margin-left:auto; flex-shrink:0;">
-                <div style="display:inline-flex; align-items:center; gap:0.4rem; padding:0.25rem 0.75rem; background:rgba(196,150,60,0.12); border:1px solid var(--admin-gold); border-radius:100px; font-size:0.8rem; color:var(--admin-gold); font-weight:600;">
-                  <span>💰</span> <span>Fiscal &amp; Profit Audit</span>
-                </div>
-                <div style="font-size:0.72rem; color:var(--admin-muted); text-align:right;">
-                  Tax, COGS &amp; Channel Reconciliation
-                </div>
-                <button type="button" class="btn-outline" style="padding:0.2rem 0.55rem; font-size:0.72rem; display:inline-flex; align-items:center; gap:0.3rem;" onclick="loadFinancialReport()">
-                  <span>🔄</span> <span>Refresh Financials</span>
-                </button>
-              </div>
-            </div>
 
-            <!-- Financial KPI Grid -->
-            <div class="stats-grid" style="margin-bottom:1.5rem;">
-              <div class="stat-card">
-                <div class="stat-card-title">Gross Revenue</div>
-                <div class="stat-card-val" id="finKpiGross" style="color:var(--admin-gold);">₱0</div>
-                <div class="stat-card-sub">Total billed sales</div>
-              </div>
-              <div class="stat-card">
-                <div class="stat-card-title">Estimated COGS</div>
-                <div class="stat-card-val" id="finKpiCogs" style="color:#94a3b8;">₱0</div>
-                <div class="stat-card-sub">Cost of goods sold (est. 55%)</div>
-              </div>
-              <div class="stat-card">
-                <div class="stat-card-title">Estimated Gross Margin</div>
-                <div class="stat-card-val" id="finKpiMargin" style="color:#34d399;">₱0</div>
-                <div class="stat-card-sub" id="finKpiMarginPct">45% Gross Profit Margin</div>
-              </div>
-              <div class="stat-card">
-                <div class="stat-card-title">Est. VAT Liability (12%)</div>
-                <div class="stat-card-val" id="finKpiVat" style="color:#60a5fa;">₱0</div>
-                <div class="stat-card-sub">Output value added tax</div>
-              </div>
-            </div>
+                <!-- SUBTAB 2: SALES REPORT (Admin Only) -->
+                <div id="subtab-sales" class="report-view">
+                  <div id="salesReportRestrictedNotice"
+                    style="display:none; text-align:center; padding:3rem; background:rgba(239,68,68,0.08); border:1px solid rgba(239,68,68,0.25); border-radius:12px;">
+                    <div style="font-size:2.5rem; margin-bottom:1rem;">🔒</div>
+                    <h3 style="color:#f87171; margin-bottom:0.5rem;">Access Restricted: Administrator Only</h3>
+                    <p style="color:var(--admin-muted); max-width:480px; margin:0 auto;">
+                      Sales performance, order revenue, and transaction registers can only be accessed with
+                      administrative credentials.
+                    </p>
+                  </div>
 
-            <!-- Financial Breakdown Panels -->
-            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap:1.25rem; margin-bottom:1.5rem;">
-              <div class="admin-card">
-                <div class="admin-card-header">
-                  <h3 class="admin-card-title">Payment Channel Reconciliations</h3>
+                  <div id="salesReportContent">
+                    <!-- Screen Header for Sales Report -->
+                    <div class="report-screen-header no-print"
+                      style="display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; padding:0.85rem 1.25rem; background:rgba(255,255,255,0.02); border:1px solid var(--admin-border); border-radius:10px; margin-bottom:1.25rem;">
+                      <div style="display:flex; align-items:flex-start; gap:0.75rem;">
+                        <img src="bedrock_logo.png" alt="Bedrock Logo"
+                          style="width:36px; height:36px; object-fit:contain; border-radius:50%; border:1.5px solid var(--admin-gold); flex-shrink:0; margin-top:2px;">
+                        <div>
+                          <div
+                            style="font-family:var(--font-display); font-size:0.95rem; font-weight:700; color:#fff; letter-spacing:0.02em; line-height:1.2;">
+                            BEDROCK CONSUMER GOODS TRADING</div>
+                          <div style="font-size:0.75rem; color:var(--admin-muted); margin-top:2px; line-height:1.35;">
+                            📍 #65 De Acosta St., San Antonio Village, Paciano Rizal, Calamba, Laguna 4027, Philippines
+                          </div>
+                          <div style="font-size:0.75rem; color:var(--admin-gold); margin-top:2px; line-height:1.35;">
+                            📞 +34 650-361-177 &nbsp;|&nbsp; ✉️ inquiry@bedrocktrading.ph &nbsp;|&nbsp; 🌐
+                            bedrocktrading.ph
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        style="display:flex; flex-direction:column; align-items:flex-end; text-align:right; gap:0.35rem; margin-left:auto; flex-shrink:0;">
+                        <div
+                          style="display:inline-flex; align-items:center; gap:0.4rem; padding:0.25rem 0.75rem; background:rgba(196,150,60,0.12); border:1px solid var(--admin-gold); border-radius:100px; font-size:0.8rem; color:var(--admin-gold); font-weight:600;">
+                          <span>📊</span> <span>Executive Sales Report</span>
+                        </div>
+                        <div style="font-size:0.72rem; color:var(--admin-muted); text-align:right;">
+                          Updated Live from Orders Register
+                        </div>
+                        <button type="button" class="btn-outline"
+                          style="padding:0.2rem 0.55rem; font-size:0.72rem; display:inline-flex; align-items:center; gap:0.3rem;"
+                          onclick="loadSalesReport()">
+                          <span>🔄</span> <span>Refresh Sales Data</span>
+                        </button>
+                      </div>
+                    </div>
+
+                    <!-- Sales KPIs -->
+                    <div class="stats-grid" style="margin-bottom:1.5rem;">
+                      <div class="stat-card">
+                        <div class="stat-card-title">Gross Sales Revenue</div>
+                        <div class="stat-card-val" id="salesKpiGross" style="color:var(--admin-gold);">₱0</div>
+                        <div class="stat-card-sub" id="salesKpiConfirmed">Across all completed orders</div>
+                      </div>
+                      <div class="stat-card">
+                        <div class="stat-card-title">Total Orders Placed</div>
+                        <div class="stat-card-val" id="salesKpiOrders">0</div>
+                        <div class="stat-card-sub" id="salesKpiOrdersSub">Recorded commercial transactions</div>
+                      </div>
+                      <div class="stat-card">
+                        <div class="stat-card-title">Average Order Value (AOV)</div>
+                        <div class="stat-card-val" id="salesKpiAov">₱0</div>
+                        <div class="stat-card-sub">Per completed transaction</div>
+                      </div>
+                      <div class="stat-card">
+                        <div class="stat-card-title">Total Units Sold</div>
+                        <div class="stat-card-val" id="salesKpiUnits">0</div>
+                        <div class="stat-card-sub">Wines &amp; Olive Oil units</div>
+                      </div>
+                    </div>
+
+                    <!-- Category & Sub-Category Sales Breakdown -->
+                    <div
+                      style="display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap:1.25rem; margin-bottom:1.5rem;">
+                      <div class="admin-card">
+                        <div class="admin-card-header">
+                          <h3 class="admin-card-title">Sales by Category</h3>
+                        </div>
+                        <div id="salesCategoryBreakdown" style="display:flex; flex-direction:column; gap:0.75rem;">
+                        </div>
+                      </div>
+                      <div class="admin-card">
+                        <div class="admin-card-header">
+                          <h3 class="admin-card-title">Sales by Sub-Category</h3>
+                        </div>
+                        <div id="salesSubcategoryBreakdown" style="display:flex; flex-direction:column; gap:0.75rem;">
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Top Selling Products Table -->
+                    <div class="admin-card" style="margin-bottom:1.5rem;">
+                      <div class="admin-card-header">
+                        <h3 class="admin-card-title">Top Selling Products</h3>
+                      </div>
+                      <div class="table-container">
+                        <table>
+                          <thead>
+                            <tr>
+                              <th>Product</th>
+                              <th>Category</th>
+                              <th>Sub-Category</th>
+                              <th>Units Sold</th>
+                              <th>Total Revenue</th>
+                            </tr>
+                          </thead>
+                          <tbody id="salesTopProductsTableBody"></tbody>
+                        </table>
+                      </div>
+                    </div>
+
+                    <!-- Transaction Register -->
+                    <div class="admin-card">
+                      <div class="admin-card-header">
+                        <h3 class="admin-card-title">Commercial Sales Transaction Ledger</h3>
+                      </div>
+                      <div class="table-container">
+                        <table>
+                          <thead>
+                            <tr>
+                              <th>Order #</th>
+                              <th>Date</th>
+                              <th>Customer</th>
+                              <th>Items Sold</th>
+                              <th>Payment Channel</th>
+                              <th>Status</th>
+                              <th>Amount</th>
+                            </tr>
+                          </thead>
+                          <tbody id="salesLedgerTableBody"></tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div id="finPaymentBreakdown" style="display:flex; flex-direction:column; gap:0.75rem;"></div>
-              </div>
-              <div class="admin-card">
-                <div class="admin-card-header">
-                  <h3 class="admin-card-title">Cash Flow &amp; Fulfillment Aging</h3>
+
+                <!-- SUBTAB 3: FINANCIAL REPORT (Admin Only) -->
+                <div id="subtab-financial" class="report-view">
+                  <div id="finReportRestrictedNotice"
+                    style="display:none; text-align:center; padding:3rem; background:rgba(239,68,68,0.08); border:1px solid rgba(239,68,68,0.25); border-radius:12px;">
+                    <div style="font-size:2.5rem; margin-bottom:1rem;">🔒</div>
+                    <h3 style="color:#f87171; margin-bottom:0.5rem;">Access Restricted: Administrator Only</h3>
+                    <p style="color:var(--admin-muted); max-width:480px; margin:0 auto;">
+                      Financial profit margins, tax obligations, and payment channel reconciliations are restricted to
+                      Administrators.
+                    </p>
+                  </div>
+
+                  <div id="finReportContent">
+                    <!-- Screen Header for Financial Report -->
+                    <div class="report-screen-header no-print"
+                      style="display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; padding:0.85rem 1.25rem; background:rgba(255,255,255,0.02); border:1px solid var(--admin-border); border-radius:10px; margin-bottom:1.25rem;">
+                      <div style="display:flex; align-items:flex-start; gap:0.75rem;">
+                        <img src="bedrock_logo.png" alt="Bedrock Logo"
+                          style="width:36px; height:36px; object-fit:contain; border-radius:50%; border:1.5px solid var(--admin-gold); flex-shrink:0; margin-top:2px;">
+                        <div>
+                          <div
+                            style="font-family:var(--font-display); font-size:0.95rem; font-weight:700; color:#fff; letter-spacing:0.02em; line-height:1.2;">
+                            BEDROCK CONSUMER GOODS TRADING</div>
+                          <div style="font-size:0.75rem; color:var(--admin-muted); margin-top:2px; line-height:1.35;">
+                            📍 #65 De Acosta St., San Antonio Village, Paciano Rizal, Calamba, Laguna 4027, Philippines
+                          </div>
+                          <div style="font-size:0.75rem; color:var(--admin-gold); margin-top:2px; line-height:1.35;">
+                            📞 +34 650-361-177 &nbsp;|&nbsp; ✉️ inquiry@bedrocktrading.ph &nbsp;|&nbsp; 🌐
+                            bedrocktrading.ph
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        style="display:flex; flex-direction:column; align-items:flex-end; text-align:right; gap:0.35rem; margin-left:auto; flex-shrink:0;">
+                        <div
+                          style="display:inline-flex; align-items:center; gap:0.4rem; padding:0.25rem 0.75rem; background:rgba(196,150,60,0.12); border:1px solid var(--admin-gold); border-radius:100px; font-size:0.8rem; color:var(--admin-gold); font-weight:600;">
+                          <span>💰</span> <span>Fiscal &amp; Profit Audit</span>
+                        </div>
+                        <div style="font-size:0.72rem; color:var(--admin-muted); text-align:right;">
+                          Tax, COGS &amp; Channel Reconciliation
+                        </div>
+                        <button type="button" class="btn-outline"
+                          style="padding:0.2rem 0.55rem; font-size:0.72rem; display:inline-flex; align-items:center; gap:0.3rem;"
+                          onclick="loadFinancialReport()">
+                          <span>🔄</span> <span>Refresh Financials</span>
+                        </button>
+                      </div>
+                    </div>
+
+                    <!-- Financial KPI Grid -->
+                    <div class="stats-grid" style="margin-bottom:1.5rem;">
+                      <div class="stat-card">
+                        <div class="stat-card-title">Gross Revenue</div>
+                        <div class="stat-card-val" id="finKpiGross" style="color:var(--admin-gold);">₱0</div>
+                        <div class="stat-card-sub">Total billed sales</div>
+                      </div>
+                      <div class="stat-card">
+                        <div class="stat-card-title">Estimated COGS</div>
+                        <div class="stat-card-val" id="finKpiCogs" style="color:#94a3b8;">₱0</div>
+                        <div class="stat-card-sub">Cost of goods sold (est. 55%)</div>
+                      </div>
+                      <div class="stat-card">
+                        <div class="stat-card-title">Estimated Gross Margin</div>
+                        <div class="stat-card-val" id="finKpiMargin" style="color:#34d399;">₱0</div>
+                        <div class="stat-card-sub" id="finKpiMarginPct">45% Gross Profit Margin</div>
+                      </div>
+                      <div class="stat-card">
+                        <div class="stat-card-title">Est. VAT Liability (12%)</div>
+                        <div class="stat-card-val" id="finKpiVat" style="color:#60a5fa;">₱0</div>
+                        <div class="stat-card-sub">Output value added tax</div>
+                      </div>
+                    </div>
+
+                    <!-- Financial Breakdown Panels -->
+                    <div
+                      style="display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap:1.25rem; margin-bottom:1.5rem;">
+                      <div class="admin-card">
+                        <div class="admin-card-header">
+                          <h3 class="admin-card-title">Payment Channel Reconciliations</h3>
+                        </div>
+                        <div id="finPaymentBreakdown" style="display:flex; flex-direction:column; gap:0.75rem;"></div>
+                      </div>
+                      <div class="admin-card">
+                        <div class="admin-card-header">
+                          <h3 class="admin-card-title">Cash Flow &amp; Fulfillment Aging</h3>
+                        </div>
+                        <div id="finStatusBreakdown" style="display:flex; flex-direction:column; gap:0.75rem;"></div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div id="finStatusBreakdown" style="display:flex; flex-direction:column; gap:0.75rem;"></div>
-              </div>
-            </div>
-          </div>
-        </div>
               </td>
             </tr>
           </tbody>
@@ -1602,11 +1828,13 @@
             <div>
               <h3 class="admin-card-title">Product Catalog Inventory</h3>
               <div style="font-size:0.8rem; color:var(--admin-muted); margin-top:0.25rem;">
-                Any edits, additions, or deletions automatically synchronize with <code style="color:var(--admin-gold); background:rgba(196,150,60,0.1); padding:2px 6px; border-radius:4px;">seed-data.js</code>
+                Any edits, additions, or deletions automatically synchronize with <code
+                  style="color:var(--admin-gold); background:rgba(196,150,60,0.1); padding:2px 6px; border-radius:4px;">seed-data.js</code>
               </div>
             </div>
             <div style="display:flex; gap:0.5rem;">
-              <button class="btn-outline" onclick="triggerSeedSync()" title="Manually re-synchronize seed-data.js with current database">
+              <button class="btn-outline" onclick="triggerSeedSync()"
+                title="Manually re-synchronize seed-data.js with current database">
                 🔄 Sync seed-data.js
               </button>
               <button class="btn-gold" onclick="openAddProductModal()">+ Add Product</button>
@@ -1637,7 +1865,8 @@
           <div class="admin-card-header">
             <h3 class="admin-card-title">Customer &amp; Wholesale Inquiries</h3>
             <div style="display: flex; gap: 0.5rem;">
-              <select id="leadFilterSelect" onchange="loadLeads()" style="background:#0b0e14; color:#fff; border:1px solid rgba(255,255,255,0.12); padding: 0.4rem 0.8rem; border-radius:6px;">
+              <select id="leadFilterSelect" onchange="loadLeads()"
+                style="background:#0b0e14; color:#fff; border:1px solid rgba(255,255,255,0.12); padding: 0.4rem 0.8rem; border-radius:6px;">
                 <option value="">All Statuses</option>
                 <option value="new">New</option>
                 <option value="contacted">Contacted</option>
@@ -1670,7 +1899,8 @@
         <div class="admin-card">
           <div class="admin-card-header">
             <h3 class="admin-card-title">Customer Orders</h3>
-            <select id="orderFilterSelect" onchange="loadOrders()" style="background:#0b0e14; color:#fff; border:1px solid rgba(255,255,255,0.12); padding: 0.4rem 0.8rem; border-radius:6px;">
+            <select id="orderFilterSelect" onchange="loadOrders()"
+              style="background:#0b0e14; color:#fff; border:1px solid rgba(255,255,255,0.12); padding: 0.4rem 0.8rem; border-radius:6px;">
               <option value="">All Statuses</option>
               <option value="pending">Pending</option>
               <option value="confirmed">Confirmed</option>
@@ -1707,11 +1937,13 @@
             <div>
               <h3 class="admin-card-title">Customer Dossiers &amp; Client Accounts</h3>
               <div style="font-size:0.8rem; color:var(--admin-muted); margin-top:0.25rem;">
-                Sophisticated client profiles, VIP tiers, contact logistics, commercial lifetime value &amp; purchase histories
+                Sophisticated client profiles, VIP tiers, contact logistics, commercial lifetime value &amp; purchase
+                histories
               </div>
             </div>
             <div style="display:flex; gap:0.5rem; align-items:center;">
-              <select id="userFilterTier" onchange="loadUsers()" style="background:#0b0e14; color:#fff; border:1px solid rgba(255,255,255,0.12); padding:0.4rem 0.8rem; border-radius:6px; font-size:0.85rem;">
+              <select id="userFilterTier" onchange="loadUsers()"
+                style="background:#0b0e14; color:#fff; border:1px solid rgba(255,255,255,0.12); padding:0.4rem 0.8rem; border-radius:6px; font-size:0.85rem;">
                 <option value="">All Customer Tiers</option>
                 <option value="VIP Private Client">VIP Private Client</option>
                 <option value="Wholesale Premier">Wholesale Premier</option>
@@ -1767,7 +1999,8 @@
         </div>
         <div style="display:flex; gap: 1rem;">
           <div class="form-group" style="flex:1;">
-            <label>Product ID <span style="font-size:0.75rem; color:var(--admin-muted);">(Auto-assigned if blank)</span></label>
+            <label>Product ID <span style="font-size:0.75rem; color:var(--admin-muted);">(Auto-assigned if
+                blank)</span></label>
             <input type="text" id="prodCustomId" placeholder="e.g. w10 or o18">
           </div>
           <div class="form-group" style="flex:1;">
@@ -1864,7 +2097,8 @@
   <div id="customerProfileModal" class="admin-modal-overlay">
     <div class="admin-modal-box" style="max-width: 900px;">
       <!-- Header with Monogram, Tier Badge & Actions -->
-      <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 1.25rem;">
+      <div
+        style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 1.25rem;">
         <div style="display:flex; align-items:center; gap:1.25rem;">
           <div id="dossierAvatar" class="customer-avatar-lg">JD</div>
           <div>
@@ -1874,7 +2108,9 @@
               <span id="dossierStatusBadge" class="badge-status qualified">Active</span>
             </div>
             <div style="color:var(--admin-muted); font-size:0.85rem; margin-top:0.35rem;">
-              <span id="dossierCompany">Company Name</span> &bull; Username: <strong id="dossierUsername" style="color:var(--admin-gold);">username</strong> &bull; Member Since <span id="dossierCreated">2026</span>
+              <span id="dossierCompany">Company Name</span> &bull; Username: <strong id="dossierUsername"
+                style="color:var(--admin-gold);">username</strong> &bull; Member Since <span
+                id="dossierCreated">2026</span>
             </div>
           </div>
         </div>
@@ -1882,7 +2118,8 @@
           <button class="btn-gold" onclick="printCustomerDossier()" style="padding:0.45rem 0.9rem; font-size:0.82rem;">
             🖨️ Print Profile
           </button>
-          <button class="btn-outline" id="btnToggleEditCustomer" onclick="toggleCustomerEditMode()" style="padding:0.45rem 0.9rem; font-size:0.82rem;">
+          <button class="btn-outline" id="btnToggleEditCustomer" onclick="toggleCustomerEditMode()"
+            style="padding:0.45rem 0.9rem; font-size:0.82rem;">
             ✏️ Edit Profile
           </button>
           <button onclick="closeCustomerModal()" class="btn-outline" style="padding:0.45rem 0.75rem;">✕</button>
@@ -1905,7 +2142,8 @@
         </div>
         <div class="customer-kpi-card">
           <div class="customer-kpi-label">Preferred Category</div>
-          <div class="customer-kpi-val" id="dossierPreferredCategory" style="font-size:1.1rem; color:#60a5fa;">Spanish Wine</div>
+          <div class="customer-kpi-val" id="dossierPreferredCategory" style="font-size:1.1rem; color:#60a5fa;">Spanish
+            Wine</div>
         </div>
       </div>
 
@@ -1998,7 +2236,10 @@
                 </tr>
               </thead>
               <tbody id="dossierOrdersTableBody">
-                <tr><td colspan="7" style="text-align:center; color:var(--admin-muted);">No orders found for this customer.</td></tr>
+                <tr>
+                  <td colspan="7" style="text-align:center; color:var(--admin-muted);">No orders found for this
+                    customer.</td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -2097,7 +2338,8 @@
         </div>
         <div class="form-group">
           <label>Sommelier Tasting Notes &amp; VIP Account Directives</label>
-          <textarea id="editCustNotes" rows="3" placeholder="Cellar preferences, favorite varieties, special delivery instructions..."></textarea>
+          <textarea id="editCustNotes" rows="3"
+            placeholder="Cellar preferences, favorite varieties, special delivery instructions..."></textarea>
         </div>
         <div style="display:flex; justify-content:flex-end; gap:0.75rem; margin-top:1.5rem;">
           <button type="button" onclick="cancelCustomerEditMode()" class="btn-outline">Cancel</button>
@@ -2110,7 +2352,8 @@
   <!-- ORDER COMMERCIAL INVOICE PRINT MODAL -->
   <div id="orderInvoiceModal" class="admin-modal-overlay">
     <div class="admin-modal-box" style="max-width: 800px; background: #fff; color: #111;">
-      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 2px solid #e5e7eb; padding-bottom: 1rem; margin-bottom: 1.5rem;">
+      <div
+        style="display:flex; justify-content:space-between; align-items:center; border-bottom: 2px solid #e5e7eb; padding-bottom: 1rem; margin-bottom: 1.5rem;">
         <div style="display:flex; align-items:center; gap:0.75rem;">
           <img src="bedrock_logo.png" alt="Bedrock" style="height:44px; filter:none;">
           <div>
@@ -2122,7 +2365,8 @@
           <button class="btn-gold" onclick="printActiveOrderInvoice()" style="padding:0.45rem 1rem; font-size:0.85rem;">
             🖨️ Print Invoice
           </button>
-          <button onclick="closeInvoiceModal()" class="btn-outline" style="padding:0.45rem 0.75rem; color:#374151; border-color:#d1d5db;">✕</button>
+          <button onclick="closeInvoiceModal()" class="btn-outline"
+            style="padding:0.45rem 0.75rem; color:#374151; border-color:#d1d5db;">✕</button>
         </div>
       </div>
 
@@ -2244,7 +2488,7 @@
       document.getElementById('authGate').style.display = 'none';
       document.getElementById('adminLayout').style.display = 'flex';
       document.getElementById('currentUserName').textContent = currentUser.full_name || currentUser.username;
-      
+
       const roleText = currentUser.role === 'admin' ? 'ADMINISTRATOR' : 'STAFF VIEWER';
       document.getElementById('currentUserRole').textContent = roleText;
 
@@ -2333,7 +2577,7 @@
         users: 'Customer Profile Management'
       };
       document.getElementById('pageTitle').textContent = titles[tabId] || 'Admin Portal';
-      
+
       const isViewer = currentUser && currentUser.role === 'viewer';
       document.getElementById('headerActionBtn').style.display = (tabId === 'products' && !isViewer) ? 'inline-flex' : 'none';
       document.getElementById('headerPrintBtn').style.display = (tabId === 'reports' || tabId === 'products' || tabId === 'orders') ? 'inline-flex' : 'none';
@@ -2346,7 +2590,7 @@
     // Reports Subtabs & Loader
     function switchReportSubTab(subTab) {
       const isViewer = currentUser && currentUser.role === 'viewer';
-      
+
       // Enforce: Sales & Financial reports accessible ONLY to admin users
       if (isViewer && (subTab === 'sales' || subTab === 'financial')) {
         showToast('🔒 Sales and Financial reports are restricted to Administrator accounts.');
@@ -2736,7 +2980,7 @@
       const now = new Date();
       const dateFormatted = now.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
       const timeFormatted = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
-      
+
       const asOfEl = document.getElementById('printReportAsOf');
       const asOfDateEl = document.getElementById('printReportAsOfDate');
       const tsEl = document.getElementById('printReportTimestamp');
@@ -2772,7 +3016,7 @@
         cachedInventoryData.inventory.forEach(p => {
           csv += `"${p.id}","${p.category}","${p.type || ''}","${p.name.replace(/"/g, '""')}",${p.price},${p.stock_quantity},${p.reorder_level},${p.price * p.stock_quantity},${p.in_stock ? 1 : 0}\n`;
         });
-        downloadCSVFile(csv, `Bedrock_Inventory_Report_${new Date().toISOString().slice(0,10)}.csv`);
+        downloadCSVFile(csv, `Bedrock_Inventory_Report_${new Date().toISOString().slice(0, 10)}.csv`);
       } else if (activeReportSubTab === 'sales') {
         if (!cachedSalesData || !cachedSalesData.ledger) {
           alert('Sales data not loaded yet.');
@@ -2782,7 +3026,7 @@
         cachedSalesData.ledger.forEach(o => {
           csv += `"${o.order_number}","${o.date}","${o.customer.replace(/"/g, '""')}","${o.payment_method}","${o.status}",${o.total}\n`;
         });
-        downloadCSVFile(csv, `Bedrock_Sales_Report_${new Date().toISOString().slice(0,10)}.csv`);
+        downloadCSVFile(csv, `Bedrock_Sales_Report_${new Date().toISOString().slice(0, 10)}.csv`);
       } else if (activeReportSubTab === 'financial') {
         if (!cachedFinancialData || !cachedFinancialData.summary) {
           alert('Financial data not loaded yet.');
@@ -2794,7 +3038,7 @@
         csv += `"Estimated Gross Margin",${cachedFinancialData.summary.estimated_gross_margin}\n`;
         csv += `"Gross Margin Rate %",${cachedFinancialData.summary.gross_margin_percentage}\n`;
         csv += `"Estimated 12% VAT",${cachedFinancialData.summary.estimated_vat_12_pct}\n`;
-        downloadCSVFile(csv, `Bedrock_Financial_Report_${new Date().toISOString().slice(0,10)}.csv`);
+        downloadCSVFile(csv, `Bedrock_Financial_Report_${new Date().toISOString().slice(0, 10)}.csv`);
       }
     }
 
@@ -2869,7 +3113,7 @@
 
           return `
             <tr>
-              <td><span class="badge-status ${p.category==='wine'?'contacted':'qualified'}">${p.category==='wine'?'Wine':'Olive Oil'}</span></td>
+              <td><span class="badge-status ${p.category === 'wine' ? 'contacted' : 'qualified'}">${p.category === 'wine' ? 'Wine' : 'Olive Oil'}</span></td>
               <td>
                 <div style="font-weight:600; color:#fff;">${p.name}</div>
                 <div style="font-size:0.75rem; color:var(--admin-gold); font-weight:700;">${p.id}</div>
@@ -2936,7 +3180,7 @@
         const url = status ? `/api/leads?status=${status}` : '/api/leads';
         const res = await fetch(url, { headers: { 'Authorization': `Bearer ${token}` } });
         const data = await res.json();
-        
+
         const tbody = document.getElementById('leadsTableBody');
         tbody.innerHTML = data.leads.map(l => `
           <tr>
@@ -2953,10 +3197,10 @@
             <td style="max-width:240px; font-size:0.85rem;">${l.message}</td>
             <td>
               <select onchange="updateLeadStatus(${l.id}, this.value)" style="background:#0b0e14; color:#fff; border:1px solid rgba(255,255,255,0.12); padding:0.25rem; border-radius:4px; font-size:0.8rem;">
-                <option value="new" ${l.status==='new'?'selected':''}>New</option>
-                <option value="contacted" ${l.status==='contacted'?'selected':''}>Contacted</option>
-                <option value="qualified" ${l.status==='qualified'?'selected':''}>Qualified</option>
-                <option value="closed" ${l.status==='closed'?'selected':''}>Closed</option>
+                <option value="new" ${l.status === 'new' ? 'selected' : ''}>New</option>
+                <option value="contacted" ${l.status === 'contacted' ? 'selected' : ''}>Contacted</option>
+                <option value="qualified" ${l.status === 'qualified' ? 'selected' : ''}>Qualified</option>
+                <option value="closed" ${l.status === 'closed' ? 'selected' : ''}>Closed</option>
               </select>
             </td>
             <td>
@@ -3031,12 +3275,12 @@
             </td>
             <td>
               <select onchange="updateOrderStatus(${o.id}, this.value)" style="background:#0b0e14; color:#fff; border:1px solid rgba(255,255,255,0.12); padding:0.25rem; border-radius:4px; font-size:0.8rem;">
-                <option value="pending" ${o.status==='pending'?'selected':''}>Pending</option>
-                <option value="confirmed" ${o.status==='confirmed'?'selected':''}>Confirmed</option>
-                <option value="processing" ${o.status==='processing'?'selected':''}>Processing</option>
-                <option value="shipped" ${o.status==='shipped'?'selected':''}>Shipped</option>
-                <option value="delivered" ${o.status==='delivered'?'selected':''}>Delivered</option>
-                <option value="cancelled" ${o.status==='cancelled'?'selected':''}>Cancelled</option>
+                <option value="pending" ${o.status === 'pending' ? 'selected' : ''}>Pending</option>
+                <option value="confirmed" ${o.status === 'confirmed' ? 'selected' : ''}>Confirmed</option>
+                <option value="processing" ${o.status === 'processing' ? 'selected' : ''}>Processing</option>
+                <option value="shipped" ${o.status === 'shipped' ? 'selected' : ''}>Shipped</option>
+                <option value="delivered" ${o.status === 'delivered' ? 'selected' : ''}>Delivered</option>
+                <option value="cancelled" ${o.status === 'cancelled' ? 'selected' : ''}>Cancelled</option>
               </select>
             </td>
             <td>
@@ -3094,7 +3338,7 @@
 
         const tbody = document.getElementById('usersTableBody');
         tbody.innerHTML = users.map(u => {
-          const initials = (u.full_name || u.username).split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase();
+          const initials = (u.full_name || u.username).split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase();
           const tier = u.customer_tier || 'Direct Retail';
           let tierClass = 'vip';
           if (tier.includes('Wholesale')) tierClass = 'wholesale';
@@ -3134,8 +3378,8 @@
                     👤 Dossier
                   </button>
                   ${(currentUser.role === 'admin' && u.id !== currentUser.id) ? `
-                    <button class="btn-outline" style="font-size:0.75rem; padding:0.3rem 0.55rem;" onclick="changeRole(${u.id}, '${u.role==='admin'?'viewer':'admin'}')">
-                      Make ${u.role==='admin'?'Viewer':'Admin'}
+                    <button class="btn-outline" style="font-size:0.75rem; padding:0.3rem 0.55rem;" onclick="changeRole(${u.id}, '${u.role === 'admin' ? 'viewer' : 'admin'}')">
+                      Make ${u.role === 'admin' ? 'Viewer' : 'Admin'}
                     </button>
                   ` : ''}
                 </div>
@@ -3172,7 +3416,7 @@
         activeCustomerData = data.user;
         const u = data.user;
 
-        const initials = (u.full_name || u.username).split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase();
+        const initials = (u.full_name || u.username).split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase();
         document.getElementById('dossierAvatar').textContent = initials;
         document.getElementById('dossierFullName').textContent = u.full_name || u.username;
         document.getElementById('dossierCompany').textContent = u.company || 'Private Cellar Client';
@@ -3501,12 +3745,12 @@
       const customIdInput = document.getElementById('prodCustomId');
       customIdInput.value = '';
       customIdInput.disabled = false;
-      
+
       document.getElementById('prodCategory').value = 'wine';
       populateSubcategories('wine', 'Red');
       document.getElementById('prodStockQty').value = '100';
       document.getElementById('prodReorderLevel').value = '15';
-      
+
       document.getElementById('productModal').classList.add('active');
     }
 
@@ -3517,7 +3761,7 @@
       customIdInput.value = prod.id;
       customIdInput.disabled = false;
       document.getElementById('prodCategory').value = prod.category;
-      
+
       // Populate subcategories for this category and select the current one
       populateSubcategories(prod.category, prod.type);
 
@@ -3568,7 +3812,7 @@
         color: document.getElementById('prodColor').value,
         image: document.getElementById('prodImage').value,
         description: document.getElementById('prodDesc').value,
-        tags: document.getElementById('prodTags').value.split(',').map(s=>s.trim()).filter(Boolean),
+        tags: document.getElementById('prodTags').value.split(',').map(s => s.trim()).filter(Boolean),
         in_stock: document.getElementById('prodInStock').value === '1'
       };
 
@@ -3622,4 +3866,5 @@
     initAdmin();
   </script>
 </body>
+
 </html>
