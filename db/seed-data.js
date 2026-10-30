@@ -102,7 +102,7 @@ const initialProducts = [
     color: '#3a0a18',
     image: 'images/Coto_de_Imaz_Reserva.jpg',
     in_stock: 1,
-    stock_quantity: 3,
+    stock_quantity: 8,
     reorder_level: 15
   },
   {
@@ -225,6 +225,7 @@ const initialProducts = [
     description: '',
     tags: ['Picual', '500ml', 'Plastic Bottle'],
     price: 635,
+    icon: '🫒',
     color: '#4a6b20',
     image: 'images/AOVE_BUENSALUD_PICUAL-VARIETY_500ml_PLASTIC_BOTTLE.jpg',
     in_stock: 1,
