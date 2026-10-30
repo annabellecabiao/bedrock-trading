@@ -543,7 +543,7 @@
                 <div class="delivery-option-name">Standard Delivery</div>
                 <div class="delivery-option-desc">5–7 business days via courier</div>
               </div>
-              <div class="delivery-option-price">₱150</div>
+              <div class="delivery-option-price">₱150.00</div>
             </div>
             <div class="delivery-option" data-delivery="express" data-fee="350" onclick="selectDelivery(this)">
               <div class="delivery-option-radio"></div>
@@ -551,7 +551,7 @@
                 <div class="delivery-option-name">Express Delivery</div>
                 <div class="delivery-option-desc">2–3 business days via express courier</div>
               </div>
-              <div class="delivery-option-price">₱350</div>
+              <div class="delivery-option-price">₱350.00</div>
             </div>
             <div class="delivery-option" data-delivery="sameday" data-fee="500" onclick="selectDelivery(this)">
               <div class="delivery-option-radio"></div>
@@ -559,7 +559,7 @@
                 <div class="delivery-option-name">Same-Day (Laguna only)</div>
                 <div class="delivery-option-desc">Delivered within 6 hours — Calamba &amp; nearby areas</div>
               </div>
-              <div class="delivery-option-price">₱500</div>
+              <div class="delivery-option-price">₱500.00</div>
             </div>
             <div class="delivery-option" data-delivery="pickup" data-fee="0" onclick="selectDelivery(this)">
               <div class="delivery-option-radio"></div>
@@ -1053,8 +1053,23 @@
       }
     }
 
+    function formatMoney(amount) {
+      const num = Number(amount) || 0;
+      return num.toLocaleString('en-PH', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+    }
+
+    function formatSku(id, category) {
+      if (!id) return '';
+      const num = String(id).replace(/\D/g, '');
+      const prefix = (category === 'oil' || String(id).toLowerCase().startsWith('o')) ? 'O' : 'W';
+      return `BR-${prefix}${num}`;
+    }
+
     function renderWineCard(w) {
-      const priceDisplay = (w.price && w.price > 0) ? `₱${Number(w.price).toLocaleString()}` : 'Contact for pricing';
+      const priceDisplay = (w.price && w.price > 0) ? `₱${formatMoney(w.price)}` : 'Contact for pricing';
       const isOutOfStock = w.in_stock === 0;
       const subCategory = w.type || 'Red';
       const safeName = (w.fullName || w.name).replace(/'/g, "\\'");
@@ -1080,7 +1095,10 @@
     <div class="product-info">
       <div class="product-region" onclick="openModal('wine','${w.id}')" style="cursor:pointer;" title="View details">${w.region || 'Spain'} · ${w.denomination || 'D.O.'}</div>
       <h3 class="product-name" onclick="openModal('wine','${w.id}')" style="cursor:pointer;" title="View details">${w.name}</h3>
-      <div class="product-variety" onclick="openModal('wine','${w.id}')" style="cursor:pointer;" title="View details">${w.variety || ''}</div>
+      <div class="product-variety" onclick="openModal('wine','${w.id}')" style="cursor:pointer; display:flex; justify-content:space-between; align-items:center;" title="View details">
+        <span>${w.variety || ''}</span>
+        <span style="font-size:0.75rem; color:var(--gold-primary); font-weight:700;">${formatSku(w.id, 'wine')}</span>
+      </div>
       <div class="product-meta">${(w.tags || []).map(t => `<span class="product-meta-tag">${t}</span>`).join('')}</div>
       ${renderProductDescription(w.description, 'wine-' + w.id)}
       <div class="product-footer">
@@ -1101,7 +1119,7 @@
     }
 
     function renderOilCard(o) {
-      const priceDisplay = (o.price && o.price > 0) ? `₱${Number(o.price).toLocaleString()}` : 'Contact for pricing';
+      const priceDisplay = (o.price && o.price > 0) ? `₱${formatMoney(o.price)}` : 'Contact for pricing';
       const isOutOfStock = o.in_stock === 0;
       const subCategory = o.type || o.variety || 'Picual';
       const safeName = (o.fullName || o.name).replace(/'/g, "\\'");
@@ -1127,6 +1145,10 @@
     <div class="product-info">
       <div class="product-region" onclick="openModal('oil','${o.id}')" style="cursor:pointer;" title="View details">BUENSALUD · ${subCategory}</div>
       <h3 class="product-name" onclick="openModal('oil','${o.id}')" style="font-size:0.95rem; cursor:pointer;" title="View details">${(o.fullName || o.name).replace('BUENSALUD Aceite de Oliva Extra Virgen ', '')}</h3>
+      <div class="product-variety" onclick="openModal('oil','${o.id}')" style="cursor:pointer; display:flex; justify-content:space-between; align-items:center;" title="View details">
+        <span>${o.variety || '100% Extra Virgin Olive Oil'}</span>
+        <span style="font-size:0.75rem; color:var(--gold-primary); font-weight:700;">${formatSku(o.id, 'oil')}</span>
+      </div>
       <div class="product-meta">${(o.tags || []).map(t => `<span class="product-meta-tag">${t}</span>`).join('')}</div>
       ${renderProductDescription(o.description, 'oil-' + o.id)}
       <div class="product-footer">
@@ -1247,6 +1269,7 @@
 
       const meta = type === 'wine' ? `
     <div class="modal-meta-item"><div class="modal-meta-label">Category</div><div class="modal-meta-value">Wine</div></div>
+    <div class="modal-meta-item"><div class="modal-meta-label">SKU</div><div class="modal-meta-value" style="font-weight:700; color:var(--gold-primary);">${formatSku(item.id, 'wine')}</div></div>
     <div class="modal-meta-item"><div class="modal-meta-label">Sub-Category</div><div class="modal-meta-value">${item.type || 'Red'}</div></div>
     <div class="modal-meta-item"><div class="modal-meta-label">Denomination</div><div class="modal-meta-value">${item.denomination || 'D.O.'}</div></div>
     <div class="modal-meta-item"><div class="modal-meta-label">Region</div><div class="modal-meta-value">${item.region || 'Spain'}</div></div>
@@ -1254,6 +1277,7 @@
     <div class="modal-meta-item"><div class="modal-meta-label">Volume / Format</div><div class="modal-meta-value">${item.volume || '750ml Glass Bottle'}</div></div>
   ` : `
     <div class="modal-meta-item"><div class="modal-meta-label">Category</div><div class="modal-meta-value">Olive Oil</div></div>
+    <div class="modal-meta-item"><div class="modal-meta-label">SKU</div><div class="modal-meta-value" style="font-weight:700; color:var(--gold-primary);">${formatSku(item.id, 'oil')}</div></div>
     <div class="modal-meta-item"><div class="modal-meta-label">Sub-Category</div><div class="modal-meta-value">${item.type || item.variety || 'Picual'}</div></div>
     <div class="modal-meta-item"><div class="modal-meta-label">Olive Variety</div><div class="modal-meta-value">${item.variety}</div></div>
     <div class="modal-meta-item"><div class="modal-meta-label">Volume</div><div class="modal-meta-value">${item.volume}</div></div>
@@ -1261,7 +1285,7 @@
     <div class="modal-meta-item"><div class="modal-meta-label">Special Edition</div><div class="modal-meta-value">${item.special || 'Standard Reserve'}</div></div>
   `;
 
-      const priceDisplay = (item.price && item.price > 0) ? `₱${Number(item.price).toLocaleString()}` : 'Contact for pricing';
+      const priceDisplay = (item.price && item.price > 0) ? `₱${formatMoney(item.price)}` : 'Contact for pricing';
       const isOutOfStock = item.in_stock === 0;
 
       body.innerHTML = `
@@ -1755,7 +1779,7 @@
       <div class="cart-item-icon">${c.icon}</div>
       <div class="cart-item-info">
         <div class="cart-item-name">${c.name}</div>
-        <div class="cart-item-detail">${c.type === 'wine' ? 'Wine' : 'BUENSALUD EVOO'} · ₱${(c.price || 0).toLocaleString()}</div>
+        <div class="cart-item-detail">${c.type === 'wine' ? 'Wine' : 'BUENSALUD EVOO'} · ₱${formatMoney(c.price || 0)}</div>
         <div class="cart-item-row">
           <div class="qty-wrap">
             <button class="qty-btn" onclick="changeQty('${c.id}',-1)">−</button>
@@ -1769,7 +1793,7 @@
   `).join('');
 
       const subtotal = cart.reduce((s, c) => s + ((c.price || 0) * c.qty), 0);
-      document.getElementById('cartTotal').textContent = subtotal > 0 ? `₱${subtotal.toLocaleString()}` : `${count} items`;
+      document.getElementById('cartTotal').textContent = subtotal > 0 ? `₱${formatMoney(subtotal)}` : `${count} items`;
     }
 
     // Cart panel toggle
@@ -1827,9 +1851,9 @@
       const subtotal = cart.reduce((s, c) => s + ((c.price || 0) * c.qty), 0);
       const total = subtotal + selectedDeliveryFee;
 
-      document.getElementById('sumSubtotal').textContent = subtotal > 0 ? `₱${subtotal.toLocaleString()}` : `${totalItems} items`;
-      document.getElementById('sumDelivery').textContent = selectedDeliveryFee === 0 ? 'Free' : `₱${selectedDeliveryFee}`;
-      document.getElementById('sumTotal').textContent = `₱${total.toLocaleString()}`;
+      document.getElementById('sumSubtotal').textContent = subtotal > 0 ? `₱${formatMoney(subtotal)}` : `${totalItems} items`;
+      document.getElementById('sumDelivery').textContent = selectedDeliveryFee === 0 ? 'Free' : `₱${formatMoney(selectedDeliveryFee)}`;
+      document.getElementById('sumTotal').textContent = `₱${formatMoney(total)}`;
     }
 
     async function placeOrder() {
@@ -1892,7 +1916,7 @@
         cart = [];
         updateCartUI();
         showToast(`✓ Order placed! Ref: ${data.orderNumber}`);
-        alert(`🎉 Order Placed Successfully!\n\nReference Number: ${data.orderNumber}\nTotal Amount: ₱${data.totalAmount.toLocaleString()}\n\nOur team in Calamba, Laguna will contact you at ${phone} to confirm delivery.`);
+        alert(`🎉 Order Placed Successfully!\n\nReference Number: ${data.orderNumber}\nTotal Amount: ₱${formatMoney(data.totalAmount)}\n\nOur team in Calamba, Laguna will contact you at ${phone} to confirm delivery.`);
       } catch (err) {
         showToast(`⚠️ ${err.message}`);
       } finally {

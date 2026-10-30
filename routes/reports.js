@@ -3,12 +3,37 @@ const router = express.Router();
 const db = require('../db/database');
 const { authenticate, requireRole } = require('../middleware/auth');
 
+function formatSku(id, category) {
+  if (!id) return '';
+  const str = String(id).trim();
+  if (str.toUpperCase().startsWith('BR-')) return str.toUpperCase();
+  const match = str.match(/^([a-zA-Z]+)(\d+)$/);
+  if (match) {
+    const catCode = match[1].toUpperCase();
+    return `BR-${catCode}${match[2]}`;
+  }
+  const catCode = (category === 'oil' || category === 'olive oil') ? 'O' : 'W';
+  return `BR-${catCode}-${str.toUpperCase()}`;
+}
+
 // ============================================================================
 // 1. SALES REPORT (ADMIN ONLY)
 // ============================================================================
 router.get('/sales', authenticate, requireRole('admin'), (req, res) => {
   try {
-    const orders = db.prepare('SELECT * FROM orders ORDER BY created_at DESC').all();
+    const { start_date, end_date } = req.query;
+    let query = 'SELECT * FROM orders WHERE 1=1';
+    const params = [];
+    if (start_date) {
+      query += ' AND date(created_at) >= date(?)';
+      params.push(start_date);
+    }
+    if (end_date) {
+      query += ' AND date(created_at) <= date(?)';
+      params.push(end_date);
+    }
+    query += ' ORDER BY created_at DESC';
+    const orders = db.prepare(query).all(...params);
 
     let totalGrossRevenue = 0;
     let totalNetProductSales = 0;
@@ -135,6 +160,7 @@ router.get('/sales', authenticate, requireRole('admin'), (req, res) => {
 
     const topProductsFormatted = topSellingProducts.map(p => ({
       id: p.id,
+      sku: formatSku(p.id, p.category),
       name: p.name,
       category: p.category,
       sub_category: p.subCategory,
@@ -201,7 +227,19 @@ router.get('/sales', authenticate, requireRole('admin'), (req, res) => {
 // ============================================================================
 router.get('/financial', authenticate, requireRole('admin'), (req, res) => {
   try {
-    const orders = db.prepare("SELECT * FROM orders WHERE status != 'cancelled'").all();
+    const { start_date, end_date } = req.query;
+    let query = "SELECT * FROM orders WHERE status != 'cancelled'";
+    const params = [];
+    if (start_date) {
+      query += ' AND date(created_at) >= date(?)';
+      params.push(start_date);
+    }
+    if (end_date) {
+      query += ' AND date(created_at) <= date(?)';
+      params.push(end_date);
+    }
+    query += ' ORDER BY created_at DESC';
+    const orders = db.prepare(query).all(...params);
 
     let grossRevenue = 0;
     let deliveryFeesCollected = 0;
@@ -381,6 +419,7 @@ router.get('/inventory', authenticate, (req, res) => {
 
       return {
         id: p.id,
+        sku: formatSku(p.id, p.category),
         name: p.name,
         fullName: p.fullName || p.name,
         category: p.category === 'wine' ? 'wine' : 'oil',

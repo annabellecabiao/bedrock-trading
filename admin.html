@@ -1363,6 +1363,11 @@
     <p style="color: var(--admin-muted); font-size: 0.9rem; margin-bottom: 1.75rem;">Sign in to access admin management
     </p>
 
+    <div id="loginSecurityNotice"
+      style="display:none; color: #fca5a5; background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.35); border-radius: 8px; padding: 0.65rem 0.85rem; font-size: 0.82rem; margin-bottom: 1rem; line-height: 1.4; text-align:center;">
+      🔒 <strong>Session Closed:</strong> You have been automatically logged out for security purposes because you left the admin portal.
+    </div>
+
     <div id="loginError"
       style="display:none; color: #ef4444; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 6px; padding: 0.6rem; font-size: 0.85rem; margin-bottom: 1rem;">
     </div>
@@ -1601,6 +1606,43 @@
                       onclick="exportActiveReportCSV()">
                       📥 Export CSV
                     </button>
+                  </div>
+                </div>
+
+                <!-- Reports History & Custom Date Range Filter Bar (Screen only) -->
+                <div class="report-date-filter-bar no-print"
+                  style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:0.85rem; padding:0.75rem 1.15rem; background:rgba(255,255,255,0.02); border:1px solid var(--admin-border); border-radius:10px; margin-bottom:1.25rem;">
+                  <div style="display:flex; align-items:center; gap:0.65rem; flex-wrap:wrap;">
+                    <span style="font-size:0.82rem; font-weight:700; color:var(--admin-gold); display:inline-flex; align-items:center; gap:0.35rem; letter-spacing:0.02em;">
+                      <span>📅</span> <span>Reports History &amp; Custom Date:</span>
+                    </span>
+                    <div style="display:inline-flex; align-items:center; gap:0.35rem;">
+                      <label for="reportStartDate" style="font-size:0.75rem; color:var(--admin-muted);">From:</label>
+                      <input type="date" id="reportStartDate" class="admin-input-date"
+                        style="padding:0.3rem 0.55rem; font-size:0.78rem; background:#0b0e14; border:1px solid rgba(255,255,255,0.12); border-radius:6px; color:#fff;">
+                    </div>
+                    <div style="display:inline-flex; align-items:center; gap:0.35rem;">
+                      <label for="reportEndDate" style="font-size:0.75rem; color:var(--admin-muted);">To:</label>
+                      <input type="date" id="reportEndDate" class="admin-input-date"
+                        style="padding:0.3rem 0.55rem; font-size:0.78rem; background:#0b0e14; border:1px solid rgba(255,255,255,0.12); border-radius:6px; color:#fff;">
+                    </div>
+                    <button type="button" id="btnSearchReportDate" class="btn-gold"
+                      style="padding:0.32rem 0.85rem; font-size:0.78rem; display:inline-flex; align-items:center; gap:0.35rem;"
+                      onclick="applyReportDateFilter()">
+                      <span>🔍</span> <span>Search</span>
+                    </button>
+                    <button type="button" class="btn-outline"
+                      style="padding:0.32rem 0.65rem; font-size:0.78rem;"
+                      onclick="resetReportDateFilter()">
+                      Reset / All
+                    </button>
+                  </div>
+                  <div style="font-size:0.75rem; color:var(--admin-muted); display:inline-flex; align-items:center; gap:0.4rem;">
+                    <span>Active Period:</span>
+                    <span id="reportActivePeriodBadge"
+                      style="display:inline-block; padding:0.15rem 0.55rem; background:rgba(196,150,60,0.15); border:1px solid var(--admin-gold); border-radius:100px; color:var(--admin-gold); font-weight:600;">
+                      All Recorded History
+                    </span>
                   </div>
                 </div>
 
@@ -2021,7 +2063,7 @@
               <thead>
                 <tr>
                   <th>Category</th>
-                  <th>Name</th>
+                  <th>Product Name &amp; SKU</th>
                   <th>Sub-Category</th>
                   <th>Region / Volume</th>
                   <th>Price</th>
@@ -2561,6 +2603,123 @@
     let cachedFinancialData = null;
     let activeCustomerData = null;
     let allOrdersList = [];
+    let reportFilterStartDate = '';
+    let reportFilterEndDate = '';
+    let isPrintActive = false;
+
+    // Currency Formatter - ensures centavos/cents (.00) are rendered on every amount
+    function formatMoney(amount) {
+      const num = Number(amount) || 0;
+      return num.toLocaleString('en-PH', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+    }
+
+    // SKU Code Formatter - "add the BR initial then hyphen then the category code"
+    function formatSku(id, category) {
+      if (!id) return '';
+      const str = String(id).trim();
+      if (str.toUpperCase().startsWith('BR-')) return str.toUpperCase();
+      const match = str.match(/^([a-zA-Z]+)(\d+)$/);
+      if (match) {
+        const catCode = match[1].toUpperCase();
+        return `BR-${catCode}${match[2]}`;
+      }
+      const catCode = (category === 'oil' || category === 'olive oil') ? 'O' : 'W';
+      return `BR-${catCode}-${str.toUpperCase()}`;
+    }
+
+    // Reports History & Custom Date Range Logic
+    function applyReportDateFilter() {
+      const startEl = document.getElementById('reportStartDate');
+      const endEl = document.getElementById('reportEndDate');
+      reportFilterStartDate = startEl ? startEl.value : '';
+      reportFilterEndDate = endEl ? endEl.value : '';
+      updateReportDateBadge();
+      loadActiveReport();
+      showToast(`🔍 Searching reports history: ${getReportPeriodLabel()}`);
+    }
+
+    function resetReportDateFilter() {
+      reportFilterStartDate = '';
+      reportFilterEndDate = '';
+      const startEl = document.getElementById('reportStartDate');
+      const endEl = document.getElementById('reportEndDate');
+      if (startEl) startEl.value = '';
+      if (endEl) endEl.value = '';
+      updateReportDateBadge();
+      loadActiveReport();
+      showToast('🔄 Reset reports history to all dates');
+    }
+
+    function getReportPeriodLabel() {
+      if (reportFilterStartDate && reportFilterEndDate) {
+        return `${reportFilterStartDate} to ${reportFilterEndDate}`;
+      } else if (reportFilterStartDate) {
+        return `From ${reportFilterStartDate}`;
+      } else if (reportFilterEndDate) {
+        return `Up to ${reportFilterEndDate}`;
+      }
+      return 'All Recorded History';
+    }
+
+    function updateReportDateBadge() {
+      const badge = document.getElementById('reportActivePeriodBadge');
+      if (badge) {
+        badge.textContent = getReportPeriodLabel();
+      }
+      const asOfEl = document.getElementById('printReportAsOf');
+      if (asOfEl) {
+        if (reportFilterStartDate || reportFilterEndDate) {
+          asOfEl.style.display = 'block';
+          asOfEl.innerHTML = `Report History Period: <span id="printReportAsOfDate">${getReportPeriodLabel()}</span>`;
+        } else if (activeReportSubTab === 'inventory') {
+          asOfEl.style.display = 'block';
+          const now = new Date();
+          asOfEl.innerHTML = `As of today: <span id="printReportAsOfDate">${now.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>`;
+        } else {
+          asOfEl.style.display = 'none';
+        }
+      }
+    }
+
+    // =========================================================================
+    // SECURITY AUTO-LOGOUT: Automatically log out when leaving admin portal
+    // =========================================================================
+    window.addEventListener('beforeprint', () => { isPrintActive = true; });
+    window.addEventListener('afterprint', () => { setTimeout(() => { isPrintActive = false; }, 1000); });
+
+    // When closing tab, closing browser, or navigating away from admin portal
+    window.addEventListener('pagehide', () => {
+      localStorage.removeItem('bedrock_token');
+      sessionStorage.removeItem('bedrock_token');
+    });
+
+    window.addEventListener('beforeunload', () => {
+      localStorage.removeItem('bedrock_token');
+      sessionStorage.removeItem('bedrock_token');
+    });
+
+    // When switching tabs or minimizing browser (leaving the portal tab)
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'hidden' && currentUser && !isPrintActive) {
+        logoutAdmin(true);
+      }
+    });
+
+    // Inactivity / Idle auto-logout (15 minutes)
+    let idleTimeout = null;
+    function resetIdleTimer() {
+      if (idleTimeout) clearTimeout(idleTimeout);
+      if (!currentUser) return;
+      idleTimeout = setTimeout(() => {
+        logoutAdmin(true, 'Your session expired due to 15 minutes of inactivity. Please sign in again.');
+      }, 15 * 60 * 1000);
+    }
+    ['mousemove', 'keydown', 'touchstart', 'scroll', 'click'].forEach(evt => {
+      window.addEventListener(evt, resetIdleTimer, { passive: true });
+    });
 
     // Category and Subcategory Definitions
     const CATEGORY_SUBCATEGORIES = {
@@ -2689,8 +2848,9 @@
       }
     }
 
-    function logoutAdmin() {
+    function logoutAdmin(isSecurityReason = false, customMsg = '') {
       localStorage.removeItem('bedrock_token');
+      sessionStorage.removeItem('bedrock_token');
       token = null;
       currentUser = null;
       if (typeof closeProductModal === 'function') closeProductModal();
@@ -2698,7 +2858,28 @@
       if (typeof closeInvoiceModal === 'function') closeInvoiceModal();
       showAuthGate();
       clearAdminLoginInputs();
+
+      const secNotice = document.getElementById('loginSecurityNotice');
+      if (secNotice) {
+        if (isSecurityReason) {
+          secNotice.innerHTML = customMsg ? `⏱️ <strong>Session Closed:</strong> ${customMsg}` : '🔒 <strong>Session Closed:</strong> You have been automatically logged out for security purposes because you left the admin portal.';
+          secNotice.style.display = 'block';
+        } else {
+          secNotice.style.display = 'none';
+        }
+      }
     }
+
+    // Clear security notice when user interacts with login inputs
+    ['adminLoginInput', 'adminPasswordInput'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.addEventListener('input', () => {
+          const secNotice = document.getElementById('loginSecurityNotice');
+          if (secNotice) secNotice.style.display = 'none';
+        });
+      }
+    });
 
     // Login Form Submit
     document.getElementById('adminLoginForm').addEventListener('submit', async (e) => {
@@ -2707,6 +2888,8 @@
       const password = document.getElementById('adminPasswordInput').value;
       const errorDiv = document.getElementById('loginError');
       errorDiv.style.display = 'none';
+      const secNotice = document.getElementById('loginSecurityNotice');
+      if (secNotice) secNotice.style.display = 'none';
 
       try {
         const res = await fetch('/api/auth/login', {
@@ -2849,7 +3032,7 @@
         document.getElementById('invKpiBreakdown').textContent = `${data.kpis.wine_skus} Wines • ${data.kpis.oil_skus} Olive Oils`;
         document.getElementById('invKpiTotalUnits').textContent = `${(data.kpis.total_stock_units || 0).toLocaleString()} units`;
         document.getElementById('invKpiLowStock').textContent = data.kpis.low_stock_skus;
-        document.getElementById('invKpiTotalValuation').textContent = `₱${(data.kpis.total_valuation || 0).toLocaleString()}`;
+        document.getElementById('invKpiTotalValuation').textContent = `₱${formatMoney(data.kpis.total_valuation)}`;
 
         // Render Wine Subcategories breakdown (Red, White, Sparkling, Rose)
         const wineListEl = document.getElementById('invWineSubcatList');
@@ -2869,7 +3052,7 @@
                 <div style="font-size:0.85rem; color:var(--admin-muted);">
                   <strong style="color:var(--admin-gold);">${info.count}</strong> SKUs &bull; 
                   <strong style="color:#34d399;">${info.stock}</strong> units &bull; 
-                  ₱${info.valuation.toLocaleString()}
+                  ₱${formatMoney(info.valuation)}
                 </div>
               </div>
             `;
@@ -2881,7 +3064,7 @@
               <div style="font-size:0.85rem; color:#fff; text-align:right;">
                 <strong style="color:var(--admin-gold);">${wineTotalSkus}</strong> SKUs &bull; 
                 <strong style="color:#34d399;">${wineTotalStock}</strong> units &bull; 
-                <strong style="color:var(--admin-gold); font-size:0.95rem;">₱${wineTotalValuation.toLocaleString()}</strong>
+                <strong style="color:var(--admin-gold); font-size:0.95rem;">₱${formatMoney(wineTotalValuation)}</strong>
               </div>
             </div>
           `;
@@ -2906,7 +3089,7 @@
                 <div style="font-size:0.85rem; color:var(--admin-muted);">
                   <strong style="color:var(--admin-gold);">${info.count}</strong> SKUs &bull; 
                   <strong style="color:#34d399;">${info.stock}</strong> units &bull; 
-                  ₱${info.valuation.toLocaleString()}
+                  ₱${formatMoney(info.valuation)}
                 </div>
               </div>
             `;
@@ -2918,7 +3101,7 @@
               <div style="font-size:0.85rem; color:#fff; text-align:right;">
                 <strong style="color:var(--admin-gold);">${oilTotalSkus}</strong> SKUs &bull; 
                 <strong style="color:#34d399;">${oilTotalStock}</strong> units &bull; 
-                <strong style="color:#34d399; font-size:0.95rem;">₱${oilTotalValuation.toLocaleString()}</strong>
+                <strong style="color:#34d399; font-size:0.95rem;">₱${formatMoney(oilTotalValuation)}</strong>
               </div>
             </div>
           `;
@@ -2988,10 +3171,11 @@
         }
 
         const valuation = Number(p.valuation) || ((Number(p.price) || 0) * (Number(p.stock_quantity) || 0));
+        const skuFormatted = p.sku || formatSku(p.id, p.category);
 
         return `
           <tr>
-            <td style="text-align:center;"><strong style="color:var(--admin-gold);">${p.id}</strong></td>
+            <td style="text-align:center;"><strong style="color:var(--admin-gold);">${skuFormatted}</strong></td>
             <td style="text-align:center;"><span class="badge-status ${p.category === 'wine' ? 'contacted' : 'qualified'}">${p.category === 'wine' ? 'Wine' : 'Olive Oil'}</span></td>
             <td>
               <div style="font-weight:600; color:#fff;">${p.name}</div>
@@ -2999,14 +3183,14 @@
               ${renderAdminDesc(p.description, 'inv-desc-' + p.id)}
             </td>
             <td style="text-align:center;"><strong style="color:#cbd5e1;">${p.type || '—'}</strong></td>
-            <td style="text-align:center;">₱${(p.price || 0).toLocaleString()}</td>
+            <td style="text-align:center;">₱${formatMoney(p.price)}</td>
             <td style="text-align:center;">
               <div style="font-weight:700; color:${isLow ? '#f59e0b' : '#34d399'}; font-size:0.95rem;">
                 ${p.stock_quantity} units
               </div>
             </td>
             <td style="text-align:center;"><span style="color:var(--admin-muted);">${p.reorder_level} units</span></td>
-            <td style="text-align:center;"><strong style="color:var(--admin-gold);">₱${valuation.toLocaleString()}</strong></td>
+            <td style="text-align:center;"><strong style="color:var(--admin-gold);">₱${formatMoney(valuation)}</strong></td>
             <td style="text-align:center;">${statusBadge}</td>
           </tr>
         `;
@@ -3028,7 +3212,7 @@
             </td>
             <td style="text-align:center; color:var(--admin-muted);">—</td>
             <td style="text-align:center; font-weight:800; color:var(--admin-gold); font-size:1.05rem;">
-              ₱${totalValuation.toLocaleString()}
+              ₱${formatMoney(totalValuation)}
             </td>
             <td style="text-align:center;"><span class="badge-status qualified">Active Stock</span></td>
           </tr>
@@ -3071,17 +3255,22 @@
       if (salesContent) salesContent.style.display = 'block';
 
       try {
-        const res = await fetch('/api/reports/sales', {
+        const queryParams = new URLSearchParams();
+        if (reportFilterStartDate) queryParams.set('start_date', reportFilterStartDate);
+        if (reportFilterEndDate) queryParams.set('end_date', reportFilterEndDate);
+        const queryString = queryParams.toString() ? `?${queryParams.toString()}` : '';
+
+        const res = await fetch(`/api/reports/sales${queryString}`, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         if (!res.ok) throw new Error('Failed to load sales report');
         const data = await res.json();
         cachedSalesData = data;
 
-        document.getElementById('salesKpiGross').textContent = `₱${(data.kpis.gross_revenue || 0).toLocaleString()}`;
+        document.getElementById('salesKpiGross').textContent = `₱${formatMoney(data.kpis.gross_revenue)}`;
         document.getElementById('salesKpiConfirmed').textContent = `${data.kpis.total_orders} total orders recorded`;
         document.getElementById('salesKpiOrders').textContent = data.kpis.total_orders;
-        document.getElementById('salesKpiAov').textContent = `₱${(data.kpis.aov || 0).toLocaleString()}`;
+        document.getElementById('salesKpiAov').textContent = `₱${formatMoney(data.kpis.aov)}`;
         document.getElementById('salesKpiUnits').textContent = `${data.kpis.total_units_sold || 0} units`;
 
         // Category breakdown
@@ -3097,21 +3286,21 @@
             <div style="display:flex; justify-content:space-between; align-items:center; padding:0.6rem 0.8rem; background:rgba(255,255,255,0.02); border-radius:6px;">
               <div><strong>🍷 Spanish Wines</strong></div>
               <div style="text-align:right;">
-                <div style="color:var(--admin-gold); font-weight:700;">₱${wineRev.toLocaleString()}</div>
+                <div style="color:var(--admin-gold); font-weight:700;">₱${formatMoney(wineRev)}</div>
                 <div style="font-size:0.75rem; color:var(--admin-muted);">${wineUnits} units sold</div>
               </div>
             </div>
             <div style="display:flex; justify-content:space-between; align-items:center; padding:0.6rem 0.8rem; background:rgba(255,255,255,0.02); border-radius:6px;">
               <div><strong>🫒 BUENSALUD Olive Oils</strong></div>
               <div style="text-align:right;">
-                <div style="color:#34d399; font-weight:700;">₱${oilRev.toLocaleString()}</div>
+                <div style="color:#34d399; font-weight:700;">₱${formatMoney(oilRev)}</div>
                 <div style="font-size:0.75rem; color:var(--admin-muted);">${oilUnits} units sold</div>
               </div>
             </div>
             <div style="display:flex; justify-content:space-between; align-items:center; padding:0.65rem 0.8rem; background:rgba(196,150,60,0.12); border-top:1.5px solid var(--admin-gold); border-radius:6px; margin-top:4px;">
               <div style="font-weight:700; color:var(--admin-gold); text-transform:uppercase; font-size:0.82rem;">Total Category Sales Amount</div>
               <div style="text-align:right;">
-                <div style="color:var(--admin-gold); font-weight:800; font-size:1.05rem;">₱${totalRev.toLocaleString()}</div>
+                <div style="color:var(--admin-gold); font-weight:800; font-size:1.05rem;">₱${formatMoney(totalRev)}</div>
                 <div style="font-size:0.75rem; color:var(--admin-muted);">${totalUnits} total units sold</div>
               </div>
             </div>
@@ -3133,7 +3322,7 @@
               <div style="display:flex; justify-content:space-between; align-items:center; padding:0.4rem 0.6rem; border-bottom:1px solid rgba(255,255,255,0.03);">
                 <div style="font-size:0.9rem; color:#fff;">${k}</div>
                 <div style="font-size:0.85rem; text-align:right;">
-                  <span style="color:var(--admin-gold); font-weight:600;">₱${rev.toLocaleString()}</span>
+                  <span style="color:var(--admin-gold); font-weight:600;">₱${formatMoney(rev)}</span>
                   <span style="color:var(--admin-muted); font-size:0.75rem;">(${units} units)</span>
                 </div>
               </div>
@@ -3144,7 +3333,7 @@
             <div style="display:flex; justify-content:space-between; align-items:center; padding:0.65rem 0.6rem; background:rgba(196,150,60,0.12); border-top:1.5px solid var(--admin-gold); border-radius:6px; margin-top:4px;">
               <div style="font-weight:700; color:var(--admin-gold); text-transform:uppercase; font-size:0.82rem;">Total Sub-Category Sales Amount</div>
               <div style="font-size:0.85rem; text-align:right;">
-                <strong style="color:var(--admin-gold); font-size:1.05rem;">₱${totalSubRev.toLocaleString()}</strong>
+                <strong style="color:var(--admin-gold); font-size:1.05rem;">₱${formatMoney(totalSubRev)}</strong>
                 <span style="color:var(--admin-muted); font-size:0.75rem;">(${totalSubUnits} units)</span>
               </div>
             </div>
@@ -3156,15 +3345,21 @@
         const topTableBody = document.getElementById('salesTopProductsTableBody');
         const topTableFoot = document.getElementById('salesTopProductsTableFoot');
         if (topTableBody) {
-          topTableBody.innerHTML = (data.top_products || []).map(p => `
-            <tr>
-              <td><strong style="color:#fff;">${p.name}</strong></td>
-              <td style="text-align:center;"><span class="badge-status ${p.category === 'wine' ? 'contacted' : 'qualified'}">${p.category === 'wine' ? 'Wine' : 'Olive Oil'}</span></td>
-              <td style="text-align:center;">${p.sub_category}</td>
-              <td style="text-align:center;"><strong style="color:#34d399;">${p.units_sold} units</strong></td>
-              <td style="text-align:center;"><strong style="color:var(--admin-gold);">₱${p.revenue.toLocaleString()}</strong></td>
-            </tr>
-          `).join('');
+          topTableBody.innerHTML = (data.top_products || []).map(p => {
+            const skuStr = p.sku || formatSku(p.id, p.category);
+            return `
+              <tr>
+                <td>
+                  <strong style="color:#fff;">${p.name}</strong>
+                  <span style="font-size:0.75rem; color:var(--admin-gold); font-weight:600; margin-left:5px;">(${skuStr})</span>
+                </td>
+                <td style="text-align:center;"><span class="badge-status ${p.category === 'wine' ? 'contacted' : 'qualified'}">${p.category === 'wine' ? 'Wine' : 'Olive Oil'}</span></td>
+                <td style="text-align:center;">${p.sub_category}</td>
+                <td style="text-align:center;"><strong style="color:#34d399;">${p.units_sold} units</strong></td>
+                <td style="text-align:center;"><strong style="color:var(--admin-gold);">₱${formatMoney(p.revenue)}</strong></td>
+              </tr>
+            `;
+          }).join('');
 
           if (topTableFoot) {
             const totalTopUnits = (data.top_products || []).reduce((sum, p) => sum + (Number(p.units_sold) || 0), 0);
@@ -3178,7 +3373,7 @@
                   ${totalTopUnits.toLocaleString()} units
                 </td>
                 <td style="text-align:center; font-weight:800; color:var(--admin-gold); font-size:1.05rem;">
-                  ₱${totalTopRevenue.toLocaleString()}
+                  ₱${formatMoney(totalTopRevenue)}
                 </td>
               </tr>
             `;
@@ -3197,7 +3392,7 @@
               <td><span style="font-size:0.85rem;">${(o.items || []).map(i => `${i.qty}x ${i.name}`).join(', ')}</span></td>
               <td style="text-align:center;"><span style="text-transform:uppercase; font-size:0.8rem; font-weight:600;">${o.payment_method}</span></td>
               <td style="text-align:center;"><span class="badge-status ${o.status}">${o.status}</span></td>
-              <td style="text-align:center;"><strong style="color:#fff;">₱${(o.total || 0).toLocaleString()}</strong></td>
+              <td style="text-align:center;"><strong style="color:#fff;">₱${formatMoney(o.total)}</strong></td>
             </tr>
           `).join('');
 
@@ -3209,7 +3404,7 @@
                   Total Commercial Sales Amount:
                 </td>
                 <td style="text-align:center; font-weight:800; color:var(--admin-gold); font-size:1.05rem;">
-                  ₱${totalLedgerAmount.toLocaleString()}
+                  ₱${formatMoney(totalLedgerAmount)}
                 </td>
               </tr>
             `;
@@ -3235,18 +3430,23 @@
       if (finContent) finContent.style.display = 'block';
 
       try {
-        const res = await fetch('/api/reports/financial', {
+        const queryParams = new URLSearchParams();
+        if (reportFilterStartDate) queryParams.set('start_date', reportFilterStartDate);
+        if (reportFilterEndDate) queryParams.set('end_date', reportFilterEndDate);
+        const queryString = queryParams.toString() ? `?${queryParams.toString()}` : '';
+
+        const res = await fetch(`/api/reports/financial${queryString}`, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         if (!res.ok) throw new Error('Failed to load financial report');
         const data = await res.json();
         cachedFinancialData = data;
 
-        document.getElementById('finKpiGross').textContent = `₱${(data.summary.gross_revenue || 0).toLocaleString()}`;
-        document.getElementById('finKpiCogs').textContent = `₱${(data.summary.estimated_cogs || 0).toLocaleString()}`;
-        document.getElementById('finKpiMargin').textContent = `₱${(data.summary.estimated_gross_margin || 0).toLocaleString()}`;
+        document.getElementById('finKpiGross').textContent = `₱${formatMoney(data.summary.gross_revenue)}`;
+        document.getElementById('finKpiCogs').textContent = `₱${formatMoney(data.summary.estimated_cogs)}`;
+        document.getElementById('finKpiMargin').textContent = `₱${formatMoney(data.summary.estimated_gross_margin)}`;
         document.getElementById('finKpiMarginPct').textContent = `${data.summary.gross_margin_percentage}% Gross Margin Rate`;
-        document.getElementById('finKpiVat').textContent = `₱${(data.summary.estimated_vat_12_pct || 0).toLocaleString()}`;
+        document.getElementById('finKpiVat').textContent = `₱${formatMoney(data.summary.estimated_vat_12_pct)}`;
 
         // Payment channel reconciliations
         const payContainer = document.getElementById('finPaymentBreakdown');
@@ -3266,7 +3466,7 @@
                   <div style="font-size:0.75rem; color:var(--admin-muted);">${count} transactions</div>
                 </div>
                 <div style="color:var(--admin-gold); font-weight:700; font-size:1.05rem;">
-                  ₱${total.toLocaleString()}
+                  ₱${formatMoney(total)}
                 </div>
               </div>
             `;
@@ -3279,7 +3479,7 @@
                 <div style="font-size:0.75rem; color:var(--admin-muted);">${totalPayCount} total transactions</div>
               </div>
               <div style="color:var(--admin-gold); font-weight:800; font-size:1.1rem;">
-                ₱${totalPayAmount.toLocaleString()}
+                ₱${formatMoney(totalPayAmount)}
               </div>
             </div>
           `;
@@ -3301,7 +3501,7 @@
               <div style="display:flex; justify-content:space-between; align-items:center; padding:0.55rem 0.8rem; border-bottom:1px solid rgba(255,255,255,0.03);">
                 <div><span class="badge-status ${s}">${s}</span></div>
                 <div style="text-align:right;">
-                  <span style="font-weight:700; color:#fff;">₱${total.toLocaleString()}</span>
+                  <span style="font-weight:700; color:#fff;">₱${formatMoney(total)}</span>
                   <span style="color:var(--admin-muted); font-size:0.75rem;">(${count} orders)</span>
                 </div>
               </div>
@@ -3315,7 +3515,7 @@
                 <div style="font-size:0.75rem; color:var(--admin-muted);">${totalStatusCount} total orders</div>
               </div>
               <div style="text-align:right;">
-                <span style="font-weight:800; color:var(--admin-gold); font-size:1.1rem;">₱${totalStatusAmount.toLocaleString()}</span>
+                <span style="font-weight:800; color:var(--admin-gold); font-size:1.1rem;">₱${formatMoney(totalStatusAmount)}</span>
               </div>
             </div>
           `;
@@ -3337,25 +3537,25 @@
               <td><strong>Gross Billed Sales Revenue</strong></td>
               <td style="text-align:center;">100.0%</td>
               <td style="text-align:center;"><span class="badge-status qualified">Operating Income</span></td>
-              <td style="text-align:center; font-weight:700; color:var(--admin-gold);">₱${gross.toLocaleString()}</td>
+              <td style="text-align:center; font-weight:700; color:var(--admin-gold);">₱${formatMoney(gross)}</td>
             </tr>
             <tr>
               <td><strong>Less: Estimated Cost of Goods Sold (COGS)</strong></td>
               <td style="text-align:center;">55.0%</td>
               <td style="text-align:center;"><span class="badge-status closed">Cost Expense</span></td>
-              <td style="text-align:center; font-weight:600; color:#94a3b8;">-₱${cogs.toLocaleString()}</td>
+              <td style="text-align:center; font-weight:600; color:#94a3b8;">-₱${formatMoney(cogs)}</td>
             </tr>
             <tr>
               <td><strong>Estimated Gross Operating Margin</strong></td>
               <td style="text-align:center;">${data.summary.gross_margin_percentage || 45}%</td>
               <td style="text-align:center;"><span class="badge-status qualified">Operating Profit</span></td>
-              <td style="text-align:center; font-weight:700; color:#34d399;">₱${margin.toLocaleString()}</td>
+              <td style="text-align:center; font-weight:700; color:#34d399;">₱${formatMoney(margin)}</td>
             </tr>
             <tr>
               <td><strong>Less: Estimated Output VAT Liability</strong></td>
               <td style="text-align:center;">12.0%</td>
               <td style="text-align:center;"><span class="badge-status pending">Tax Obligation</span></td>
-              <td style="text-align:center; font-weight:600; color:#f87171;">-₱${vat.toLocaleString()}</td>
+              <td style="text-align:center; font-weight:600; color:#f87171;">-₱${formatMoney(vat)}</td>
             </tr>
           `;
 
@@ -3366,7 +3566,7 @@
                   Total Net Margin &amp; Retained Earnings:
                 </td>
                 <td style="text-align:center; font-weight:800; color:var(--admin-gold); font-size:1.05rem;">
-                  ₱${net.toLocaleString()}
+                  ₱${formatMoney(net)}
                 </td>
               </tr>
             `;
@@ -3419,11 +3619,14 @@
         let totalValuation = 0;
         cachedInventoryData.inventory.forEach(p => {
           const val = (p.valuation !== undefined ? Number(p.valuation) : (Number(p.price) || 0) * (Number(p.stock_quantity) || 0));
+          const skuCode = p.sku || formatSku(p.id, p.category);
+          const priceFormatted = Number(p.price || 0).toFixed(2);
+          const valFormatted = val.toFixed(2);
           totalUnits += (Number(p.stock_quantity) || 0);
           totalValuation += val;
-          csv += `"${p.id}","${p.category}","${p.type || ''}","${p.name.replace(/"/g, '""')}",${p.price},${p.stock_quantity},${p.reorder_level},${val},${p.in_stock ? 1 : 0}\n`;
+          csv += `"${skuCode}","${p.category}","${p.type || ''}","${p.name.replace(/"/g, '""')}",${priceFormatted},${p.stock_quantity},${p.reorder_level},${valFormatted},${p.in_stock ? 1 : 0}\n`;
         });
-        csv += `"TOTAL","${cachedInventoryData.inventory.length} SKUs","","Total Valuation & Stock",,${totalUnits},,${totalValuation},\n`;
+        csv += `"TOTAL","${cachedInventoryData.inventory.length} SKUs","","Total Valuation & Stock",,${totalUnits},,${totalValuation.toFixed(2)},\n`;
         downloadCSVFile(csv, `Bedrock_Inventory_Report_${new Date().toISOString().slice(0, 10)}.csv`);
       } else if (activeReportSubTab === 'sales') {
         if (!cachedSalesData || !cachedSalesData.ledger) {
@@ -3433,10 +3636,11 @@
         let csv = 'OrderNumber,Date,Customer,PaymentMethod,Status,TotalAmount\n';
         let totalLedger = 0;
         cachedSalesData.ledger.forEach(o => {
-          totalLedger += (Number(o.total) || 0);
-          csv += `"${o.order_number}","${o.date}","${o.customer.replace(/"/g, '""')}","${o.payment_method}","${o.status}",${o.total}\n`;
+          const totalVal = Number(o.total || 0);
+          totalLedger += totalVal;
+          csv += `"${o.order_number}","${o.date}","${o.customer.replace(/"/g, '""')}","${o.payment_method}","${o.status}",${totalVal.toFixed(2)}\n`;
         });
-        csv += `"TOTAL","","","Total Commercial Sales Amount","","",${totalLedger}\n`;
+        csv += `"TOTAL","","","Total Commercial Sales Amount","","",${totalLedger.toFixed(2)}\n`;
         downloadCSVFile(csv, `Bedrock_Sales_Report_${new Date().toISOString().slice(0, 10)}.csv`);
       } else if (activeReportSubTab === 'financial') {
         if (!cachedFinancialData || !cachedFinancialData.summary) {
@@ -3444,13 +3648,17 @@
           return;
         }
         const s = cachedFinancialData.summary;
-        const net = (Number(s.estimated_gross_margin) || 0) - (Number(s.estimated_vat_12_pct) || 0);
+        const gross = Number(s.gross_revenue || 0);
+        const cogs = Number(s.estimated_cogs || 0);
+        const margin = Number(s.estimated_gross_margin || 0);
+        const vat = Number(s.estimated_vat_12_pct || 0);
+        const net = margin - vat;
         let csv = 'Statement Line Item,Rate / Basis,Classification,Total Amount\n';
-        csv += `"Gross Billed Sales Revenue","100.0%","Operating Income",${s.gross_revenue}\n`;
-        csv += `"Estimated Cost of Goods Sold (COGS)","55.0%","Cost Expense",-${s.estimated_cogs}\n`;
-        csv += `"Estimated Gross Operating Margin","${s.gross_margin_percentage || 45}%","Operating Profit",${s.estimated_gross_margin}\n`;
-        csv += `"Estimated Output VAT Liability","12.0%","Tax Obligation",-${s.estimated_vat_12_pct}\n`;
-        csv += `"TOTAL NET MARGIN & RETAINED EARNINGS","","Retained Earnings",${net}\n`;
+        csv += `"Gross Billed Sales Revenue","100.0%","Operating Income",${gross.toFixed(2)}\n`;
+        csv += `"Estimated Cost of Goods Sold (COGS)","55.0%","Cost Expense",-${cogs.toFixed(2)}\n`;
+        csv += `"Estimated Gross Operating Margin","${s.gross_margin_percentage || 45}%","Operating Profit",${margin.toFixed(2)}\n`;
+        csv += `"Estimated Output VAT Liability","12.0%","Tax Obligation",-${vat.toFixed(2)}\n`;
+        csv += `"TOTAL NET MARGIN & RETAINED EARNINGS","","Retained Earnings",${net.toFixed(2)}\n`;
         downloadCSVFile(csv, `Bedrock_Financial_Report_${new Date().toISOString().slice(0, 10)}.csv`);
       }
     }
@@ -3529,12 +3737,12 @@
               <td><span class="badge-status ${p.category === 'wine' ? 'contacted' : 'qualified'}">${p.category === 'wine' ? 'Wine' : 'Olive Oil'}</span></td>
               <td>
                 <div style="font-weight:600; color:#fff;">${p.name}</div>
-                <div style="font-size:0.75rem; color:var(--admin-gold); font-weight:700;">${p.id}</div>
+                <div style="font-size:0.75rem; color:var(--admin-gold); font-weight:700;">SKU: ${p.sku || formatSku(p.id, p.category)}</div>
                 ${renderAdminDesc(p.description, 'prod-desc-' + p.id)}
               </td>
               <td><strong style="color:#e2e8f0;">${p.type || '—'}</strong></td>
               <td>${p.region || p.volume || '—'}</td>
-              <td>₱${(p.price || 0).toLocaleString()}</td>
+              <td><strong style="color:var(--admin-gold);">₱${formatMoney(p.price || 0)}</strong></td>
               <td>
                 <div style="font-weight:700; color:${isOutOfStock ? '#ef4444' : (isLow ? '#f59e0b' : '#34d399')}; font-size:0.95rem;">
                   ${stockQty} units
@@ -3681,7 +3889,7 @@
               <div style="font-size:0.85rem;">${o.items.map(i => `${i.qty}x ${i.name}`).join('<br>')}</div>
               <div style="font-size:0.75rem; color:var(--admin-muted); margin-top:4px;">${o.total_items} items</div>
             </td>
-            <td><strong style="color:#fff;">₱${(o.total_amount || 0).toLocaleString()}</strong></td>
+            <td><strong style="color:#fff;">₱${formatMoney(o.total_amount || 0)}</strong></td>
             <td>
               <div style="text-transform:uppercase; font-size:0.8rem;">${o.payment_method}</div>
               <div style="font-size:0.75rem; color:var(--admin-muted);">${o.delivery_method}</div>
@@ -3715,7 +3923,7 @@
             <td><strong>${o.order_number}</strong></td>
             <td>${o.customer_name}</td>
             <td>${o.total_items} items</td>
-            <td>₱${(o.total_amount || 0).toLocaleString()}</td>
+            <td>₱${formatMoney(o.total_amount || 0)}</td>
             <td>${o.delivery_method}</td>
             <td><span class="badge-status ${o.status}">${o.status}</span></td>
           </tr>
@@ -3783,7 +3991,7 @@
                   ${u.status || 'Active'}
                 </span>
               </td>
-              <td><strong style="color:var(--admin-gold); font-size:0.95rem;">₱${(u.lifetime_spend || 0).toLocaleString()}</strong></td>
+              <td><strong style="color:var(--admin-gold); font-size:0.95rem;">₱${formatMoney(u.lifetime_spend || 0)}</strong></td>
               <td><span style="font-weight:600;">${u.orders_count || 0} orders</span></td>
               <td>
                 <div class="actions-inline-group">
@@ -3845,9 +4053,9 @@
         statusEl.className = `badge-status ${u.status === 'active' ? 'qualified' : 'pending'}`;
 
         const m = u.metrics || data.stats || {};
-        document.getElementById('dossierLtv').textContent = `₱${(m.lifetime_spend || m.totalSpent || 0).toLocaleString()}`;
+        document.getElementById('dossierLtv').textContent = `₱${formatMoney(m.lifetime_spend || m.totalSpent || 0)}`;
         document.getElementById('dossierOrderCount').textContent = m.orders_count || m.totalOrders || 0;
-        document.getElementById('dossierAov').textContent = `₱${(m.aov || m.avgOrderValue || 0).toLocaleString()}`;
+        document.getElementById('dossierAov').textContent = `₱${formatMoney(m.aov || m.avgOrderValue || 0)}`;
         document.getElementById('dossierPreferredCategory').textContent = u.preferred_category || 'Spanish Wine';
 
         // View Mode Information
@@ -3877,7 +4085,7 @@
                 <td><strong style="color:var(--admin-gold);">${o.order_number}</strong></td>
                 <td>${new Date(o.created_at).toLocaleDateString()}</td>
                 <td><span style="font-size:0.85rem;">${(o.items || []).map(i => `${i.qty}x ${i.name}`).join(', ')}</span></td>
-                <td><strong style="color:#fff;">₱${(o.total_amount || 0).toLocaleString()}</strong></td>
+                <td><strong style="color:#fff;">₱${formatMoney(o.total_amount || 0)}</strong></td>
                 <td><span style="text-transform:uppercase; font-size:0.75rem;">${o.payment_method}</span></td>
                 <td><span class="badge-status ${o.status}">${o.status}</span></td>
                 <td>
@@ -4034,8 +4242,8 @@
               <tr style="border-bottom:1px solid #e5e7eb;">
                 <td style="padding:8px 12px; color:#111827;"><strong>${item.name}</strong></td>
                 <td style="padding:8px 12px; text-align:center; color:#111827;">${item.qty}</td>
-                <td style="padding:8px 12px; text-align:right; color:#111827;">₱${(item.price || 0).toLocaleString()}</td>
-                <td style="padding:8px 12px; text-align:right; font-weight:700; color:#111827;">₱${((item.price || 0) * item.qty).toLocaleString()}</td>
+                <td style="padding:8px 12px; text-align:right; color:#111827;">₱${formatMoney(item.price || 0)}</td>
+                <td style="padding:8px 12px; text-align:right; font-weight:700; color:#111827;">₱${formatMoney((item.price || 0) * item.qty)}</td>
               </tr>
             `).join('')}
           </tbody>
@@ -4049,11 +4257,11 @@
           <div style="width:260px; font-size:0.9rem;">
             <div style="display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px solid #f3f4f6;">
               <span style="color:#4b5563;">Net Subtotal:</span>
-              <strong style="color:#111;">₱${Math.round(subtotal).toLocaleString()}</strong>
+              <strong style="color:#111;">₱${formatMoney(subtotal)}</strong>
             </div>
             <div style="display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px solid #f3f4f6;">
               <span style="color:#4b5563;">EVAT (12%):</span>
-              <strong style="color:#111;">₱${Math.round(vat).toLocaleString()}</strong>
+              <strong style="color:#111;">₱${formatMoney(vat)}</strong>
             </div>
             <div style="display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px solid #f3f4f6;">
               <span style="color:#4b5563;">Delivery Shipping:</span>
@@ -4061,7 +4269,7 @@
             </div>
             <div style="display:flex; justify-content:space-between; padding:8px 0; font-size:1.15rem; color:#9e7223; font-weight:700; border-top:2px solid #e5e7eb; margin-top:4px;">
               <span>Total Amount:</span>
-              <span>₱${(order.total_amount || 0).toLocaleString()}</span>
+              <span>₱${formatMoney(order.total_amount || 0)}</span>
             </div>
           </div>
         </div>
