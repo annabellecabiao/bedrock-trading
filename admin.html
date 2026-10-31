@@ -1391,11 +1391,11 @@
     <form id="adminLoginForm" autocomplete="off">
       <div class="form-group" style="text-align: left;">
         <label>Email or Username</label>
-        <input type="text" id="adminLoginInput" placeholder="admin@bedrocktrading.ph" autocomplete="off" required>
+        <input type="text" id="adminLoginInput" placeholder="admin@bedrocktrading.ph" autocomplete="off" readonly onfocus="this.removeAttribute('readonly');" onclick="this.removeAttribute('readonly');" required>
       </div>
       <div class="form-group" style="text-align: left;">
         <label>Password</label>
-        <input type="password" id="adminPasswordInput" placeholder="••••••••••••" autocomplete="new-password" required>
+        <input type="password" id="adminPasswordInput" placeholder="••••••••••••" autocomplete="new-password" readonly onfocus="this.removeAttribute('readonly');" onclick="this.removeAttribute('readonly');" required>
       </div>
       <button type="submit" class="btn-gold" style="width: 100%; justify-content: center; margin-top: 0.5rem;">
         Sign In to Portal
@@ -2796,11 +2796,13 @@
       if (loginInput) {
         loginInput.value = '';
         loginInput.defaultValue = '';
+        loginInput.setAttribute('readonly', 'readonly');
       }
       const passwordInput = document.getElementById('adminPasswordInput');
       if (passwordInput) {
         passwordInput.value = '';
         passwordInput.defaultValue = '';
+        passwordInput.setAttribute('readonly', 'readonly');
       }
 
       const productForm = document.getElementById('productForm');
@@ -2811,6 +2813,7 @@
       document.querySelectorAll('#authGate input').forEach(input => {
         input.value = '';
         input.defaultValue = '';
+        input.setAttribute('readonly', 'readonly');
       });
 
       const errorDiv = document.getElementById('loginError');
@@ -2819,14 +2822,13 @@
         errorDiv.textContent = '';
       }
 
-      setTimeout(() => {
-        if (loginInput) loginInput.value = '';
-        if (passwordInput) passwordInput.value = '';
-      }, 50);
-      setTimeout(() => {
-        if (loginInput) loginInput.value = '';
-        if (passwordInput) passwordInput.value = '';
-      }, 200);
+      // Defeat aggressive browser password manager autofills after sign out
+      [50, 150, 300, 500, 1000].forEach(delay => {
+        setTimeout(() => {
+          if (loginInput) loginInput.value = '';
+          if (passwordInput) passwordInput.value = '';
+        }, delay);
+      });
     }
 
     function showAuthGate() {
@@ -2886,13 +2888,21 @@
       }
     }
 
-    // Clear security notice when user interacts with login inputs
+    // Clear security notice and remove readonly when user interacts with login inputs
     ['adminLoginInput', 'adminPasswordInput'].forEach(id => {
       const el = document.getElementById(id);
       if (el) {
+        el.addEventListener('focus', function () {
+          this.removeAttribute('readonly');
+        });
+        el.addEventListener('click', function () {
+          this.removeAttribute('readonly');
+        });
         el.addEventListener('input', () => {
           const secNotice = document.getElementById('loginSecurityNotice');
           if (secNotice) secNotice.style.display = 'none';
+          const loginErr = document.getElementById('loginError');
+          if (loginErr) loginErr.style.display = 'none';
         });
       }
     });
