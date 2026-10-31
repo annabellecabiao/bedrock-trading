@@ -222,7 +222,7 @@ const initialProducts = [
     special: '',
     type: 'Picual',
     denomination: 'Jaen, España',
-    description: '',
+    description: 'Convenient and shatterproof 500ml plastic format filled with premium cold-extracted Picual extra virgin olive oil. Characterized by vibrant green tomato leaf, fresh olive aromas, and a delicate peppery finish.',
     tags: ['Picual', '500ml', 'Plastic Bottle'],
     price: 635,
     icon: '🫒',
