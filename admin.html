@@ -1072,15 +1072,32 @@
         display: table-header-group !important;
       }
 
-      tfoot {
-        display: table-footer-group !important;
+      /* Total amount appears strictly at the end on the last page of the report (prevent repeating on page 1) */
+      tfoot,
+      #inventoryReportTableFoot,
+      #salesTopProductsTableFoot,
+      #salesLedgerTableFoot,
+      #finStatementTableFoot {
+        display: table-row-group !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
+
+      tfoot tr,
+      #inventoryReportTableFoot tr,
+      #salesTopProductsTableFoot tr,
+      #salesLedgerTableFoot tr,
+      #finStatementTableFoot tr {
+        display: table-row !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
       }
 
       tfoot td {
         background: #f3f4f6 !important;
         font-weight: 700 !important;
         border-top: 2px solid #9e7223 !important;
-        border-bottom: 1px solid #d1d5db !important;
+        border-bottom: 2px solid #9e7223 !important;
         color: #000000 !important;
         font-size: 8pt !important;
       }
