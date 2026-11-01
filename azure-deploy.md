@@ -114,7 +114,6 @@ az containerapp env storage set \
   --name $ENV_NAME \
   --resource-group $RESOURCE_GROUP \
   --storage-name bedrockstorage \
-  --storage-type AzureFile \
   --azure-file-account-name $STORAGE_ACCOUNT \
   --azure-file-account-key "$STORAGE_KEY" \
   --azure-file-share-name $FILE_SHARE \
