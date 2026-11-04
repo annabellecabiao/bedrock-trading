@@ -1487,9 +1487,14 @@
           <div class="user-info-name" id="currentUserName">Admin</div>
           <div class="user-info-role" id="currentUserRole">Administrator</div>
         </div>
-        <button onclick="logoutAdmin()" class="btn-outline" style="padding: 0.35rem 0.65rem; font-size: 0.75rem;">
-          Logout
-        </button>
+        <div style="display: flex; gap: 0.35rem; align-items: center;">
+          <button type="button" onclick="openChangePasswordModal()" class="btn-outline" style="padding: 0.35rem 0.55rem; font-size: 0.75rem;" title="Change Password">
+            🔑 Password
+          </button>
+          <button type="button" onclick="logoutAdmin()" class="btn-outline" style="padding: 0.35rem 0.65rem; font-size: 0.75rem;">
+            Logout
+          </button>
+        </div>
       </div>
     </aside>
 
@@ -2641,8 +2646,140 @@
     </div>
   </div>
 
+  
+  <!-- CHANGE PASSWORD MODAL -->
+  <div id="changePasswordModal" class="admin-modal-overlay">
+    <div class="admin-modal-box" style="max-width: 420px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 1.25rem; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 0.85rem;">
+        <div style="display:flex; align-items:center; gap:0.6rem;">
+          <span style="font-size:1.3rem;">🔑</span>
+          <h3 style="margin:0; color:#fff; font-size:1.15rem;">Change Password</h3>
+        </div>
+        <button type="button" onclick="closeChangePasswordModal()" class="btn-outline" style="padding:0.35rem 0.65rem;">✕</button>
+      </div>
+
+      <div id="changePasswordError" style="display:none; background: rgba(220, 38, 38, 0.2); border: 1px solid #ef4444; color: #fca5a5; padding: 0.75rem; border-radius: 6px; font-size: 0.85rem; margin-bottom: 1rem;"></div>
+      <div id="changePasswordSuccess" style="display:none; background: rgba(16, 185, 129, 0.2); border: 1px solid #10b981; color: #6ee7b7; padding: 0.75rem; border-radius: 6px; font-size: 0.85rem; margin-bottom: 1rem;"></div>
+
+      <form id="changePasswordForm" onsubmit="submitChangePassword(event)">
+        <div class="form-group" style="text-align: left; margin-bottom: 1rem;">
+          <label style="display:block; margin-bottom:0.35rem; color:#d1d5db; font-size:0.85rem;">Current Password</label>
+          <input type="password" id="currentPassInput" required placeholder="Enter current password" autocomplete="current-password"
+            style="width:100%; box-sizing:border-box;">
+        </div>
+
+        <div class="form-group" style="text-align: left; margin-bottom: 1rem;">
+          <label style="display:block; margin-bottom:0.35rem; color:#d1d5db; font-size:0.85rem;">New Password</label>
+          <input type="password" id="newPassInput" required minlength="6" placeholder="At least 6 characters" autocomplete="new-password"
+            style="width:100%; box-sizing:border-box;">
+        </div>
+
+        <div class="form-group" style="text-align: left; margin-bottom: 1.25rem;">
+          <label style="display:block; margin-bottom:0.35rem; color:#d1d5db; font-size:0.85rem;">Confirm New Password</label>
+          <input type="password" id="confirmPassInput" required minlength="6" placeholder="Re-enter new password" autocomplete="new-password"
+            style="width:100%; box-sizing:border-box;">
+        </div>
+
+        <div style="display:flex; justify-content:flex-end; gap:0.75rem; margin-top:1.5rem;">
+          <button type="button" onclick="closeChangePasswordModal()" class="btn-outline">Cancel</button>
+          <button type="submit" id="savePasswordBtn" class="btn-gold">💾 Save New Password</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <script>
     let token = localStorage.getItem('bedrock_token');
+
+    // =========================================================================
+    // CHANGE PASSWORD MODAL & HANDLERS
+    // =========================================================================
+    function openChangePasswordModal() {
+      const modal = document.getElementById('changePasswordModal');
+      const form = document.getElementById('changePasswordForm');
+      const errDiv = document.getElementById('changePasswordError');
+      const succDiv = document.getElementById('changePasswordSuccess');
+      if (form) form.reset();
+      if (errDiv) { errDiv.style.display = 'none'; errDiv.textContent = ''; }
+      if (succDiv) { succDiv.style.display = 'none'; succDiv.textContent = ''; }
+      if (modal) modal.classList.add('active');
+      setTimeout(() => {
+        const curInput = document.getElementById('currentPassInput');
+        if (curInput) curInput.focus();
+      }, 100);
+    }
+
+    function closeChangePasswordModal() {
+      const modal = document.getElementById('changePasswordModal');
+      if (modal) modal.classList.remove('active');
+    }
+
+    async function submitChangePassword(e) {
+      e.preventDefault();
+      const currentPassword = document.getElementById('currentPassInput').value;
+      const newPassword = document.getElementById('newPassInput').value;
+      const confirmPassword = document.getElementById('confirmPassInput').value;
+      const errDiv = document.getElementById('changePasswordError');
+      const succDiv = document.getElementById('changePasswordSuccess');
+      const saveBtn = document.getElementById('savePasswordBtn');
+
+      errDiv.style.display = 'none';
+      succDiv.style.display = 'none';
+
+      if (newPassword !== confirmPassword) {
+        errDiv.textContent = 'New passwords do not match. Please verify.';
+        errDiv.style.display = 'block';
+        return;
+      }
+
+      if (newPassword.length < 6) {
+        errDiv.textContent = 'New password must be at least 6 characters.';
+        errDiv.style.display = 'block';
+        return;
+      }
+
+      if (newPassword === currentPassword) {
+        errDiv.textContent = 'New password must be different from current password.';
+        errDiv.style.display = 'block';
+        return;
+      }
+
+      saveBtn.disabled = true;
+      saveBtn.textContent = 'Saving...';
+
+      try {
+        const authToken = token || localStorage.getItem('bedrock_token') || sessionStorage.getItem('bedrock_token');
+        const res = await fetch('/api/auth/change-password', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authToken
+          },
+          body: JSON.stringify({ currentPassword, newPassword })
+        });
+
+        const data = await res.json();
+        if (!res.ok) {
+          throw new Error(data.error || 'Failed to update password');
+        }
+
+        succDiv.textContent = '✓ Password updated successfully!';
+        succDiv.style.display = 'block';
+        document.getElementById('changePasswordForm').reset();
+        showToast('🔑 Password updated successfully!');
+
+        setTimeout(() => {
+          closeChangePasswordModal();
+        }, 1500);
+      } catch (err) {
+        errDiv.textContent = err.message;
+        errDiv.style.display = 'block';
+      } finally {
+        saveBtn.disabled = false;
+        saveBtn.textContent = '💾 Save New Password';
+      }
+    }
+
     let currentUser = null;
     let activeReportSubTab = 'inventory';
     let cachedInventoryData = null;
@@ -2905,6 +3042,7 @@
       if (typeof closeProductModal === 'function') closeProductModal();
       if (typeof closeCustomerModal === 'function') closeCustomerModal();
       if (typeof closeInvoiceModal === 'function') closeInvoiceModal();
+      if (typeof closeChangePasswordModal === 'function') closeChangePasswordModal();
       showAuthGate();
       clearAdminLoginInputs();
 

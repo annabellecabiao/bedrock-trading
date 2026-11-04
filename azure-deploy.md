@@ -35,9 +35,9 @@ docker compose down
 ```
 
 Visit in your browser:
-- **Main Website**: [http://localhost:8081](http://localhost:8081) (or `http://localhost:8080` if running standalone)
-- **Admin Portal**: [http://localhost:8081/admin.html](http://localhost:8081/admin.html)
-- **Health Check**: [http://localhost:8081/health](http://localhost:8081/health)
+- **Main Website**: [http://localhost:8080](http://localhost:8080)
+- **Admin Portal**: [http://localhost:8080/admin.html](http://localhost:8080/admin.html)
+- **Health Check**: [http://localhost:8080/health](http://localhost:8080/health)
 
 ---
 
@@ -98,10 +98,10 @@ az storage account create --name $STORAGE_ACCOUNT --resource-group $RESOURCE_GRO
 STORAGE_KEY=$(az storage account keys list --resource-group $RESOURCE_GROUP --account-name $STORAGE_ACCOUNT --query "[0].value" --output tsv)
 
 # Create File Share
-az storage share create --name $FILE_SHARE --account-name $STORAGE_ACCOUNT --account-key $STORAGE_KEY
+az storage share create --name $FILE_SHARE --account-name $STORAGE_ACCOUNT --account-key "$STORAGE_KEY"
 ```
 
-### Step 3.5: Create the Container App Environment and Mount Storage
+### Step 3.5: Create the Container App Environment and Register Storage
 ```bash
 ENV_NAME="env-bedrock"
 APP_NAME="bedrock-trading-app"
@@ -115,7 +115,7 @@ az containerapp env storage set \
   --resource-group $RESOURCE_GROUP \
   --storage-name bedrockstorage \
   --azure-file-account-name $STORAGE_ACCOUNT \
-  --azure-file-account-key $STORAGE_KEY \
+  --azure-file-account-key "$STORAGE_KEY" \
   --azure-file-share-name $FILE_SHARE \
   --access-mode ReadWrite
 ```
@@ -126,7 +126,7 @@ az containerapp env storage set \
 ACR_USERNAME=$(az acr credential show --name $ACR_NAME --query "username" -o tsv)
 ACR_PASSWORD=$(az acr credential show --name $ACR_NAME --query "passwords[0].value" -o tsv)
 
-# Create Container App with volume mount and environment variables
+# Create Container App (max-replicas=1 prevents concurrent multi-instance writes to SQLite)
 az containerapp create \
   --name $APP_NAME \
   --resource-group $RESOURCE_GROUP \
@@ -135,20 +135,61 @@ az containerapp create \
   --target-port 8080 \
   --ingress external \
   --registry-server "$ACR_NAME.azurecr.io" \
-  --registry-username $ACR_USERNAME \
-  --registry-password $ACR_PASSWORD \
+  --registry-username "$ACR_USERNAME" \
+  --registry-password "$ACR_PASSWORD" \
   --cpu 0.5 --memory 1.0Gi \
+  --min-replicas 0 --max-replicas 1 \
   --env-vars \
     NODE_ENV=production \
     PORT=8080 \
+    DB_PATH=/app/data/bedrock.db \
+    SQLITE_JOURNAL_MODE=DELETE \
     JWT_SECRET="generate_a_long_random_secret_string_here" \
     ADMIN_EMAIL="admin@bedrocktrading.ph" \
-    ADMIN_PASSWORD="YourStrongAdminPasswordHere!" \
-  --mount-name bedrockstorage \
-  --mount-path /app/data
+    ADMIN_PASSWORD="YourStrongAdminPasswordHere!"
 ```
 
-Your app will be live at `https://<APP_NAME>.<ENV_NAME>.<REGION>.azurecontainerapps.io` with automatic HTTPS!
+### Step 3.7: Mount the Persistent Azure File Share Volume
+Azure Container Apps attaches volume mounts via YAML configuration:
+
+```bash
+# 1. Export the Container App configuration
+az containerapp show --name $APP_NAME --resource-group $RESOURCE_GROUP --output yaml > app.yaml
+```
+
+Edit `app.yaml` so `properties.template` includes `volumeMounts` on the container and `volumes` at the template level:
+
+```yaml
+properties:
+  template:
+    containers:
+      - image: acrbedrocktrading.azurecr.io/bedrock-trading:v1
+        name: bedrock-trading-app
+        # ... existing resources / env ...
+        volumeMounts:
+          - volumeName: bedrock-db-volume
+            mountPath: /app/data
+    volumes:
+      - name: bedrock-db-volume
+        storageType: AzureFile
+        storageName: bedrockstorage
+```
+
+Apply the updated configuration and retrieve your live HTTPS URL:
+
+```bash
+# 2. Apply volume mount update
+az containerapp update --name $APP_NAME --resource-group $RESOURCE_GROUP --yaml app.yaml
+
+# 3. Get the public HTTPS URL
+az containerapp show \
+  --name $APP_NAME \
+  --resource-group $RESOURCE_GROUP \
+  --query properties.configuration.ingress.fqdn \
+  --output tsv
+```
+
+Your app will be live at `https://<APP_NAME>.<UNIQUE_ENV_ID>.<REGION>.azurecontainerapps.io` with automatic HTTPS!
 
 ---
 
@@ -171,14 +212,22 @@ az appservice plan create \
 
 ### Step 4.2: Create the Web App for Containers
 ```bash
+ACR_USERNAME=$(az acr credential show --name $ACR_NAME --query "username" -o tsv)
+ACR_PASSWORD=$(az acr credential show --name $ACR_NAME --query "passwords[0].value" -o tsv)
+
 az webapp create \
   --resource-group $RESOURCE_GROUP \
   --plan $PLAN_NAME \
   --name $WEBAPP_NAME \
-  --deployment-container-image-name "$ACR_NAME.azurecr.io/bedrock-trading:v1"
+  --container-image-name "$ACR_NAME.azurecr.io/bedrock-trading:v1" \
+  --container-registry-url "https://$ACR_NAME.azurecr.io" \
+  --container-registry-user "$ACR_USERNAME" \
+  --container-registry-password "$ACR_PASSWORD"
 ```
 
-### Step 4.3: Configure App Settings and Port
+### Step 4.3: Configure App Settings, Persistent Storage, and Port
+On Azure App Service for Linux, `WEBSITES_ENABLE_APP_SERVICE_STORAGE=true` persists the `/home` directory across restarts, so `DB_PATH` must point inside `/home`:
+
 ```bash
 az webapp config appsettings set \
   --resource-group $RESOURCE_GROUP \
@@ -187,8 +236,12 @@ az webapp config appsettings set \
     WEBSITES_PORT=8080 \
     PORT=8080 \
     NODE_ENV=production \
+    WEBSITES_ENABLE_APP_SERVICE_STORAGE=true \
+    DB_PATH=/home/data/bedrock.db \
+    SQLITE_JOURNAL_MODE=DELETE \
     JWT_SECRET="generate_a_long_random_secret_string_here" \
-    WEBSITES_ENABLE_APP_SERVICE_STORAGE=true
+    ADMIN_EMAIL="admin@bedrocktrading.ph" \
+    ADMIN_PASSWORD="YourStrongAdminPasswordHere!"
 ```
 
 ---

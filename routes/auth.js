@@ -140,4 +140,38 @@ router.put('/profile', authenticate, (req, res) => {
   }
 });
 
+// POST /api/auth/change-password (Authenticated users can change their own password)
+router.post('/change-password', authenticate, (req, res) => {
+  try {
+    const { currentPassword, newPassword } = req.body;
+
+    if (!currentPassword || !newPassword) {
+      return res.status(400).json({ error: 'Current password and new password are required.' });
+    }
+
+    if (newPassword.length < 6) {
+      return res.status(400).json({ error: 'New password must be at least 6 characters long.' });
+    }
+
+    // Retrieve user's current password hash
+    const user = db.prepare('SELECT id, password_hash FROM users WHERE id = ?').get(req.user.id);
+    if (!user) {
+      return res.status(404).json({ error: 'User account not found.' });
+    }
+
+    const isMatch = bcrypt.compareSync(currentPassword, user.password_hash);
+    if (!isMatch) {
+      return res.status(401).json({ error: 'Incorrect current password.' });
+    }
+
+    const newHash = bcrypt.hashSync(newPassword, 10);
+    db.prepare('UPDATE users SET password_hash = ? WHERE id = ?').run(newHash, req.user.id);
+
+    res.json({ message: 'Password updated successfully!' });
+  } catch (err) {
+    console.error('Change password error:', err);
+    res.status(500).json({ error: 'Failed to change password: ' + err.message });
+  }
+});
+
 module.exports = router;
