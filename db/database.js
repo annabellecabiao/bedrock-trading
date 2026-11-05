@@ -14,7 +14,7 @@ if (!fs.existsSync(dbDir)) {
 // Database initialization with automatic fallback for Docker volume mounts on Windows
 let db;
 try {
-  db = new Database(dbPath);
+  db = new Database(dbPath, { timeout: 30000 });
 } catch (openErr) {
   if (openErr.code === 'SQLITE_IOERR_SHMOPEN' || (openErr.message && openErr.message.includes('disk I/O error'))) {
     console.warn('[DB] SQLite WAL shared memory mapping failed (likely Windows Docker bind mount). Cleaning up stale shm/wal files...');
@@ -24,7 +24,7 @@ try {
     } catch (cleanupErr) {
       console.warn('[DB] Could not clean up shm/wal files:', cleanupErr.message);
     }
-    db = new Database(dbPath);
+    db = new Database(dbPath, { timeout: 30000 });
   } else {
     throw openErr;
   }
@@ -42,6 +42,7 @@ try {
     console.error('[DB] Fallback to DELETE journal mode failed:', fallbackErr.message);
   }
 }
+db.pragma('busy_timeout = 30000');
 db.pragma('foreign_keys = ON');
 
 function ensureColumn(table, columnDef) {
@@ -57,7 +58,7 @@ function ensureColumn(table, columnDef) {
   }
 }
 
-function initDatabase() {
+function runDatabaseSetup() {
   // 1. Users Table
   db.exec(`
     CREATE TABLE IF NOT EXISTS users (
@@ -512,6 +513,26 @@ function seedDefaultData() {
       });
     }
     console.log(`Seeded ${seedOrders.length} orders for reporting analytics.`);
+  }
+}
+
+function initDatabase() {
+  const maxRetries = 12;
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      runDatabaseSetup();
+      console.log('[DB] Database initialized successfully.');
+      return;
+    } catch (err) {
+      if ((err.code === 'SQLITE_BUSY' || (err.message && err.message.includes('locked'))) && attempt < maxRetries) {
+        console.warn(`[DB] Database is locked by previous container (attempt ${attempt}/${maxRetries}). Waiting 2.5s for lock release...`);
+        const waitTill = Date.now() + 2500;
+        while (Date.now() < waitTill) {}
+      } else {
+        console.error('[DB] Fatal error initializing database:', err);
+        throw err;
+      }
+    }
   }
 }
 
