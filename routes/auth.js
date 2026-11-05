@@ -46,6 +46,10 @@ router.post('/register', (req, res) => {
 
     const token = jwt.sign({ id: user.id, role: user.role }, JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN || '7d' });
 
+    if (typeof db.syncDatabaseToPersistentStorage === 'function') {
+      db.syncDatabaseToPersistentStorage();
+    }
+
     res.status(201).json({
       message: 'Account created successfully!',
       token,
@@ -132,6 +136,10 @@ router.put('/profile', authenticate, (req, res) => {
     params.push(req.user.id);
     db.prepare(`UPDATE users SET ${updates.join(', ')} WHERE id = ?`).run(...params);
 
+    if (typeof db.syncDatabaseToPersistentStorage === 'function') {
+      db.syncDatabaseToPersistentStorage();
+    }
+
     const updated = db.prepare('SELECT id, username, email, role, full_name, created_at FROM users WHERE id = ?').get(req.user.id);
     res.json({ message: 'Profile updated successfully', user: updated });
   } catch (err) {
@@ -166,6 +174,11 @@ router.post('/change-password', authenticate, (req, res) => {
 
     const newHash = bcrypt.hashSync(newPassword, 10);
     db.prepare('UPDATE users SET password_hash = ? WHERE id = ?').run(newHash, req.user.id);
+
+    // Immediately flush update to persistent Azure Storage
+    if (typeof db.syncDatabaseToPersistentStorage === 'function') {
+      db.syncDatabaseToPersistentStorage();
+    }
 
     res.json({ message: 'Password updated successfully!' });
   } catch (err) {

@@ -3,47 +3,72 @@ const path = require('path');
 const fs = require('fs');
 const bcrypt = require('bcryptjs');
 
-// Database path from environment or default
-const dbPath = process.env.DB_PATH || path.join(__dirname, '..', 'data', 'bedrock.db');
-const dbDir = path.dirname(dbPath);
+// 1. Persistent Storage Path (where Azure File Share is mounted)
+const persistentDbPath = process.env.DB_PATH || path.join(__dirname, '..', 'data', 'bedrock.db');
+const persistentDir = path.dirname(persistentDbPath);
 
-if (!fs.existsSync(dbDir)) {
-  fs.mkdirSync(dbDir, { recursive: true });
+if (!fs.existsSync(persistentDir)) {
+  try { fs.mkdirSync(persistentDir, { recursive: true }); } catch (e) {}
 }
 
-// Database initialization with automatic fallback for Docker volume mounts on Windows
-let db;
-try {
-  db = new Database(dbPath, { timeout: 30000 });
-} catch (openErr) {
-  if (openErr.code === 'SQLITE_IOERR_SHMOPEN' || (openErr.message && openErr.message.includes('disk I/O error'))) {
-    console.warn('[DB] SQLite WAL shared memory mapping failed (likely Windows Docker bind mount). Cleaning up stale shm/wal files...');
-    try {
-      if (fs.existsSync(dbPath + '-shm')) fs.unlinkSync(dbPath + '-shm');
-      if (fs.existsSync(dbPath + '-wal')) fs.unlinkSync(dbPath + '-wal');
-    } catch (cleanupErr) {
-      console.warn('[DB] Could not clean up shm/wal files:', cleanupErr.message);
-    }
-    db = new Database(dbPath, { timeout: 30000 });
-  } else {
-    throw openErr;
-  }
+// 2. High-Speed Local Runtime Path (Local container disk, immune to SMB lock contention)
+// On Windows / local development: keep standard path. On Linux / Azure container: use /tmp/bedrock_runtime
+const isLinuxContainer = process.platform === 'linux';
+const localDir = isLinuxContainer ? '/tmp/bedrock_runtime' : persistentDir;
+const localDbPath = isLinuxContainer ? path.join(localDir, 'bedrock.db') : persistentDbPath;
+
+if (!fs.existsSync(localDir)) {
+  fs.mkdirSync(localDir, { recursive: true });
 }
 
-// Journal mode: Use DELETE mode by default for reliable operation across Docker, Windows mounts, and Azure Files
-const targetJournalMode = process.env.SQLITE_JOURNAL_MODE || 'DELETE';
-try {
-  db.pragma(`journal_mode = ${targetJournalMode}`);
-} catch (err) {
-  console.warn(`[DB] journal_mode = ${targetJournalMode} failed (${err.message}). Falling back to DELETE mode.`);
+// 3. Restore existing database from persistent cloud storage if available
+if (isLinuxContainer && fs.existsSync(persistentDbPath)) {
   try {
-    db.pragma('journal_mode = DELETE');
-  } catch (fallbackErr) {
-    console.error('[DB] Fallback to DELETE journal mode failed:', fallbackErr.message);
+    console.log('[DB] Loading existing database from persistent cloud storage...');
+    fs.copyFileSync(persistentDbPath, localDbPath);
+    console.log('[DB] Database snapshot restored into fast local container storage.');
+  } catch (copyErr) {
+    console.warn('[DB] Could not copy from persistent storage, starting fresh local copy:', copyErr.message);
   }
 }
-db.pragma('busy_timeout = 30000');
+
+// 4. Connect SQLite to the FAST LOCAL file
+let db = new Database(localDbPath, { timeout: 15000 });
+try {
+  db.pragma('journal_mode = WAL');
+} catch (e) {
+  db.pragma('journal_mode = DELETE');
+}
 db.pragma('foreign_keys = ON');
+
+// 5. Function to continuously backup the local database to Azure persistent storage
+let isBackingUp = false;
+async function syncDatabaseToPersistentStorage() {
+  if (!isLinuxContainer || isBackingUp) return;
+  isBackingUp = true;
+  try {
+    await db.backup(persistentDbPath);
+  } catch (err) {
+    console.warn('[DB] Cloud storage sync notice:', err.message);
+  } finally {
+    isBackingUp = false;
+  }
+}
+
+// Background auto-sync to Azure Files every 15 seconds + on shutdown
+if (isLinuxContainer) {
+  setInterval(syncDatabaseToPersistentStorage, 15000).unref();
+  process.on('SIGTERM', async () => {
+    console.log('[DB] Container stopping, synchronizing database to persistent storage...');
+    await syncDatabaseToPersistentStorage();
+    process.exit(0);
+  });
+  process.on('SIGINT', async () => {
+    await syncDatabaseToPersistentStorage();
+    process.exit(0);
+  });
+}
+db.syncDatabaseToPersistentStorage = syncDatabaseToPersistentStorage;
 
 function ensureColumn(table, columnDef) {
   try {
@@ -517,22 +542,10 @@ function seedDefaultData() {
 }
 
 function initDatabase() {
-  const maxRetries = 12;
-  for (let attempt = 1; attempt <= maxRetries; attempt++) {
-    try {
-      runDatabaseSetup();
-      console.log('[DB] Database initialized successfully.');
-      return;
-    } catch (err) {
-      if ((err.code === 'SQLITE_BUSY' || (err.message && err.message.includes('locked'))) && attempt < maxRetries) {
-        console.warn(`[DB] Database is locked by previous container (attempt ${attempt}/${maxRetries}). Waiting 2.5s for lock release...`);
-        const waitTill = Date.now() + 2500;
-        while (Date.now() < waitTill) {}
-      } else {
-        console.error('[DB] Fatal error initializing database:', err);
-        throw err;
-      }
-    }
+  runDatabaseSetup();
+  console.log('[DB] Database initialized successfully.');
+  if (isLinuxContainer) {
+    syncDatabaseToPersistentStorage();
   }
 }
 
