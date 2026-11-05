@@ -215,23 +215,23 @@
     .stat-card {
       background: var(--admin-card);
       border: 1px solid var(--admin-border);
-      border-radius: 8px;
-      padding: 0.85rem 1rem;
+      border-radius: 6px;
+      padding: 0.65rem 0.85rem;
       text-align: center !important;
     }
 
     .stat-card-title {
-      font-size: 0.7rem;
+      font-size: 0.64rem;
       color: var(--admin-muted);
-      margin-bottom: 0.3rem;
+      margin-bottom: 0.25rem;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.04em;
       font-weight: 600;
       text-align: center !important;
     }
 
     .stat-card-val {
-      font-size: 1.35rem;
+      font-size: 1.15rem;
       font-weight: 700;
       color: #fff;
       line-height: 1.2;
@@ -239,10 +239,36 @@
     }
 
     .stat-card-sub {
-      font-size: 0.7rem;
+      font-size: 0.64rem;
       color: var(--admin-gold);
-      margin-top: 0.2rem;
+      margin-top: 0.15rem;
       text-align: center !important;
+    }
+
+    /* Compact Stat Cards & Texts for Admin Portal Reports */
+    #tab-reports .stat-card,
+    .report-view .stat-card {
+      padding: 0.45rem 0.6rem !important;
+      border-radius: 6px !important;
+    }
+
+    #tab-reports .stat-card-title,
+    .report-view .stat-card-title {
+      font-size: 0.6rem !important;
+      margin-bottom: 0.2rem !important;
+      letter-spacing: 0.03em !important;
+    }
+
+    #tab-reports .stat-card-val,
+    .report-view .stat-card-val {
+      font-size: 1.05rem !important;
+      line-height: 1.15 !important;
+    }
+
+    #tab-reports .stat-card-sub,
+    .report-view .stat-card-sub {
+      font-size: 0.6rem !important;
+      margin-top: 0.1rem !important;
     }
 
     /* Cards & Tables */
@@ -283,9 +309,10 @@
     th {
       background: rgba(255, 255, 255, 0.03);
       color: var(--admin-muted);
-      padding: 0.55rem 0.75rem;
+      padding: 0.5rem 0.65rem;
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      font-size: 0.7rem;
+      font-size: 0.64rem; /* Smaller than previous 0.7rem */
+      font-style: italic; /* Italicized table header font */
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -301,14 +328,17 @@
       line-height: 1.35;
     }
 
-    tfoot td {
-      padding: 0.65rem 0.75rem;
+    tfoot td,
+    tfoot th {
+      padding: 0.55rem 0.7rem;
       font-weight: 700;
       color: #fff;
       background: rgba(255, 255, 255, 0.03);
       border-top: 2px solid var(--admin-gold);
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       vertical-align: middle;
+      font-size: 0.72rem; /* Smaller than standard td */
+      font-style: italic; /* Italicized table footer font */
     }
 
     /* Centered Alignment for Admin Reports */
@@ -509,73 +539,389 @@
       display: block;
     }
 
-    /* Media Queries for Admin Portal on Larger Monitors */
-    @media (min-width: 1800px) {
-      .admin-sidebar {
-        width: 280px;
-      }
-
-      .admin-main {
-        padding: 2rem 3rem;
-        max-width: 2200px;
-        margin: 0 auto;
-      }
-
-      .admin-title {
-        font-size: 1.35rem;
-      }
-
-      .stat-card-val {
-        font-size: 1.45rem;
-      }
-
-      .stats-grid {
-        gap: 1rem;
-      }
-
-      .admin-card {
-        padding: 1.25rem;
-      }
-
-      .auth-container {
-        max-width: 440px;
-        margin: 120px auto;
-        padding: 2.5rem;
-      }
+    /* ========================================================================
+   ADMIN MOBILE HEADER & DROPDOWN NAVIGATION
+   ======================================================================== */
+    .admin-mobile-header {
+      display: none;
     }
 
-    @media (min-width: 2560px) {
+    .admin-mobile-dropdown-wrapper {
+      position: relative;
+    }
+
+    .admin-mobile-dropdown-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.42rem 0.85rem;
+      background: rgba(196, 150, 60, 0.12);
+      border: 1px solid var(--admin-gold);
+      color: #fff;
+      font-size: 0.82rem;
+      font-weight: 600;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .admin-mobile-dropdown-btn:hover,
+    .admin-mobile-dropdown-btn[aria-expanded="true"] {
+      background: rgba(196, 150, 60, 0.22);
+      box-shadow: 0 0 12px rgba(196, 150, 60, 0.25);
+    }
+
+    .admin-mobile-arrow {
+      font-size: 0.72rem;
+      color: var(--admin-gold);
+      transition: transform 0.2s ease;
+    }
+
+    .admin-mobile-dropdown-btn[aria-expanded="true"] .admin-mobile-arrow {
+      transform: rotate(180deg);
+    }
+
+    .admin-mobile-dropdown-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      min-width: 250px;
+      background: #131826;
+      border: 1px solid var(--admin-gold);
+      border-radius: 10px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.75);
+      padding: 0.5rem;
+      display: none;
+      flex-direction: column;
+      gap: 0.2rem;
+      z-index: 1200;
+    }
+
+    .admin-mobile-dropdown-menu.open {
+      display: flex;
+      animation: adminDropdownFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes adminDropdownFadeIn {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .admin-mobile-dropdown-section-title {
+      font-size: 0.65rem;
+      color: var(--admin-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.3rem 0.6rem 0.15rem;
+      font-weight: 700;
+    }
+
+    .admin-mobile-dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0.55rem 0.8rem;
+      border-radius: 6px;
+      color: var(--admin-muted);
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+
+    .admin-mobile-dropdown-item:hover,
+    .admin-mobile-dropdown-item.active {
+      color: #fff;
+      background: rgba(196, 150, 60, 0.16);
+      color: var(--admin-gold);
+    }
+
+    .admin-mobile-dropdown-item .badge-count {
+      margin-left: auto;
+      background: var(--admin-gold);
+      color: #0c0f17;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 0.1rem 0.45rem;
+      border-radius: 999px;
+    }
+
+    .admin-mobile-dropdown-divider {
+      height: 1px;
+      background: rgba(255, 255, 255, 0.08);
+      margin: 0.35rem 0;
+    }
+
+    .admin-mobile-dropdown-user {
+      font-size: 0.74rem;
+      color: var(--admin-muted);
+      padding: 0.25rem 0.6rem;
+    }
+
+    .admin-mobile-dropdown-actions {
+      display: flex;
+      gap: 0.4rem;
+      padding-top: 0.35rem;
+    }
+
+    .admin-mobile-dropdown-actions button,
+    .admin-mobile-dropdown-actions a {
+      font-size: 0.72rem;
+      padding: 0.32rem 0.5rem;
+      flex: 1;
+      text-align: center;
+      justify-content: center;
+    }
+
+/* ========================================================================
+   RESPONSIVE MEDIA SYSTEM ACROSS ALL SCREEN SIZES
+   1. Mobile & Phablets (max-width: 900px)
+   2. Ultra-Small Mobile (max-width: 480px)
+   3. Tablets & Small Desktops (901px - 1023px)
+   4. Small Laptops (1024px - 1279px)
+   5. Standard Laptops & Desktops (1280px - 1599px)
+   6. Big Screens & Full HD Projector Screens (1600px - 1919px)
+   7. Large Projectors & 2K Displays (1920px - 2559px)
+   8. Ultra-Wide & 4K Projector Screens (2560px+)
+   ======================================================================== */
+
+    /* 1. Mobile & Phablets: Dropdown menu replaces sidebar so content is never blocked */
+    @media (max-width: 900px) {
+      .admin-layout {
+        flex-direction: column !important;
+        min-height: 100vh;
+      }
+
       .admin-sidebar {
-        width: 300px;
+        display: none !important;
+      }
+
+      .admin-mobile-header {
+        display: flex !important;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.65rem 1rem;
+        background: #0f131d;
+        border-bottom: 1px solid var(--admin-border);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+      }
+
+      .admin-mobile-brand {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+      }
+
+      .admin-mobile-logo {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 1.5px solid var(--admin-gold);
+        background: #fbf9f4;
+      }
+
+      .admin-mobile-title {
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: #fff;
+        display: block;
+        line-height: 1.1;
+      }
+
+      .admin-mobile-sub {
+        font-size: 0.65rem;
+        color: var(--admin-gold);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
       }
 
       .admin-main {
-        padding: 2.5rem 4rem;
-        max-width: 2600px;
-        margin: 0 auto;
+        padding: 1rem 0.85rem !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+        box-sizing: border-box !important;
+      }
+
+      .admin-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.65rem;
+        margin-bottom: 1rem;
       }
 
       .admin-title {
-        font-size: 1.45rem;
+        font-size: 1.15rem;
       }
 
-      .stat-card-val {
-        font-size: 1.55rem;
+      .admin-header > div {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
       }
 
       .stats-grid {
-        gap: 1.25rem;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.6rem;
+        margin-bottom: 1rem;
       }
 
-      .admin-card {
-        padding: 1.35rem 1.5rem;
+      .table-container {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .table-container table {
+        min-width: 620px;
+      }
+
+      .report-subnav {
+        display: flex;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        gap: 0.4rem;
+        padding-bottom: 4px;
+        scrollbar-width: none;
+      }
+
+      .report-subnav-btn {
+        white-space: nowrap;
+        flex-shrink: 0;
+        font-size: 0.78rem;
+        padding: 0.45rem 0.75rem;
       }
 
       .admin-modal-box {
-        max-width: 750px;
-        padding: 2rem;
+        width: 95% !important;
+        max-width: 95% !important;
+        max-height: 92vh !important;
+        padding: 1.25rem 1rem !important;
+      }
+
+      .auth-container {
+        width: 92%;
+        max-width: 360px;
+        margin: 50px auto;
+        padding: 1.75rem 1.25rem;
       }
     }
+
+    /* 2. Extra-Small Mobile */
+    @media (max-width: 480px) {
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.5rem;
+      }
+
+      .admin-title {
+        font-size: 1.05rem;
+      }
+
+      .admin-card {
+        padding: 0.85rem 0.7rem;
+      }
+    }
+
+    /* 3. Tablets & Narrow Desktops */
+    @media (min-width: 901px) and (max-width: 1023px) {
+      .admin-sidebar {
+        width: 220px;
+      }
+      .admin-main {
+        padding: 1.25rem 1.5rem;
+      }
+      .stats-grid {
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 0.75rem;
+      }
+    }
+
+    /* 4. Small Laptops */
+    @media (min-width: 1024px) and (max-width: 1279px) {
+      .admin-sidebar {
+        width: 230px;
+      }
+      .admin-main {
+        padding: 1.25rem 1.75rem;
+        max-width: 1240px;
+      }
+      .stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.85rem;
+      }
+    }
+
+    /* 5. Standard Laptops & Desktops */
+    @media (min-width: 1280px) and (max-width: 1599px) {
+      .admin-sidebar {
+        width: 260px;
+      }
+      .admin-main {
+        padding: 1.5rem 2rem;
+        max-width: 1440px;
+      }
+    }
+
+    /* 6. Big Screens & Full HD Projector Screens (1600px to 1919px) */
+    @media (min-width: 1600px) and (max-width: 1919px) {
+      html {
+        font-size: 17px;
+      }
+      .admin-sidebar {
+        width: 280px;
+      }
+      .admin-main {
+        padding: 2rem 2.5rem;
+        max-width: 1680px;
+        margin: 0 auto;
+      }
+      .stats-grid {
+        gap: 1rem;
+      }
+    }
+
+    /* 7. Large Projector Screens & 2K Presentation Displays (1920px to 2559px) */
+    @media (min-width: 1920px) and (max-width: 2559px) {
+      html {
+        font-size: 18px;
+      }
+      .admin-sidebar {
+        width: 290px;
+      }
+      .admin-main {
+        padding: 2.25rem 3.5rem;
+        max-width: 1980px;
+        margin: 0 auto;
+      }
+      .stats-grid {
+        gap: 1.15rem;
+      }
+    }
+
+    /* 8. Ultra-Wide & 4K Projector Screens (2560px+) */
+    @media (min-width: 2560px) {
+      html {
+        font-size: 20px;
+      }
+      .admin-sidebar {
+        width: 320px;
+      }
+      .admin-main {
+        padding: 2.5rem 4rem;
+        max-width: 2400px;
+        margin: 0 auto;
+      }
+      .stats-grid {
+        gap: 1.25rem;
+      }
+    }
+
 
     /* Master Print Wrapper for Reports (Repeats header on multi-page printouts) */
     .report-print-wrapper {
@@ -846,7 +1192,8 @@
         @bottom-right {
           content: "Page " counter(page) " of " counter(pages);
           font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-          font-size: 8pt;
+          font-size: 7pt; /* Smaller footer font */
+          font-style: italic; /* Italicized page footer */
           font-weight: 600;
           color: #374151;
         }
@@ -854,7 +1201,8 @@
         @bottom-left {
           content: "Bedrock Consumer Goods Trading \2022  Official Report";
           font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-          font-size: 7.5pt;
+          font-size: 6.8pt; /* Smaller footer font */
+          font-style: italic; /* Italicized page footer */
           font-weight: 500;
           color: #6b7280;
         }
@@ -1034,7 +1382,7 @@
         border: 1px solid #d1d5db !important;
         background: #f9fafb !important;
         color: #000000 !important;
-        padding: 6px 8px !important;
+        padding: 4px 6px !important; /* Smaller stat cards */
         border-radius: 4px !important;
         page-break-inside: avoid;
         text-align: center !important;
@@ -1042,17 +1390,17 @@
 
       .stat-card-title {
         color: #000000 !important;
-        font-size: 7pt !important;
+        font-size: 6.2pt !important; /* Smaller stat card title */
         font-weight: 700 !important;
-        margin-bottom: 3px !important;
+        margin-bottom: 2px !important;
         text-transform: uppercase !important;
-        letter-spacing: 0.03em !important;
+        letter-spacing: 0.02em !important;
         text-align: center !important;
       }
 
       .stat-card-val {
         color: #000000 !important;
-        font-size: 11.5pt !important;
+        font-size: 9.5pt !important; /* Smaller stat card val */
         font-weight: 800 !important;
         line-height: 1.15 !important;
         text-align: center !important;
@@ -1060,8 +1408,8 @@
 
       .stat-card-sub {
         color: #000000 !important;
-        font-size: 6.8pt !important;
-        margin-top: 2px !important;
+        font-size: 5.8pt !important; /* Smaller stat card sub */
+        margin-top: 1px !important;
         text-align: center !important;
       }
 
@@ -1076,8 +1424,27 @@
         font-size: 8pt !important;
       }
 
-      thead {
+      /* Default: Every table header is placed at the top of the next page */
+      table {
+        page-break-inside: auto !important;
+        break-inside: auto !important;
+      }
+
+      thead,
+      table thead,
+      #inventoryReportTable thead,
+      #salesTopProductsTable thead,
+      #salesLedgerTable thead,
+      #finStatementTable thead {
         display: table-header-group !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
+
+      thead tr,
+      thead th {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
       }
 
       /* Total amount appears strictly at the end on the last page of the report (prevent repeating on page 1) */
@@ -1101,13 +1468,19 @@
         break-inside: avoid !important;
       }
 
-      tfoot td {
+      tfoot td,
+      tfoot th,
+      #inventoryReportTableFoot td,
+      #salesTopProductsTableFoot td,
+      #salesLedgerTableFoot td,
+      #finStatementTableFoot td {
         background: #f3f4f6 !important;
         font-weight: 700 !important;
         border-top: 2px solid #9e7223 !important;
         border-bottom: 2px solid #9e7223 !important;
         color: #000000 !important;
-        font-size: 8pt !important;
+        font-size: 7pt !important; /* Smaller table footer font */
+        font-style: italic !important; /* Italicized table footer font */
       }
 
       /* Print Alignment for Inventory Report Table */
@@ -1185,7 +1558,8 @@
       th {
         background: #f3f4f6 !important;
         font-weight: 700 !important;
-        font-size: 7.2pt !important;
+        font-size: 6.5pt !important; /* Smaller table header font */
+        font-style: italic !important; /* Italicized table header font */
         text-transform: uppercase !important;
         letter-spacing: 0.03em !important;
         color: #000000 !important;
@@ -1359,13 +1733,15 @@
 
       .print-only-header .print-address,
       .print-only-header .print-contact {
-        font-size: 8pt !important;
+        font-size: 7.2pt !important; /* Smaller header font */
+        font-style: italic !important; /* Italicized header font */
         color: #374151 !important;
         line-height: 1.35 !important;
       }
 
       .print-only-header #printReportAsOf {
-        font-size: 8.5pt !important;
+        font-size: 7.5pt !important; /* Smaller header date */
+        font-style: italic !important; /* Italicized header date */
         font-weight: 600 !important;
         color: #111827 !important;
         line-height: 1.35 !important;
@@ -1373,7 +1749,8 @@
       }
 
       .print-only-header #printReportTimestamp {
-        font-size: 7.5pt !important;
+        font-size: 6.8pt !important; /* Smaller timestamp */
+        font-style: italic !important; /* Italicized timestamp */
         color: #6b7280 !important;
         line-height: 1.35 !important;
         text-align: right !important;
@@ -1436,6 +1813,59 @@
 
   <!-- ADMIN DASHBOARD LAYOUT -->
   <div id="adminLayout" class="admin-layout" style="display: none;">
+    <!-- MOBILE TOP BAR WITH NON-BLOCKING DROPDOWN MENU -->
+    <header class="admin-mobile-header" id="adminMobileHeader">
+      <div class="admin-mobile-brand">
+        <img src="bedrock_logo.png" alt="Bedrock" class="admin-mobile-logo">
+        <div>
+          <span class="admin-mobile-title">Bedrock</span>
+          <span class="admin-mobile-sub">Admin Portal</span>
+        </div>
+      </div>
+
+      <div class="admin-mobile-dropdown-wrapper">
+        <button type="button" class="admin-mobile-dropdown-btn" id="adminMobileDropdownBtn" onclick="toggleAdminMobileMenu(event)" aria-expanded="false" aria-label="Toggle Navigation Menu">
+          <span id="adminMobileActiveIcon">📊</span>
+          <span id="adminMobileActiveLabel">Overview</span>
+          <span class="admin-mobile-arrow">▾</span>
+        </button>
+
+        <div class="admin-mobile-dropdown-menu" id="adminMobileDropdownMenu">
+          <div class="admin-mobile-dropdown-section-title">Navigation Tabs</div>
+          <a class="admin-mobile-dropdown-item active" data-tab="overview" onclick="handleMobileTabSelect('overview')">
+            <span>📊</span> Overview
+          </a>
+          <a class="admin-mobile-dropdown-item" data-tab="reports" onclick="handleMobileTabSelect('reports')">
+            <span>📈</span> Reports
+          </a>
+          <a class="admin-mobile-dropdown-item" data-tab="products" onclick="handleMobileTabSelect('products')">
+            <span>🍷</span> Products
+            <span class="badge-count" id="mobileNavProductCount">0</span>
+          </a>
+          <a class="admin-mobile-dropdown-item" data-tab="leads" onclick="handleMobileTabSelect('leads')">
+            <span>📬</span> Leads &amp; Inquiries
+            <span class="badge-count" id="mobileNavLeadCount">0</span>
+          </a>
+          <a class="admin-mobile-dropdown-item" data-tab="orders" onclick="handleMobileTabSelect('orders')">
+            <span>📦</span> Orders
+            <span class="badge-count" id="mobileNavOrderCount">0</span>
+          </a>
+          <a class="admin-mobile-dropdown-item" data-tab="users" onclick="handleMobileTabSelect('users')">
+            <span>👥</span> Customers
+          </a>
+          <div class="admin-mobile-dropdown-divider"></div>
+          <div class="admin-mobile-dropdown-user">
+            <span id="mobileUserName">Admin</span> &bull; <span id="mobileUserRole" style="color:var(--admin-gold);">Administrator</span>
+          </div>
+          <div class="admin-mobile-dropdown-actions">
+            <button type="button" onclick="closeAdminMobileMenu(); openChangePasswordModal();" class="btn-outline">🔑 Password</button>
+            <button type="button" onclick="closeAdminMobileMenu(); logoutAdmin();" class="btn-outline">Logout</button>
+            <a href="index.html" class="btn-outline" style="text-decoration:none;">View Site</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
     <!-- SIDEBAR -->
     <aside class="admin-sidebar">
       <div class="admin-brand">
@@ -3009,9 +3439,13 @@
       document.getElementById('authGate').style.display = 'none';
       document.getElementById('adminLayout').style.display = 'flex';
       document.getElementById('currentUserName').textContent = currentUser.full_name || currentUser.username;
+      const mUser = document.getElementById('mobileUserName');
+      if (mUser) mUser.textContent = currentUser.full_name || currentUser.username;
 
       const roleText = currentUser.role === 'admin' ? 'ADMINISTRATOR' : 'STAFF VIEWER';
       document.getElementById('currentUserRole').textContent = roleText;
+      const mRole = document.getElementById('mobileUserRole');
+      if (mRole) mRole.textContent = roleText;
 
       // Restrict admin-only UI elements if user is viewer
       const isViewer = currentUser.role === 'viewer';
@@ -3113,10 +3547,69 @@
     });
 
     // Navigation Tabs
+    // Mobile Dropdown Navigation Functions
+    function toggleAdminMobileMenu(e) {
+      if (e) e.stopPropagation();
+      const menu = document.getElementById('adminMobileDropdownMenu');
+      const btn = document.getElementById('adminMobileDropdownBtn');
+      if (menu) {
+        const isOpen = menu.classList.toggle('open');
+        if (btn) btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      }
+    }
+
+    function closeAdminMobileMenu() {
+      const menu = document.getElementById('adminMobileDropdownMenu');
+      const btn = document.getElementById('adminMobileDropdownBtn');
+      if (menu && menu.classList.contains('open')) {
+        menu.classList.remove('open');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+      }
+    }
+
+    function handleMobileTabSelect(tabId) {
+      switchTab(tabId);
+      closeAdminMobileMenu(); // Automatically close so it does NOT block the content
+    }
+
+    // Close mobile dropdown when tapping anywhere outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.admin-mobile-dropdown-wrapper')) {
+        closeAdminMobileMenu();
+      }
+    });
+
     function switchTab(tabId) {
       document.querySelectorAll('.admin-nav-item').forEach(el => el.classList.remove('active'));
       const activeNav = document.querySelector(`.admin-nav-item[data-tab="${tabId}"]`);
       if (activeNav) activeNav.classList.add('active');
+
+      // Update mobile dropdown active state, label & icon
+      document.querySelectorAll('.admin-mobile-dropdown-item').forEach(el => el.classList.remove('active'));
+      const activeMobileItem = document.querySelector(`.admin-mobile-dropdown-item[data-tab="${tabId}"]`);
+      if (activeMobileItem) activeMobileItem.classList.add('active');
+
+      const tabIcons = {
+        overview: '📊',
+        reports: '📈',
+        products: '🍷',
+        leads: '📬',
+        orders: '📦',
+        users: '👥'
+      };
+      const tabLabels = {
+        overview: 'Overview',
+        reports: 'Reports',
+        products: 'Products',
+        leads: 'Leads',
+        orders: 'Orders',
+        users: 'Customers'
+      };
+      const mobileIcon = document.getElementById('adminMobileActiveIcon');
+      const mobileLabel = document.getElementById('adminMobileActiveLabel');
+      if (mobileIcon) mobileIcon.textContent = tabIcons[tabId] || '📊';
+      if (mobileLabel) mobileLabel.textContent = tabLabels[tabId] || 'Menu';
+      closeAdminMobileMenu();
 
       document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
       const content = document.getElementById(`tab-${tabId}`);
@@ -3887,6 +4380,12 @@
         document.getElementById('navProductCount').textContent = data.products;
         document.getElementById('navLeadCount').textContent = data.leads.new;
         document.getElementById('navOrderCount').textContent = data.orders.pending;
+        const mProd = document.getElementById('mobileNavProductCount');
+        if (mProd) mProd.textContent = data.products;
+        const mLead = document.getElementById('mobileNavLeadCount');
+        if (mLead) mLead.textContent = data.leads.new;
+        const mOrder = document.getElementById('mobileNavOrderCount');
+        if (mOrder) mOrder.textContent = data.orders.pending;
       } catch (e) {
         console.error(e);
       }
