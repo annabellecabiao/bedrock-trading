@@ -37,13 +37,9 @@ jobs:
           docker push ${{ env.ACR_NAME }}.azurecr.io/bedrock-trading:${{ github.sha }}
           docker push ${{ env.ACR_NAME }}.azurecr.io/bedrock-trading:latest
 
-      - name: Deploy to Azure Container Apps
-        uses: azure/container-apps-deploy-action@v1
-        with:
-          acrName: ${{ env.ACR_NAME }}
-          containerAppName: ${{ env.CONTAINER_APP_NAME }}
-          containerAppEnvironment: ${{ env.CONTAINER_APP_ENV }}
-          resourceGroup: ${{ env.RESOURCE_GROUP }}
-          imageToDeploy: ${{ env.ACR_NAME }}.azurecr.io/bedrock-trading:${{ github.sha }}
-          targetPort: 8080
-          ingress: external
+      - name: Deploy to Azure Container Apps (Preserves Storage Volumes)
+        run: |
+          az containerapp update \
+            --name ${{ env.CONTAINER_APP_NAME }} \
+            --resource-group ${{ env.RESOURCE_GROUP }} \
+            --image ${{ env.ACR_NAME }}.azurecr.io/bedrock-trading:${{ github.sha }}
